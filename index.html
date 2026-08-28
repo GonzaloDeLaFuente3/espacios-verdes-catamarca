@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Espacios Verdes y Plazas · Catamarca Capital [MOCKUP]</title>
+  <meta name="description" content="Conocé qué son los espacios verdes, recorré las plazas de San Fernando del Valle de Catamarca y aprendé jugando.">
+
+  <!-- ══════════════════════════ CDNs ══════════════════════════ -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+  /* ════════════════════════════════════════════════════════════════
+     DESIGN TOKENS
+     Base: municipal-frontend-skill / references/tokens.md  (prefijo --muni-*)
+     Extensión del proyecto "Espacios Verdes" (prefijo --pv-*), documentada abajo.
+     Nunca hardcodear un color/espacio fuera de estos tokens.
+     ════════════════════════════════════════════════════════════════ */
+  :root {
+    /* --- PRIMARIOS (azul marino institucional) --- */
+    --muni-primary:        #002454;
+    --muni-primary-mid:    #0F4C94;
+    --muni-primary-light:  #45B5DB;
+
+    /* --- SECUNDARIOS (verdes institucionales) --- */
+    --muni-green-dark:     #005151;  /* verde para TEXTO: ~8.9:1 sobre blanco (AAA) */
+    --muni-green-mid:      #45803B;  /* ~4.7:1 sobre blanco: solo texto grande / UI, no cuerpo */
+    --muni-green-light:    #89AE24;  /* superficies y detalles, NO texto chico */
+    --muni-green-accent:   #CEDD0E;  /* highlights, NO texto */
+
+    /* --- TERCIARIOS --- */
+    --muni-orange:         #F0901B;
+    --muni-amber:          #FFB000;
+
+    /* --- NEUTROS --- */
+    --muni-white:          #FFFFFF;
+    --muni-gray-50:        #F8F9FA;
+    --muni-gray-100:       #F1F3F5;
+    --muni-gray-200:       #E9ECEF;
+    --muni-gray-400:       #CED4DA;
+    --muni-gray-600:       #6C757D;  /* ~4.7:1 sobre blanco: texto secundario, límite */
+    --muni-gray-700:       #55595e;  /* texto secundario seguro (~5.7:1) */
+    --muni-gray-800:       #343A40;
+
+    /* --- SEMÁNTICOS --- */
+    --muni-success:        #1b6b1b;  /* oscurecido: verde sobre fondo suave #eaf6ea ~5.2:1 */
+    --muni-danger:         #c62828;  /* oscurecido: rojo sobre fondo suave #fdeaea ~5.6:1 */
+    --muni-info:           #0F4C94;
+
+    /* --- TIPOGRAFÍA --- escala 1.25 (13·16·20·25·31·39) --- */
+    --muni-font: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --fs-xs:   0.8125rem;  /* 13 */
+    --fs-base: 1rem;       /* 16 */
+    --fs-lg:   1.25rem;    /* 20 */
+    --fs-xl:   1.5625rem;  /* 25 */
+    --fs-2xl:  1.9375rem;  /* 31 */
+    --fs-3xl:  2.4375rem;  /* 39 */
+    --fs-hero: clamp(2rem, 1.3rem + 3.2vw, 3.25rem);
+
+    /* --- ESPACIADO (base 4) --- */
+    --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+    --sp-6: 24px; --sp-8: 32px; --sp-12: 48px; --sp-16: 64px; --sp-20: 80px;
+
+    /* --- FORMA --- radios distintos por elemento, a propósito --- */
+    --r-chip: 999px;
+    --r-btn:  8px;
+    --r-card: 14px;
+    --r-media: 16px;
+
+    /* --- SOMBRAS (tinte azul institucional) --- */
+    --sh-sm: 0 1px 3px rgba(0,36,84,.08);
+    --sh-md: 0 6px 18px rgba(0,36,84,.10);
+    --sh-lg: 0 16px 40px rgba(0,36,84,.16);
+
+    --muni-transition: .2s ease;
+
+    /* ════ EXTENSIÓN DEL PROYECTO "ESPACIOS VERDES" ════
+       Off-whites con matiz verde cálido (inflexión "warm humanist"
+       sobre la base institucional). Verificados sobre texto oscuro. */
+    --pv-bg:        #F5F8F1;   /* fondo de página */
+    --pv-surface:   #FFFFFF;   /* tarjetas y bloques elevados */
+    --pv-surface-2: #EDF3E6;   /* bloques suaves / callouts */
+    --pv-leaf:      #E4EFD6;   /* relleno de las formas de follaje */
+    --pv-border:    #DDE6D2;   /* bordes suaves sobre fondo claro (>3:1) */
+    --pv-text:      #22271f;   /* texto principal (~15:1 sobre blanco) */
+    --pv-text-soft: #55605a;   /* texto secundario (~5.6:1) */
+    --pv-green-txt: var(--muni-green-dark);
+    --pv-scrim:     rgba(6, 20, 10, .58);  /* capa sobre fotos para contraste */
+  }
+
+  /* ════════════════ RESET MÍNIMO (ui-craft/html-css.md) ════════════════ */
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 88px; }
+  body {
+    font-family: var(--muni-font);
+    font-size: var(--fs-base);
+    line-height: 1.6;
+    color: var(--pv-text);
+    background: var(--pv-bg);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+  main { flex: 1; }
+  img, picture, svg { display: block; max-width: 100%; height: auto; }
+  input, button, select, textarea { font: inherit; color: inherit; }
+  p, li, h1, h2, h3, h4 { overflow-wrap: break-word; }
+  h1, h2, h3, h4 { line-height: 1.15; text-wrap: balance; font-weight: 700; color: var(--muni-primary); }
+  p { text-wrap: pretty; }
+
+  :focus-visible {
+    outline: 3px solid var(--muni-primary-mid);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+  /* foco de alto contraste sobre superficies oscuras */
+  .muni-navbar :focus-visible,
+  .hero :focus-visible,
+  .muni-footer :focus-visible { outline-color: #ffffff; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* ════════════════ UTILIDADES LOCALES ════════════════ */
+  .contenedor { width: min(1180px, 100% - 2 * var(--sp-4)); margin-inline: auto; }
+  .prosa { max-width: 65ch; }
+  .kicker {
+    display: inline-flex; align-items: center; gap: var(--sp-2);
+    font-size: var(--fs-xs); font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--pv-green-txt); margin-bottom: var(--sp-3);
+  }
+  .kicker::before { content: ""; width: 26px; height: 2px; background: var(--muni-green-light); }
+  .seccion { padding-block: var(--sp-20); }
+  .seccion__intro { margin-bottom: var(--sp-12); }
+  .seccion h2 { font-size: var(--fs-2xl); }
+  .seccion--alt { background: var(--pv-surface); }
+  .text-soft { color: var(--pv-text-soft); }
+
+  .skip-link {
+    position: absolute; left: -9999px; top: 0; z-index: 2000;
+    background: var(--muni-primary); color: #fff;
+    padding: var(--sp-3) var(--sp-6); border-radius: 0 0 var(--r-btn) 0; font-weight: 600;
+  }
+  .skip-link:focus { left: 0; }
+
+  .mockup-badge {
+    position: fixed; top: 8px; right: 12px; z-index: 1900;
+    background: var(--muni-amber); color: #3a2f00;
+    font-size: 11px; font-weight: 800; letter-spacing: .5px;
+    padding: 3px 9px; border-radius: 4px; box-shadow: var(--sh-sm);
+    pointer-events: none;
+  }
+
+  /* ════════════════ NAVBAR ════════════════ */
+  .muni-navbar {
+    background: var(--muni-primary);
+    box-shadow: var(--sh-md);
+    padding-block: var(--sp-3);
+    position: sticky; top: 0; z-index: 1000;
+  }
+  .muni-navbar .navbar-brand { display: flex; align-items: center; gap: var(--sp-3); padding: 0; }
+  .muni-navbar .navbar-brand img { height: 40px; width: auto; }
+  .muni-navbar .brand-fallback {
+    color: #fff; font-weight: 700; font-size: var(--fs-lg); line-height: 1.1;
+  }
+  .muni-navbar .brand-fallback small { display: block; font-size: var(--fs-xs); font-weight: 400; color: rgba(255,255,255,.7); }
+  .muni-navbar .navbar-toggler { border-color: rgba(255,255,255,.35); }
+  .muni-navbar .navbar-toggler:focus { box-shadow: 0 0 0 3px rgba(255,255,255,.5); }
+  .muni-navbar .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.4' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+  .muni-navbar .nav-link {
+    color: rgba(255,255,255,.82);
+    font-weight: 500;
+    padding: var(--sp-2) var(--sp-4);
+    border-radius: var(--r-btn);
+    display: flex; align-items: center; gap: var(--sp-2);
+  }
+  .muni-navbar .nav-link:hover { color: #fff; background: rgba(255,255,255,.10); }
+  .muni-navbar .nav-link.is-active { color: #fff; background: rgba(69,181,219,.22); box-shadow: inset 0 -2px 0 var(--muni-primary-light); }
+
+  /* ════════════════ HERO ════════════════ */
+  .hero {
+    position: relative;
+    color: #fff;
+    background:
+      linear-gradient(180deg, rgba(0,36,84,.62), var(--pv-scrim)),
+      var(--muni-green-dark) url("assets/img/hero/hero-espacios-verdes.jpg") center / cover no-repeat;
+    padding-block: clamp(var(--sp-16), 12vw, 160px) 0;
+  }
+  .hero__inner { padding-bottom: var(--sp-20); }
+  .hero h1 { color: #fff; font-size: var(--fs-hero); max-width: 16ch; }
+  .hero p { font-size: var(--fs-lg); max-width: 52ch; margin-top: var(--sp-4); color: rgba(255,255,255,.92); }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: var(--sp-3); margin-top: var(--sp-8); }
+
+  /* ════════════════ BOTONES ════════════════ */
+  .btn-pv {
+    --_bg: var(--muni-green-dark); --_fg: #fff; --_bd: var(--muni-green-dark);
+    display: inline-flex; align-items: center; gap: var(--sp-2);
+    background: var(--_bg); color: var(--_fg); border: 2px solid var(--_bd);
+    padding: 12px 22px; border-radius: var(--r-btn); font-weight: 600;
+    text-decoration: none; cursor: pointer; min-height: 44px;
+    transition: transform var(--muni-transition), background var(--muni-transition), box-shadow var(--muni-transition);
+  }
+  .btn-pv:hover { background: #013e3e; box-shadow: var(--sh-md); transform: translateY(-1px); }
+  .btn-pv:active { transform: translateY(0); }
+  .btn-pv--ghost { --_bg: transparent; --_fg: #fff; --_bd: rgba(255,255,255,.75); }
+  .btn-pv--ghost:hover { --_bg: rgba(255,255,255,.14); background: rgba(255,255,255,.14); }
+  .btn-pv--light { --_bg: #fff; --_fg: var(--muni-primary); --_bd: #fff; }
+  .btn-pv--light:hover { background: var(--muni-gray-100); }
+  .btn-pv--outline { --_bg: transparent; --_fg: var(--muni-green-dark); --_bd: var(--muni-green-dark); }
+  .btn-pv--outline:hover { background: var(--pv-surface-2); }
+  .btn-pv[disabled] { opacity: .55; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  /* ════════════════ SEPARADOR DE FOLLAJE ════════════════ */
+  .separador { line-height: 0; }
+  .separador svg { width: 100%; height: clamp(48px, 7vw, 96px); display: block; }
+  .separador--sobre-claro path.f1 { fill: var(--pv-leaf); }
+  .separador--sobre-claro path.f2 { fill: var(--muni-green-light); opacity: .30; }
+  .separador--sobre-surface path.f1 { fill: var(--pv-surface); }
+  .separador--sobre-surface path.f2 { fill: var(--pv-leaf); opacity: .7; }
+
+  /* ════════════════ SECCIÓN 1 · CONCEPTOS ════════════════ */
+  .concepto-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--sp-4); }
+  .concepto {
+    background: var(--pv-surface); border: 1px solid var(--pv-border);
+    border-radius: var(--r-card); padding: var(--sp-6);
+  }
+  .concepto__ic {
+    width: 46px; height: 46px; border-radius: 12px;
+    display: grid; place-items: center; margin-bottom: var(--sp-3);
+    background: var(--pv-leaf); color: var(--muni-green-dark); font-size: 1.4rem;
+  }
+  .concepto h4 { font-size: var(--fs-lg); margin-bottom: var(--sp-2); }
+  .concepto p { font-size: var(--fs-xs); color: var(--pv-text-soft); }
+
+  .beneficios { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--sp-6); margin-top: var(--sp-6); }
+  .beneficio h4 { font-size: var(--fs-lg); display: flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-3); }
+  .beneficio h4 i { color: var(--muni-green-dark); }
+  .beneficio ul { list-style: none; padding: 0; display: grid; gap: var(--sp-2); }
+  .beneficio li { display: flex; gap: var(--sp-2); font-size: var(--fs-xs); }
+  .beneficio li::before { content: "\F633"; font-family: "bootstrap-icons"; color: var(--muni-green-light); flex: none; }
+
+  .pautas { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--sp-3); margin-top: var(--sp-4); }
+  .pautas li {
+    display: flex; gap: var(--sp-3); align-items: flex-start;
+    background: var(--pv-surface); border: 1px solid var(--pv-border);
+    border-radius: var(--r-btn); padding: var(--sp-4);
+  }
+  .pautas li i { color: var(--muni-green-dark); font-size: 1.25rem; flex: none; margin-top: 2px; }
+
+  .glosario { margin-top: var(--sp-6); border: 1px solid var(--pv-border); border-radius: var(--r-card); overflow: hidden; background: var(--pv-surface); }
+  .glosario details { border-top: 1px solid var(--pv-border); }
+  .glosario details:first-of-type { border-top: 0; }
+  .glosario summary {
+    cursor: pointer; padding: var(--sp-4) var(--sp-6);
+    font-weight: 600; color: var(--muni-primary);
+    display: flex; align-items: center; gap: var(--sp-3); list-style: none;
+  }
+  .glosario summary::-webkit-details-marker { display: none; }
+  .glosario summary::before { content: "\F64D"; font-family: "bootstrap-icons"; color: var(--muni-green-dark); transition: transform var(--muni-transition); }
+  .glosario details[open] summary::before { transform: rotate(90deg); }
+  .glosario summary:hover { background: var(--pv-surface-2); }
+  .glosario .cuerpo { padding: 0 var(--sp-6) var(--sp-4) calc(var(--sp-6) + 26px); font-size: var(--fs-xs); color: var(--pv-text-soft); }
+
+  .callout {
+    margin-top: var(--sp-12); display: flex; gap: var(--sp-4); align-items: flex-start;
+    background: var(--pv-surface-2); border-left: 5px solid var(--muni-green-dark);
+    border-radius: 0 var(--r-card) var(--r-card) 0; padding: var(--sp-6);
+  }
+  .callout i { font-size: 1.8rem; color: var(--muni-green-dark); flex: none; }
+  .callout .n { font-size: var(--fs-2xl); font-weight: 700; color: var(--muni-primary); line-height: 1; }
+  .callout ul { margin: var(--sp-2) 0 0; padding-left: 1.1rem; display: grid; gap: var(--sp-1); font-size: var(--fs-base); }
+
+  .cifras { margin-top: var(--sp-6); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--sp-4); }
+  .cifra { background: var(--pv-surface-2); border: 1px solid var(--pv-border); border-radius: var(--r-card); padding: var(--sp-6); }
+  .cifra .n { display: block; font-size: var(--fs-2xl); font-weight: 700; color: var(--muni-primary); line-height: 1.1; }
+  .cifra p { font-size: var(--fs-xs); color: var(--pv-text-soft); margin-top: var(--sp-2); }
+  .cifras__fuente { grid-column: 1 / -1; margin: 0; font-size: var(--fs-xs); color: var(--pv-text-soft); }
+
+  /* ════════════════ SECCIÓN 2 · PLAZAS ════════════════ */
+  .plazas-toolbar { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; margin-bottom: var(--sp-6); }
+  .buscador { position: relative; flex: 1 1 320px; max-width: 440px; }
+  .buscador i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muni-gray-600); }
+  .buscador input {
+    width: 100%; padding: 12px 14px 12px 40px; min-height: 44px;
+    border: 1.5px solid var(--pv-border); border-radius: var(--r-chip);
+    background: var(--pv-surface);
+  }
+  .buscador input:focus-visible { border-color: var(--muni-primary-mid); outline-offset: 1px; }
+  .plazas-count { font-size: var(--fs-xs); color: var(--pv-text-soft); }
+
+  .chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-bottom: var(--sp-4); align-items: center; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--pv-leaf); color: var(--muni-green-dark);
+    border-radius: var(--r-chip); padding: 5px 12px; font-size: var(--fs-xs); font-weight: 600;
+  }
+
+  .plaza-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--sp-6); }
+
+  .plaza-card {
+    position: relative; display: block; text-decoration: none; color: #fff;
+    border-radius: var(--r-media); overflow: hidden; background: var(--muni-green-dark);
+    box-shadow: var(--sh-sm);
+    transition: box-shadow .24s cubic-bezier(.4,0,.2,1), transform .24s cubic-bezier(.4,0,.2,1);
+  }
+  .plaza-card__media { display: block; position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+  .plaza-card__media img,
+  .plaza-card__ph {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .45s cubic-bezier(.4,0,.2,1);
+  }
+  .plaza-card__ph {
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--muni-green-dark), var(--muni-green-light));
+    color: rgba(255,255,255,.9); font-size: 2.4rem;
+  }
+  .plaza-card__scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(3,12,6,.45) 66%, rgba(3,12,6,.82) 100%);
+    transition: opacity .24s ease;
+  }
+  .plaza-card__body { position: absolute; left: 0; right: 0; bottom: 0; padding: var(--sp-6) var(--sp-4) var(--sp-4); }
+  .plaza-card__barrio { font-size: var(--fs-xs); font-weight: 600; color: var(--muni-green-accent); display: flex; align-items: center; gap: 5px; }
+  .plaza-card__name { display: block; font-size: var(--fs-lg); font-weight: 700; color: #fff; margin-top: 2px; text-shadow: 0 1px 8px rgba(0,0,0,.5); transition: transform .24s ease; }
+  .plaza-card__cta {
+    margin-top: var(--sp-3); display: inline-flex; align-items: center; gap: 6px;
+    font-size: var(--fs-xs); font-weight: 700;
+    background: #fff; color: var(--muni-green-dark);
+    padding: 7px 14px; border-radius: var(--r-chip);
+    opacity: 0; transform: translateY(8px); transition: opacity .24s ease, transform .24s ease;
+  }
+  .plaza-card:hover, .plaza-card:focus-visible {
+    transform: translateY(-4px); box-shadow: var(--sh-lg);
+  }
+  .plaza-card:hover .plaza-card__media img,
+  .plaza-card:hover .plaza-card__ph,
+  .plaza-card:focus-visible .plaza-card__media img,
+  .plaza-card:focus-visible .plaza-card__ph { transform: scale(1.06); }
+  .plaza-card:hover .plaza-card__name,
+  .plaza-card:focus-visible .plaza-card__name { transform: translateY(-2px); }
+  .plaza-card:hover .plaza-card__cta,
+  .plaza-card:focus-visible .plaza-card__cta { opacity: 1; transform: translateY(0); }
+  .plaza-card:focus-visible { outline: 3px solid var(--muni-primary-mid); outline-offset: 3px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .plaza-card:hover, .plaza-card:focus-visible { transform: none; }
+    .plaza-card__media img, .plaza-card__ph { transition: none; }
+    .plaza-card:hover .plaza-card__media img,
+    .plaza-card:focus-visible .plaza-card__media img,
+    .plaza-card:hover .plaza-card__ph,
+    .plaza-card:focus-visible .plaza-card__ph { transform: none; }
+    .plaza-card__cta { opacity: 1; transform: none; }
+  }
+
+  /* ════════════════ ESTADOS (vacío / sin resultados) ════════════════ */
+  .estado {
+    text-align: center; padding: var(--sp-16) var(--sp-6);
+    border: 1px dashed var(--pv-border); border-radius: var(--r-card);
+    background: var(--pv-surface);
+  }
+  .estado i { font-size: 2.6rem; color: var(--muni-green-light); }
+  .estado h3 { font-size: var(--fs-xl); margin: var(--sp-3) 0 var(--sp-2); }
+  .estado p { color: var(--pv-text-soft); max-width: 46ch; margin-inline: auto; }
+  .estado .acciones { margin-top: var(--sp-4); display: flex; gap: var(--sp-3); justify-content: center; flex-wrap: wrap; }
+
+  /* ════════════════ SECCIÓN 3 · JUEGOS ════════════════ */
+  .juego-selector { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--sp-4); margin-bottom: var(--sp-8); }
+  .juego-selector button {
+    text-align: left; background: var(--pv-surface); border: 1.5px solid var(--pv-border);
+    border-radius: var(--r-card); padding: var(--sp-4); cursor: pointer;
+    display: flex; flex-direction: column; gap: 6px; min-height: 44px;
+    transition: border-color var(--muni-transition), box-shadow var(--muni-transition), transform var(--muni-transition);
+  }
+  .juego-selector button:hover { border-color: var(--muni-green-light); transform: translateY(-2px); box-shadow: var(--sh-sm); }
+  .juego-selector button[aria-pressed="true"] { border-color: var(--muni-green-dark); box-shadow: inset 0 0 0 1px var(--muni-green-dark); background: var(--pv-surface-2); }
+  .juego-selector .t { font-weight: 700; color: var(--muni-primary); display: flex; align-items: center; gap: var(--sp-2); }
+  .juego-selector .t i { color: var(--muni-green-dark); font-size: 1.15rem; }
+  .juego-selector .d { font-size: var(--fs-xs); color: var(--pv-text-soft); }
+
+  .juego-panel {
+    background: var(--pv-surface); border: 1px solid var(--pv-border);
+    border-radius: var(--r-card); padding: clamp(var(--sp-6), 4vw, var(--sp-12));
+    min-height: 420px;
+  }
+  .juego-cabecera { display: flex; flex-wrap: wrap; gap: var(--sp-3); justify-content: space-between; align-items: center; margin-bottom: var(--sp-6); }
+  .juego-cabecera h3 { font-size: var(--fs-xl); }
+  .progreso { display: flex; gap: 5px; flex-wrap: wrap; }
+  .progreso span {
+    width: 26px; height: 6px; border-radius: 999px; background: var(--muni-gray-200);
+  }
+  .progreso span.hecho { background: var(--muni-green-light); }
+  .progreso span.actual { background: var(--muni-green-dark); }
+  .progreso__txt { font-size: var(--fs-xs); color: var(--pv-text-soft); font-weight: 600; }
+
+  .pregunta { font-size: var(--fs-lg); font-weight: 600; color: var(--muni-primary); margin-bottom: var(--sp-6); }
+  .opciones { display: grid; gap: var(--sp-3); }
+  .opcion {
+    display: flex; align-items: center; gap: var(--sp-3); width: 100%; text-align: left;
+    background: var(--pv-surface); border: 1.5px solid var(--pv-border);
+    border-radius: var(--r-btn); padding: 14px 16px; cursor: pointer; min-height: 44px;
+    transition: border-color var(--muni-transition), background var(--muni-transition);
+  }
+  .opcion:hover:not([disabled]) { border-color: var(--muni-green-light); background: var(--pv-surface-2); }
+  .opcion .marca { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--muni-gray-400); flex: none; display: grid; place-items: center; font-size: .9rem; }
+  .opcion[disabled] { cursor: default; }
+  .opcion.correcta { border-color: var(--muni-success); background: #eaf6ea; }
+  .opcion.correcta .marca { border-color: var(--muni-success); background: var(--muni-success); color: #fff; }
+  .opcion.incorrecta { border-color: var(--muni-danger); background: #fdeaea; }
+  .opcion.incorrecta .marca { border-color: var(--muni-danger); background: var(--muni-danger); color: #fff; }
+
+  .feedback { margin-top: var(--sp-6); border-radius: var(--r-btn); padding: var(--sp-4); font-size: var(--fs-base); display: none; }
+  .feedback.visible { display: block; }
+  .feedback.ok { background: #eaf6ea; border: 1px solid var(--muni-success); }
+  .feedback.mal { background: #fdeaea; border: 1px solid var(--muni-danger); }
+  .feedback .head { font-weight: 700; display: flex; align-items: center; gap: var(--sp-2); margin-bottom: 4px; }
+  .feedback.ok .head { color: var(--muni-success); }
+  .feedback.mal .head { color: var(--muni-danger); }
+  .juego-acciones { margin-top: var(--sp-6); display: flex; gap: var(--sp-3); flex-wrap: wrap; }
+
+  /* Unir conceptos */
+  .pares-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-6); }
+  .pares-cols h4 { font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--pv-text-soft); margin-bottom: var(--sp-3); }
+  .pares-cols ul { list-style: none; padding: 0; display: grid; gap: var(--sp-2); }
+  .par-item {
+    width: 100%; text-align: left; background: var(--pv-surface);
+    border: 1.5px solid var(--pv-border); border-radius: var(--r-btn);
+    padding: 12px 14px; cursor: pointer; min-height: 44px; font-size: var(--fs-xs);
+    transition: border-color var(--muni-transition), background var(--muni-transition), transform var(--muni-transition);
+  }
+  .par-item:hover:not([disabled]) { border-color: var(--muni-green-light); }
+  .par-item.sel { border-color: var(--muni-primary-mid); background: #eaf1fb; }
+  .par-item.correcta { border-color: var(--muni-success); background: #eaf6ea; cursor: default; }
+  .par-item.err { border-color: var(--muni-danger); animation: sacudir .3s; }
+  @keyframes sacudir { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+  @media (prefers-reduced-motion: reduce) { .par-item.err { animation: none; } }
+  @media (max-width: 560px) { .pares-cols { grid-template-columns: 1fr; } }
+
+  /* Reconocé la plaza */
+  .plaza-adivina { border-radius: var(--r-media); overflow: hidden; aspect-ratio: 16/10; background: var(--muni-green-dark); margin-bottom: var(--sp-6); }
+  .plaza-adivina img, .plaza-adivina .ph { width: 100%; height: 100%; object-fit: cover; }
+  .plaza-adivina .ph { display: grid; place-items: center; color: rgba(255,255,255,.9); font-size: 3rem; background: linear-gradient(135deg, var(--muni-green-dark), var(--muni-green-light)); }
+
+  /* Resultado */
+  .resultado { text-align: center; }
+  .resultado__score { font-size: var(--fs-3xl); font-weight: 700; color: var(--muni-primary); }
+  .resultado__msg { font-size: var(--fs-lg); color: var(--pv-text-soft); margin-bottom: var(--sp-6); }
+  .repaso { text-align: left; margin: var(--sp-6) auto 0; max-width: 640px; }
+  .repaso h4 { font-size: var(--fs-base); margin-bottom: var(--sp-3); }
+  .repaso li { margin-bottom: var(--sp-3); font-size: var(--fs-xs); }
+  .repaso li b { color: var(--muni-primary); }
+
+  .noscript-aviso { background: #fff3cd; border: 1px solid var(--muni-amber); border-radius: var(--r-btn); padding: var(--sp-4); }
+
+  /* ════════════════ FOOTER ════════════════ */
+  .muni-footer { background: var(--muni-primary); color: rgba(255,255,255,.78); padding-block: var(--sp-12) var(--sp-8); margin-top: var(--sp-20); }
+  .muni-footer a { color: rgba(255,255,255,.85); text-decoration: none; }
+  .muni-footer a:hover { color: #fff; text-decoration: underline; }
+  .muni-footer .cols { display: grid; grid-template-columns: 1.6fr 1fr 1.2fr 1fr; gap: var(--sp-8); align-items: start; }
+  .muni-footer img { height: 44px; width: auto; margin-bottom: var(--sp-3); }
+  .muni-footer h4 { color: #fff; font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: .08em; margin-bottom: var(--sp-4); }
+  .muni-footer ul { list-style: none; padding: 0; display: grid; gap: var(--sp-2); }
+  .muni-footer .footer-datos { font-size: var(--fs-xs); color: rgba(255,255,255,.72); }
+  .muni-footer .footer-datos li { line-height: 1.45; }
+
+  /* Redes sociales */
+  .muni-footer .redes { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-1); }
+  .muni-footer .redes a {
+    display: grid; place-items: center;
+    width: 40px; height: 40px;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: var(--r-btn);
+    color: rgba(255,255,255,.85);
+    transition: background var(--muni-transition), border-color var(--muni-transition), transform var(--muni-transition);
+  }
+  .muni-footer .redes a:hover {
+    background: rgba(255,255,255,.12);
+    border-color: rgba(255,255,255,.5);
+    color: #fff;
+    text-decoration: none;
+    transform: translateY(-2px);
+  }
+  .muni-footer .redes svg { width: 20px; height: 20px; }
+
+  .muni-footer .legal { border-top: 1px solid rgba(255,255,255,.15); margin-top: var(--sp-8); padding-top: var(--sp-6); font-size: var(--fs-xs); display: flex; flex-wrap: wrap; gap: var(--sp-3); justify-content: space-between; }
+  @media (max-width: 800px) { .muni-footer .cols { grid-template-columns: 1fr 1fr; gap: var(--sp-6); } }
+  @media (max-width: 520px) { .muni-footer .cols { grid-template-columns: 1fr; } }
+
+  /* ════════════════ RESPONSIVE ════════════════ */
+  @media (max-width: 991px) {
+    .seccion { padding-block: var(--sp-16); }
+    html { scroll-padding-top: 76px; }
+  }
+  @media (max-width: 560px) {
+    .juego-panel { padding: var(--sp-4); }
+    .juego-cabecera { flex-direction: column; align-items: flex-start; }
+  }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <!-- ═══════════════════════ HEADER / NAV ═══════════════════════ -->
+  <header>
+    <nav class="navbar navbar-expand-lg muni-navbar" aria-label="Navegación principal">
+      <div class="contenedor d-flex align-items-center w-100 px-5">
+        <a class="navbar-brand" href="#main" aria-label="Inicio — Catamarca Capital">
+          <img src="assets/logos/logo-capital-dark-BCmcLDWl.webp" alt="Municipalidad de Catamarca Capital"
+               onerror="this.style.display='none';this.nextElementSibling.hidden=false;">
+          <span class="brand-fallback" hidden>Catamarca Capital<small>Espacios Verdes</small></span>
+        </a>
+
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navmenu" aria-controls="navmenu" aria-expanded="false"
+                aria-label="Abrir menú">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navmenu">
+          <ul class="navbar-nav gap-lg-1">
+            <li class="nav-item"><a class="nav-link" href="#conceptos"><i class="bi bi-book"></i>Conceptos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#plazas"><i class="bi bi-geo-alt"></i>Plazas</a></li>
+            <li class="nav-item"><a class="nav-link" href="#juegos"><i class="bi bi-controller"></i>Jugá y aprendé</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- ═══════════════════════ HERO ═══════════════════════ -->
+    <section class="hero">
+      <div class="contenedor hero__inner">
+        <h1>Espacios verdes de Catamarca Capital</h1>
+        <p>Descubrí qué son, por qué cuidan la ciudad y recorré todas las plazas de
+           San Fernando del Valle. Al final, poné a prueba lo que aprendiste.</p>
+        <div class="hero__cta">
+          <a class="btn-pv btn-pv--light" href="#conceptos"><i class="bi bi-book"></i>Conocé los conceptos</a>
+          <a class="btn-pv btn-pv--ghost" href="#plazas"><i class="bi bi-geo-alt"></i>Explorá las plazas</a>
+        </div>
+      </div>
+      <div class="separador separador--sobre-claro" aria-hidden="true">
+        <svg viewBox="0 0 1440 96" preserveAspectRatio="none" role="presentation">
+          <path class="f2" d="M0,64 C240,16 480,16 720,52 C960,88 1200,88 1440,44 L1440,96 L0,96 Z"></path>
+          <path class="f1" d="M0,72 C240,40 420,96 720,72 C1020,48 1200,96 1440,64 L1440,96 L0,96 Z"></path>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════ SECCIÓN 1 · CONCEPTOS ═══════════════════════ -->
+    <section id="conceptos" class="seccion" tabindex="-1" aria-labelledby="conceptos-h">
+      <div class="contenedor">
+        <div class="seccion__intro">
+          <span class="kicker">Aprendé</span>
+          <h2 id="conceptos-h">¿Qué son los espacios verdes?</h2>
+        </div>
+
+        <!-- ═══ Contenido: MD "Conceptos de espacios verdes" (fuentes del proyecto) ═══ -->
+        <div class="prosa" style="font-size: var(--fs-lg)">
+          <p>Un <strong>espacio verde urbano</strong> es un área abierta, con predominio
+          de vegetación y suelo absorbente, destinada al <strong>uso público</strong>:
+          un lugar donde se puede entrar, estar, descansar y encontrarse. Son las plazas,
+          plazoletas, parques y paseos de la ciudad.</p>
+          <p>No son la suma de piezas sueltas: funcionan como una <strong>red</strong>.
+          Un árbol aislado no cambia el clima de un barrio; una avenida forestada que une
+          dos plazas, sí. En una ciudad de clima seco y caluroso como Catamarca, esa red
+          regula la temperatura y organiza la vida de cada barrio.</p>
+        </div>
+
+        <h3 class="mt-5 mb-3" style="font-size: var(--fs-xl)">Verde no es lo mismo que espacio verde</h3>
+        <p class="prosa text-soft">Lo que separa a un espacio verde de una simple mancha de
+        pasto es poder <strong>entrar y permanecer</strong>. Con ese criterio se entienden
+        tres ideas que suelen confundirse:</p>
+        <div class="concepto-grid">
+          <article class="concepto"><div class="concepto__ic"><i class="bi bi-people"></i></div>
+            <h4>Espacio público</h4><p>Todo lugar de uso común de la ciudad: una calle, una peatonal, una plaza seca. Puede tener vegetación o no.</p></article>
+          <article class="concepto"><div class="concepto__ic"><i class="bi bi-tree"></i></div>
+            <h4>Espacio verde</h4><p>El espacio público donde predomina la vegetación y, además, se puede estar: plaza, plazoleta, parque, paseo.</p></article>
+          <article class="concepto"><div class="concepto__ic"><i class="bi bi-diagram-3"></i></div>
+            <h4>Infraestructura verde</h4><p>La red completa de lo vegetado de la ciudad. Incluye lo que mejora el ambiente aunque no se pueda pisar: canteros, rotondas, techos verdes.</p></article>
+        </div>
+
+        <h3 class="mt-5 mb-3" style="font-size: var(--fs-xl)">Tipos de espacio verde</h3>
+        <div class="concepto-grid">
+          <article class="concepto"><div class="concepto__ic"><i class="bi bi-flower1"></i></div>
+            <h4>Plazoleta</h4><p>De menor escala, muchas veces en el cruce de calles o en un cantero ampliado. Menos de 4.000&nbsp;m²; sirve a unas pocas cuadras.</p></article>
+          <article class="concepto"><div class="concepto__ic"><i class="bi bi-tree"></i></div>
+            <h4>Plaza</h4><p>Escala barrial: encuentro, juego y recreación, con senderos, bancos y arbolado. Entre 4.000 y 15.000&nbsp;m².</p></article>
+          <article class="concepto"><div class="concepto__ic"><i class="bi bi-tree-fill"></i></div>
+            <h4>Parque urbano</h4><p>Gran superficie verde con actividades múltiples y forestación densa. Hasta 15&nbsp;hectáreas; sirve a toda la ciudad.</p></article>
+          <article class="concepto"><div class="concepto__ic"><i class="bi bi-signpost-split"></i></div>
+            <h4>Boulevard</h4><p>Calle estructurante con un eje central peatonal y arbolado que la acompaña de punta a punta.</p></article>
+          <article class="concepto"><div class="concepto__ic"><i class="bi bi-bezier2"></i></div>
+            <h4>Corredor verde</h4><p>Espacio lineal vegetado que conecta plazas y parques entre sí, y permite caminar bajo los árboles.</p></article>
+          <article class="concepto"><div class="concepto__ic"><i class="bi bi-rulers"></i></div>
+            <h4>Faja verde</h4><p>Franja entre la vereda y la calzada destinada a superficie vegetada; es el soporte físico del arbolado de alineación.</p></article>
+          <article class="concepto"><div class="concepto__ic"><i class="bi bi-slash-circle"></i></div>
+            <h4>Rotonda y cantero central</h4><p>Vegetados, pero <strong>no accesibles</strong>: dan sombra y absorben agua, pero no son un lugar para estar. Suman a la infraestructura verde, no cuentan como espacio verde.</p></article>
+        </div>
+
+        <h3 class="mt-5 mb-2" style="font-size: var(--fs-xl)">¿Por qué importan?</h3>
+        <div class="beneficios">
+          <div class="beneficio">
+            <h4><i class="bi bi-thermometer-sun"></i> Ambiente y clima</h4>
+            <ul>
+              <li>Dan <strong>sombra real</strong> y bajan la temperatura: la herramienta más efectiva contra el calor extremo.</li>
+              <li>Mejoran el aire y reducen el polvo y el ruido.</li>
+              <li>El suelo absorbente infiltra el agua de lluvia y evita anegamientos.</li>
+              <li>Dan refugio a aves e insectos: sostienen la biodiversidad del barrio.</li>
+              <li>Son parte de la adaptación de la ciudad al cambio climático.</li>
+            </ul>
+          </div>
+          <div class="beneficio">
+            <h4><i class="bi bi-people"></i> Vida social</h4>
+            <ul>
+              <li>Son lugares gratuitos de encuentro: se puede estar sin pagar ni consumir.</li>
+              <li>Espacio de juego para niñas y niños, y de deporte, ferias y cultura.</li>
+              <li>Fortalecen la identidad y la pertenencia al barrio.</li>
+              <li><strong>Si hay gente, hay seguridad</strong>: el uso cotidiano cuida el espacio mejor que cualquier reja.</li>
+            </ul>
+          </div>
+          <div class="beneficio">
+            <h4><i class="bi bi-heart-pulse"></i> Bienestar</h4>
+            <ul>
+              <li>Invitan a la actividad física diaria: caminar, correr, jugar.</li>
+              <li>El contacto con la naturaleza ayuda a descansar del ritmo urbano.</li>
+              <li>Más sombra y mejor aire: días de calor más llevaderos.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="mt-5 mb-3" style="font-size: var(--fs-xl)">¿Por qué el espacio público hace ciudad?</h3>
+        <div class="callout" style="margin-top: var(--sp-4)">
+          <i class="bi bi-buildings-fill" aria-hidden="true"></i>
+          <div>
+            <p class="mb-0"><strong>“La ciudad es el espacio público.”</strong> No es un resto entre edificios: es lo que nos hace vivir juntos. Cuatro ideas para tenerlo presente:</p>
+            <ul>
+              <li>Es una <strong>conquista ciudadana</strong>, y es reversible: sin respaldo legal y sin uso, se pierde.</li>
+              <li>Si hay gente, hay seguridad: la presencia de vecinas y vecinos es la mejor política de cuidado.</li>
+              <li>Sin comercio no hay ciudad: los kioscos, bares y locales de la vuelta le dan vida a la plaza.</li>
+              <li>A mayor calidad del espacio, más personas distintas lo comparten: cuidarlo entre todos es parte del trato.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="mt-5 mb-2" style="font-size: var(--fs-xl)">El rol de cada vecino y vecina</h3>
+        <p class="prosa text-soft">Cuidar los espacios verdes es una tarea compartida entre el municipio y la ciudadanía.</p>
+        <ul class="pautas">
+          <li><i class="bi bi-trash"></i><span>Arrojá los residuos en los cestos y llevate lo que no entre.</span></li>
+          <li><i class="bi bi-tree"></i><span>No dañes los árboles ni los canteros; avisá si ves una rama peligrosa.</span></li>
+          <li><i class="bi bi-dpad"></i><span>Usá los juegos y las estaciones saludables con cuidado y por turnos.</span></li>
+          <li><i class="bi bi-piggy-bank"></i><span>Si vas con tu mascota, levantá sus necesidades y mantenela con correa.</span></li>
+          <li><i class="bi bi-droplet"></i><span>No malgastes el agua de las canillas y bebederos.</span></li>
+          <li><i class="bi bi-chat-square-text"></i><span>Participá de las consultas y recorridas vecinales: la mirada del barrio mejora el diseño y el mantenimiento.</span></li>
+          <li><i class="bi bi-telephone"></i><span>Reportá luminarias, bancos o juegos rotos al <strong>[teléfono / canal municipal — completar]</strong>.</span></li>
+        </ul>
+
+        <h3 class="mt-5 mb-0" style="font-size: var(--fs-xl)">Glosario rápido</h3>
+        <div class="glosario">
+          <details>
+            <summary>Isla de calor urbana</summary>
+            <div class="cuerpo">Fenómeno por el cual el centro de una ciudad está varios grados más caliente que su periferia rural, por el asfalto, el cemento y la falta de vegetación. Los espacios verdes la atenúan.</div>
+          </details>
+          <details>
+            <summary>Infraestructura verde urbana</summary>
+            <div class="cuerpo">Red planificada e interconectada de todo lo vegetado de la ciudad —plazas, arbolado, corredores, canteros, techos verdes— pensada para prestar servicios ambientales, igual que la infraestructura "gris" de calles y caños. Incluye piezas por las que no se puede circular.</div>
+          </details>
+          <details>
+            <summary>Espacio verde de calidad</summary>
+            <div class="cuerpo">El que cumple al menos el <strong>60&nbsp;%</strong> de los indicadores de evaluación, agrupados en seis dimensiones: ambiente, accesibilidad, equipamiento, uso social, seguridad y mantenimiento.</div>
+          </details>
+          <details>
+            <summary>Balance verde-gris</summary>
+            <div class="cuerpo">Compara la superficie "verde" (vegetada y permeable) con la "gris" (construida e impermeable). Ayuda a ver si el verde está bien repartido o concentrado en unos pocos grandes parques.</div>
+          </details>
+          <details>
+            <summary>Servicios ecosistémicos</summary>
+            <div class="cuerpo">Los beneficios que la naturaleza urbana presta a la ciudad: sombra, regulación de la temperatura, aire más limpio, absorción del agua de lluvia y refugio para la biodiversidad.</div>
+          </details>
+          <details>
+            <summary>Área de influencia</summary>
+            <div class="cuerpo">Distancia caminable hasta un espacio verde de calidad: unos <strong>300&nbsp;m</strong> (5 minutos) para plazas y plazoletas, y unos <strong>1.000&nbsp;m</strong> (15 minutos) para parques.</div>
+          </details>
+          <details>
+            <summary>Arbolado de alineación</summary>
+            <div class="cuerpo">Los árboles plantados de forma regular a lo largo de una vereda o cantero, siguiendo un criterio de especie, distancia y porte.</div>
+          </details>
+        </div>
+
+        <h3 class="mt-5 mb-0" style="font-size: var(--fs-xl)">Catamarca Capital, en números</h3>
+        <div class="cifras">
+          <div class="cifra">
+            <span class="n">4,4 m²/hab</span>
+            <p>de espacio verde <strong>de calidad</strong> por habitante (5,7 m²/hab contando todos los espacios verdes).</p>
+          </div>
+          <div class="cifra">
+            <span class="n">163</span>
+            <p>espacios verdes consolidados en la ciudad: 96 de calidad y 67 todavía sin intervenir.</p>
+          </div>
+          <div class="cifra">
+            <span class="n">86 %</span>
+            <p>de la población vive a menos de 15 minutos a pie de un espacio verde de calidad (51 % a menos de 5 minutos).</p>
+          </div>
+          <p class="cifras__fuente">Fuente: Secretaría de Ambiente y Espacios Públicos, Catamarca Capital — Mayo 2026.</p>
+        </div>
+        <!-- ═══ FIN CONTENIDO ═══ -->
+      </div>
+
+      <div class="separador separador--sobre-surface" aria-hidden="true">
+        <svg viewBox="0 0 1440 96" preserveAspectRatio="none" role="presentation">
+          <path class="f2" d="M0,60 C260,100 520,20 760,52 C1000,84 1220,40 1440,68 L1440,96 L0,96 Z"></path>
+          <path class="f1" d="M0,74 C240,44 480,92 720,74 C960,56 1200,92 1440,66 L1440,96 L0,96 Z"></path>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════ SECCIÓN 2 · PLAZAS ═══════════════════════ -->
+    <section id="plazas" class="seccion seccion--alt" tabindex="-1" aria-labelledby="plazas-h">
+      <div class="contenedor">
+        <div class="seccion__intro">
+          <span class="kicker">Recorré</span>
+          <h2 id="plazas-h">Las plazas de Catamarca</h2>
+          <p class="prosa text-soft mt-2" style="font-size: var(--fs-lg)">
+            Tocá una plaza para ver su historia, su equipamiento y cómo llegar.
+          </p>
+        </div>
+
+        <div class="plazas-toolbar">
+          <div class="buscador">
+            <i class="bi bi-search" aria-hidden="true"></i>
+            <label class="visually-hidden" for="buscar-plaza">Buscar plaza por nombre o barrio</label>
+            <input type="search" id="buscar-plaza" placeholder="Buscar por nombre o barrio…" autocomplete="off">
+          </div>
+          <p class="plazas-count" id="plazas-count" aria-live="polite"></p>
+        </div>
+
+        <div class="chips" id="plazas-chips" hidden></div>
+
+        <div class="plaza-grid" id="plaza-grid"><!-- render JS --></div>
+
+        <!-- Estado: sin resultados de búsqueda -->
+        <div class="estado" id="plazas-sin-resultados" hidden>
+          <i class="bi bi-search" aria-hidden="true"></i>
+          <h3>Sin resultados para <span id="sr-query">…</span></h3>
+          <p>No encontramos plazas que coincidan con tu búsqueda. Probá con otro nombre o revisá la ortografía.</p>
+          <div class="acciones">
+            <button class="btn-pv btn-pv--outline" type="button" id="sr-limpiar"><i class="bi bi-x-circle"></i>Limpiar búsqueda</button>
+          </div>
+        </div>
+
+        <!-- Estado: grilla vacía (sin plazas cargadas). Se muestra solo si PLAZAS está vacío. -->
+        <div class="estado" id="plazas-vacio" hidden>
+          <i class="bi bi-tree" aria-hidden="true"></i>
+          <h3>Todavía no hay plazas cargadas</h3>
+          <p>Cuando se cargue el listado oficial, cada plaza va a aparecer acá con su foto y su ficha.</p>
+        </div>
+      </div>
+
+      <div class="separador separador--sobre-claro" aria-hidden="true" style="background: var(--pv-surface)">
+        <svg viewBox="0 0 1440 96" preserveAspectRatio="none" role="presentation">
+          <path class="f2" d="M0,58 C240,96 480,24 720,54 C960,84 1200,32 1440,64 L1440,96 L0,96 Z"></path>
+          <path class="f1" d="M0,76 C240,48 480,90 720,72 C960,54 1200,90 1440,64 L1440,96 L0,96 Z"></path>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════ SECCIÓN 3 · JUEGOS ═══════════════════════ -->
+    <section id="juegos" class="seccion" tabindex="-1" aria-labelledby="juegos-h">
+      <div class="contenedor">
+        <div class="seccion__intro">
+          <span class="kicker">Poné a prueba</span>
+          <h2 id="juegos-h">Jugá y aprendé</h2>
+          <p class="prosa text-soft mt-2" style="font-size: var(--fs-lg)">
+            Cuatro formas de repasar lo que viste. Elegí una para empezar.
+          </p>
+        </div>
+
+        <noscript>
+          <p class="noscript-aviso"><i class="bi bi-exclamation-triangle"></i>
+            Los juegos necesitan JavaScript activado. El resto de la página
+            (conceptos y plazas) funciona igual sin él.</p>
+        </noscript>
+
+        <div class="juego-selector" id="juego-selector" role="group" aria-label="Elegí un juego">
+          <button type="button" data-juego="quiz" aria-pressed="false">
+            <span class="t"><i class="bi bi-patch-question"></i> Quiz</span>
+            <span class="d">Preguntas de opción múltiple con explicación.</span>
+          </button>
+          <button type="button" data-juego="vf" aria-pressed="false">
+            <span class="t"><i class="bi bi-check2-square"></i> Verdadero o Falso</span>
+            <span class="d">Ronda rápida de afirmaciones para resolver.</span>
+          </button>
+          <button type="button" data-juego="pares" aria-pressed="false">
+            <span class="t"><i class="bi bi-link-45deg"></i> Unir conceptos</span>
+            <span class="d">Emparejá cada término con su definición.</span>
+          </button>
+          <button type="button" data-juego="plazas" aria-pressed="false">
+            <span class="t"><i class="bi bi-image"></i> ¿Reconocés la plaza?</span>
+            <span class="d">Mirá la foto y elegí el nombre correcto.</span>
+          </button>
+        </div>
+
+        <div class="juego-panel" id="juego-panel"><!-- render JS --></div>
+
+        <!-- Región para anuncios a lectores de pantalla -->
+        <div class="visually-hidden" role="status" aria-live="polite" id="sr-status"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+  <footer class="muni-footer">
+    <div class="contenedor">
+      <div class="cols">
+        <div>
+          <img src="assets/logos/logo-capital-dark-BCmcLDWl.webp" alt="Municipalidad de San Fernando del Valle de Catamarca"
+               onerror="this.style.display='none'">
+          <p class="mb-0" style="max-width: 34ch">Espacios verdes al servicio de una ciudad más fresca, sana y con más encuentro.</p>
+        </div>
+
+        <nav aria-labelledby="footer-secciones">
+          <h4 id="footer-secciones">Secciones</h4>
+          <ul>
+            <li><a href="#conceptos">Conceptos</a></li>
+            <li><a href="#plazas">Plazas</a></li>
+            <li><a href="#juegos">Jugá y aprendé</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <h4 id="footer-ubicacion">Ubicación</h4>
+          <ul class="footer-datos" aria-labelledby="footer-ubicacion">
+            <li>Palacio Municipal · La Rioja 631</li>
+            <li>SFV de Catamarca · Catamarca</li>
+            <li>República Argentina · CP K4700EMV</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 id="footer-redes">Seguinos</h4>
+          <div class="redes" aria-labelledby="footer-redes">
+            <a href="https://www.facebook.com/catamarcatucapital" target="_blank" rel="noopener noreferrer" aria-label="Facebook de Catamarca Capital (abre en una pestaña nueva)">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+              </svg>
+            </a>
+            <a href="https://x.com/MuniSFVC" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter) de la Municipalidad (abre en una pestaña nueva)">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/catamarcacapital/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Catamarca Capital (abre en una pestaña nueva)">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="https://www.youtube.com/channel/UCMAeIcE5sQa7chR-J13zlDw" target="_blank" rel="noopener noreferrer" aria-label="Canal de YouTube de la Municipalidad (abre en una pestaña nueva)">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path>
+                <path d="m10 15 5-3-5-3z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="legal">
+        <span>Municipalidad de San Fernando del Valle de Catamarca – Argentina | Secretaría de Modernización y Gabinete</span>
+        <span>© 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  /* ════════════════════════════════════════════════════════════════
+     DATOS — todo hardcodeado para el mockup.
+     Reemplazar por los MD que provee el área usuaria.
+     ════════════════════════════════════════════════════════════════ */
+
+  /* --- Listado de plazas (Sección 2). slug = nombre de archivo de imagen y ?plaza= --- */
+  /* ═══ EJEMPLO — reemplazar con el MD del listado oficial de plazas ═══ */
+  const PLAZAS = [
+    { slug: "25-de-mayo",        nombre: "Plaza 25 de Mayo",        barrio: "Centro",          resumen: "La plaza principal, frente a la Catedral Basílica y la Casa de Gobierno." },
+    { slug: "virgen-del-valle",  nombre: "Plaza Virgen del Valle",  barrio: "Centro",          resumen: "Punto de devoción y encuentro, con palmeras históricas." },
+    { slug: "san-martin",        nombre: "Plaza San Martín",        barrio: "Norte",           resumen: "Amplia, deportiva, con playón y estación saludable." },
+    { slug: "la-alameda",        nombre: "Paseo de la Alameda",     barrio: "Sur",             resumen: "Paseo lineal sobre la acequia, ideal para caminar bajo los árboles." },
+    { slug: "adan-quiroga",      nombre: "Parque Adán Quiroga",     barrio: "Oeste",           resumen: "Gran pulmón verde con forestación densa y áreas de juego." },
+    { slug: "cristo-rey",        nombre: "Plaza Cristo Rey",        barrio: "Villa Cubas",     resumen: "Plaza barrial con juegos nuevos y cancha de uso múltiple." },
+    { slug: "fray-mamerto-esquiu", nombre: "Plaza Fray Mamerto Esquiú", barrio: "Este",       resumen: "Rodeada de tipas añosas, con anfiteatro al aire libre." },
+    { slug: "del-maestro",       nombre: "Plaza del Maestro",       barrio: "Barrio 240 Viviendas", resumen: "Homenaje a la docencia, con biblioteca a cielo abierto." },
+    { slug: "juan-chelemin",     nombre: "Plaza Juan Chelemín",     barrio: "Sur",             resumen: "Espacio joven con skatepark y luminaria LED." },
+    { slug: "sarmiento",         nombre: "Plaza Sarmiento",         barrio: "Centro",          resumen: "Pequeña plazoleta con fuente y añosos naranjos amargos." }
+  ];
+
+  /* --- Banco de contenidos de los juegos (Sección 3) --- */
+  /* ═══ EJEMPLO — reemplazar con el MD de preguntas / opciones / respuestas ═══
+     quiz: opción múltiple (3-4 opciones). "correcta" = índice base 0.
+     vf:   afirmación con esVerdadero true/false.
+     pares: término + definición.
+     La partida "¿Reconocés la plaza?" se arma sola con PLAZAS. */
+  const JUEGOS = {
+    quiz: [
+      { pregunta: "¿Cuál es la función ambiental más directa del arbolado urbano en una ciudad calurosa como Catamarca?",
+        opciones: ["Aumentar el valor de las propiedades", "Dar sombra y bajar la temperatura", "Delimitar los barrios", "Decorar las avenidas"],
+        correcta: 1,
+        explicacion: "El árbol intercepta la radiación solar y, al transpirar, enfría el aire: es la herramienta más efectiva contra la isla de calor." },
+      { pregunta: "La OMS recomienda un mínimo de espacio verde público por habitante de aproximadamente…",
+        opciones: ["1 a 2 m²", "10 a 15 m²", "50 a 60 m²", "No existe una recomendación"],
+        correcta: 1,
+        explicacion: "La referencia habitual es de 10 a 15 m² de verde por habitante. [Confirmar el dato local con el MD.]" },
+      { pregunta: "¿Qué es una plazoleta?",
+        opciones: ["Un parque de gran escala", "Una plaza de pequeña escala, a menudo en un cruce de calles", "Un cantero sin acceso público", "Una plaza privada"],
+        correcta: 1,
+        explicacion: "La plazoleta es una plaza chica; muchas veces surge de ampliar un cantero o una esquina." },
+      { pregunta: "El agua de lluvia que cae sobre una plaza con césped y árboles, comparada con la que cae sobre asfalto…",
+        opciones: ["Se infiltra más y genera menos anegamiento", "Corre más rápido hacia los desagües", "Es igual en ambos casos", "Se evapora al instante"],
+        correcta: 0,
+        explicacion: "El suelo vegetado absorbe e infiltra el agua; reduce el caudal que va a la calle y el riesgo de anegamiento." },
+      { pregunta: "¿Cuál de estas acciones ciudadanas CUIDA mejor una plaza?",
+        opciones: ["Regar el césped con manguera todo el día", "Podar los árboles por cuenta propia", "Llevarte los residuos si el cesto está lleno", "Andar en moto por los senderos"],
+        correcta: 2,
+        explicacion: "Si el cesto está lleno, lo mejor es llevarte la basura. La poda la hace personal municipal capacitado." },
+      { pregunta: "\"Infraestructura verde\" significa…",
+        opciones: ["Los caños y cables pintados de verde", "La red de plazas, arbolado y canteros que presta servicios ambientales", "Un tipo de pavimento permeable", "El alumbrado de bajo consumo"],
+        correcta: 1,
+        explicacion: "Se llama así porque cumple funciones de infraestructura (drenaje, clima, aire) con base en la vegetación." }
+    ],
+    vf: [
+      { afirmacion: "Las plazas ayudan a reducir la temperatura del aire en verano.", esVerdadero: true,
+        explicacion: "La vegetación da sombra y, al transpirar, enfría el entorno inmediato." },
+      { afirmacion: "El cemento y el asfalto enfrían la ciudad más que los árboles.", esVerdadero: false,
+        explicacion: "Al revés: acumulan calor durante el día y lo liberan de noche, agravando la isla de calor." },
+      { afirmacion: "El arbolado de vereda es parte de los espacios verdes de la ciudad.", esVerdadero: true,
+        explicacion: "Es infraestructura verde: cumple funciones ambientales aunque no sea una plaza." },
+      { afirmacion: "Está bien dejar la basura al lado del cesto si está lleno.", esVerdadero: false,
+        explicacion: "Se vuela y ensucia la plaza. Lo correcto es llevártela hasta encontrar un cesto disponible." },
+      { afirmacion: "Un parque presta servicio a toda la ciudad, no solo a un barrio.", esVerdadero: true,
+        explicacion: "Por su escala y equipamiento, el parque tiene alcance urbano; la plaza es más barrial." },
+      { afirmacion: "Las plazas no tienen ningún efecto sobre la salud de las personas.", esVerdadero: false,
+        explicacion: "Favorecen la actividad física, el descanso y la vida social, y mejoran el aire que respiramos." }
+    ],
+    pares: [
+      { termino: "Isla de calor", definicion: "El centro de la ciudad está más caliente que la zona rural que la rodea." },
+      { termino: "Plaza", definicion: "Espacio abierto de encuentro barrial con senderos, bancos y juegos." },
+      { termino: "Parque", definicion: "Gran superficie verde con alcance para toda la ciudad." },
+      { termino: "Cantero central", definicion: "Franja verde que separa las dos manos de una avenida." },
+      { termino: "m²/habitante", definicion: "Indicador que reparte la superficie verde entre la población." }
+    ]
+  };
+
+  /* ════════════════════════════════════════════════════════════════
+     HELPERS
+     ════════════════════════════════════════════════════════════════ */
+  const $  = (s, c = document) => c.querySelector(s);
+  const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+
+  /* Reemplazo para imágenes que no cargan. Delegado (fase de captura) para no
+     pelear con comillas anidadas dentro de onerror="" en el HTML generado. */
+  document.addEventListener('error', (ev) => {
+    const img = ev.target;
+    if (!img || img.tagName !== 'IMG' || !img.dataset.ph) return;
+    const kinds = {
+      card:  '<div class="plaza-card__ph"><i class="bi bi-tree" aria-hidden="true"></i></div>',
+      guess: '<div class="ph"><i class="bi bi-tree" aria-hidden="true"></i></div>'
+    };
+    const t = document.createElement('template');
+    t.innerHTML = kinds[img.dataset.ph] || kinds.card;
+    img.replaceWith(t.content.firstElementChild);
+  }, true);
+
+  function anunciar(msg) { const n = $('#sr-status'); if (n) { n.textContent = ''; setTimeout(() => n.textContent = msg, 30); } }
+  function barajar(arr) { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  function esc(s) { const d = document.createElement('div'); d.textContent = s ?? ''; return d.innerHTML; }
+
+  /* ════════════════════════════════════════════════════════════════
+     NAV — enlace activo según la sección visible + foco al navegar
+     ════════════════════════════════════════════════════════════════ */
+  (function nav() {
+    const links = $$('.muni-navbar .nav-link');
+    const map = new Map(links.map(l => [l.getAttribute('href').slice(1), l]));
+    const secciones = ['conceptos', 'plazas', 'juegos'].map(id => document.getElementById(id));
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            links.forEach(l => l.classList.remove('is-active'));
+            const l = map.get(e.target.id); if (l) l.classList.add('is-active');
+          }
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      secciones.forEach(s => s && io.observe(s));
+    }
+
+    // al hacer clic en un enlace del menú, mover el foco a la sección (accesibilidad)
+    links.forEach(l => l.addEventListener('click', () => {
+      const t = document.getElementById(l.getAttribute('href').slice(1));
+      if (!t) return;
+      const nm = $('#navmenu');
+      if (nm && nm.classList.contains('show')) bootstrap.Collapse.getOrCreateInstance(nm).hide();
+      setTimeout(() => t.focus({ preventScroll: true }), 320);
+    }));
+  })();
+
+  /* ════════════════════════════════════════════════════════════════
+     SECCIÓN 2 — GRILLA DE PLAZAS + BÚSQUEDA
+     ════════════════════════════════════════════════════════════════ */
+  (function grillaPlazas() {
+    const grid   = $('#plaza-grid');
+    const input  = $('#buscar-plaza');
+    const count  = $('#plazas-count');
+    const chips  = $('#plazas-chips');
+    const sinRes = $('#plazas-sin-resultados');
+    const vacio  = $('#plazas-vacio');
+    const toolbar = $('.plazas-toolbar');
+
+    if (!PLAZAS.length) {   // estado vacío
+      grid.hidden = true; toolbar.hidden = true; vacio.hidden = false;
+      return;
+    }
+
+    function tarjeta(p) {
+      const img = 'assets/img/plazas/plaza-' + p.slug + '.jpg';
+      return `
+        <a class="plaza-card" href="plaza.html?plaza=${encodeURIComponent(p.slug)}">
+          <span class="plaza-card__media">
+            <img src="${img}" alt="Vista de ${esc(p.nombre)}" loading="lazy" width="400" height="300" data-ph="card">
+            <span class="plaza-card__scrim"></span>
+          </span>
+          <span class="plaza-card__body">
+            <span class="plaza-card__barrio"><i class="bi bi-geo-alt-fill" aria-hidden="true"></i>${esc(p.barrio)}</span>
+            <span class="plaza-card__name">${esc(p.nombre)}</span>
+            <span class="plaza-card__cta">Ver plaza <i class="bi bi-arrow-right" aria-hidden="true"></i></span>
+          </span>
+        </a>`;
+    }
+
+    function render(lista, q) {
+      grid.innerHTML = lista.map(tarjeta).join('');
+      const hayFiltro = !!q;
+      grid.hidden = lista.length === 0;
+      sinRes.hidden = !(lista.length === 0 && hayFiltro);
+      if (lista.length === 0 && hayFiltro) $('#sr-query').textContent = '«' + q + '»';
+      chips.hidden = !hayFiltro;
+      chips.innerHTML = hayFiltro
+        ? `<span class="chip"><i class="bi bi-funnel-fill"></i> Búsqueda: ${esc(q)}</span>
+           <button class="btn-pv btn-pv--outline" style="padding:5px 12px;min-height:0" type="button" id="chip-limpiar"><i class="bi bi-x"></i> Limpiar</button>`
+        : '';
+      const c = lista.length;
+      count.textContent = hayFiltro
+        ? `${c} ${c === 1 ? 'plaza' : 'plazas'} para “${q}” · de ${PLAZAS.length}`
+        : `${PLAZAS.length} plazas`;
+      const btn = $('#chip-limpiar'); if (btn) btn.addEventListener('click', limpiar);
+    }
+
+    function filtrar() {
+      const q = input.value.trim();
+      const qn = q.toLowerCase();
+      const lista = qn
+        ? PLAZAS.filter(p => (p.nombre + ' ' + p.barrio).toLowerCase().includes(qn))
+        : PLAZAS;
+      render(lista, q);
+      if (qn) anunciar(`${lista.length} resultado${lista.length === 1 ? '' : 's'} para ${q}`);
+    }
+    function limpiar() { input.value = ''; filtrar(); input.focus(); }
+
+    input.addEventListener('input', filtrar);
+    $('#sr-limpiar').addEventListener('click', limpiar);
+    render(PLAZAS, '');
+  })();
+
+  /* ════════════════════════════════════════════════════════════════
+     SECCIÓN 3 — MOTOR DE JUEGOS
+     ════════════════════════════════════════════════════════════════ */
+  (function juegos() {
+    const panel = $('#juego-panel');
+    const selBtns = $$('#juego-selector button');
+    const TOTAL_QUIZ = 5;   // preguntas por partida (si hay menos, usa todas)
+
+    const META = {
+      quiz:   { titulo: "Quiz de espacios verdes", intro: "Vas a responder preguntas de opción múltiple. Al elegir vas a ver si acertaste y por qué.", icono: "bi-patch-question" },
+      vf:     { titulo: "Verdadero o Falso", intro: "Decidí si cada afirmación es verdadera o falsa. Después te mostramos la explicación.", icono: "bi-check2-square" },
+      pares:  { titulo: "Unir concepto y definición", intro: "Tocá un término de la izquierda y después su definición en la derecha.", icono: "bi-link-45deg" },
+      plazas: { titulo: "¿Reconocés la plaza?", intro: "Mirá la foto y elegí el nombre correcto entre las opciones.", icono: "bi-image" }
+    };
+
+    let tipo = null, ronda = [], i = 0, aciertos = 0, fallos = [], respondida = false;
+    let parSel = null, paresOk = 0, paresIntentosFallidos = 0;
+
+    /* ---------- pantallas ---------- */
+    function pantallaInicio() {
+      panel.innerHTML = `
+        <div class="resultado">
+          <div class="concepto__ic" style="margin-inline:auto;width:64px;height:64px;font-size:2rem"><i class="bi ${META[tipo].icono}"></i></div>
+          <h3 class="mt-3">${META[tipo].titulo}</h3>
+          <p class="resultado__msg prosa" style="margin-inline:auto">${META[tipo].intro}</p>
+          <button class="btn-pv" type="button" id="btn-comenzar"><i class="bi bi-play-fill"></i> Comenzar</button>
+        </div>`;
+      $('#btn-comenzar').addEventListener('click', empezar);
+      $('#btn-comenzar').focus();
+    }
+
+    function empezar() {
+      i = 0; aciertos = 0; fallos = []; respondida = false;
+      parSel = null; paresOk = 0; paresIntentosFallidos = 0;
+
+      if (tipo === 'quiz')  ronda = barajar(JUEGOS.quiz).slice(0, TOTAL_QUIZ);
+      if (tipo === 'vf')    ronda = barajar(JUEGOS.vf).slice(0, TOTAL_QUIZ + 1);
+      if (tipo === 'plazas') {
+        const base = PLAZAS.length >= 4 ? barajar(PLAZAS).slice(0, Math.min(TOTAL_QUIZ, PLAZAS.length)) : [];
+        ronda = base.map(p => {
+          const distract = barajar(PLAZAS.filter(x => x.slug !== p.slug)).slice(0, 3).map(x => x.nombre);
+          const opciones = barajar([p.nombre, ...distract]);
+          return { plaza: p, pregunta: '¿Qué plaza aparece en la foto?', opciones, correcta: opciones.indexOf(p.nombre),
+                   explicacion: `${p.nombre} está en ${p.barrio}. ${p.resumen}` };
+        });
+      }
+      if (tipo === 'pares') { pintarPares(); return; }
+
+      if (!ronda.length) {
+        panel.innerHTML = `<div class="estado" style="border:0"><i class="bi bi-image"></i>
+          <h3>Disponible al cargar las fotos</h3>
+          <p>Este juego necesita al menos 4 plazas con imagen. Cuando estén cargadas en
+          <code>assets/img/plazas/</code>, se activa solo.</p>
+          <div class="acciones"><button class="btn-pv btn-pv--outline" id="volver-sel" type="button">Elegir otro juego</button></div></div>`;
+        $('#volver-sel').addEventListener('click', () => elegir(null));
+        return;
+      }
+      pintarPregunta();
+    }
+
+    /* ---------- quiz / vf / plazas ---------- */
+    function pintarPregunta() {
+      respondida = false;
+      const q = ronda[i];
+      const enunciado = tipo === 'vf' ? q.afirmacion : q.pregunta;
+      const opciones = tipo === 'vf' ? ['Verdadero', 'Falso'] : q.opciones;
+
+      const media = tipo === 'plazas'
+        ? `<div class="plaza-adivina"><img src="assets/img/plazas/plaza-${q.plaza.slug}.jpg" alt="Foto de una plaza para identificar" data-ph="guess"></div>` : '';
+
+      panel.innerHTML = `
+        <div class="juego-cabecera">
+          <h3>${META[tipo].titulo}</h3>
+          <div>
+            ${barraProgreso()}
+            <div class="progreso__txt mt-1">Pregunta ${i + 1} de ${ronda.length}</div>
+          </div>
+        </div>
+        ${media}
+        <p class="pregunta">${esc(enunciado)}</p>
+        <div class="opciones" role="group" aria-label="Opciones de respuesta">
+          ${opciones.map((o, idx) => `
+            <button class="opcion" type="button" data-idx="${idx}">
+              <span class="marca" aria-hidden="true">${String.fromCharCode(65 + idx)}</span>
+              <span>${esc(o)}</span>
+            </button>`).join('')}
+        </div>
+        <div class="feedback" id="fb" role="alert"></div>
+        <div class="juego-acciones" id="acc"></div>`;
+
+      $$('.opcion', panel).forEach(b => b.addEventListener('click', () => responder(+b.dataset.idx)));
+      $$('.opcion', panel)[0].focus();
+    }
+
+    function responder(elegido) {
+      if (respondida) return;
+      respondida = true;
+      const q = ronda[i];
+      const idxCorrecta = tipo === 'vf' ? (q.esVerdadero ? 0 : 1) : q.correcta;
+      const ok = elegido === idxCorrecta;
+      if (ok) aciertos++;
+      else fallos.push({
+        enunciado: tipo === 'vf' ? q.afirmacion : q.pregunta,
+        correcta: tipo === 'vf' ? (q.esVerdadero ? 'Verdadero' : 'Falso') : q.opciones[idxCorrecta],
+        explicacion: q.explicacion
+      });
+
+      const botones = $$('.opcion', panel);
+      botones.forEach((b, idx) => {
+        b.disabled = true;
+        if (idx === idxCorrecta) { b.classList.add('correcta'); b.querySelector('.marca').innerHTML = '<i class="bi bi-check-lg"></i>'; }
+        if (idx === elegido && !ok) { b.classList.add('incorrecta'); b.querySelector('.marca').innerHTML = '<i class="bi bi-x-lg"></i>'; }
+      });
+
+      const fb = $('#fb');
+      fb.className = 'feedback visible ' + (ok ? 'ok' : 'mal');
+      fb.innerHTML = `
+        <div class="head"><i class="bi ${ok ? 'bi-check-circle-fill' : 'bi-x-circle-fill'}" aria-hidden="true"></i>
+          ${ok ? '¡Correcto!' : 'Incorrecto'}</div>
+        <div>${esc(q.explicacion || '')}</div>`;
+
+      const ultima = i === ronda.length - 1;
+      const acc = $('#acc');
+      acc.innerHTML = `<button class="btn-pv" type="button" id="btn-next">
+        ${ultima ? '<i class="bi bi-flag-fill"></i> Ver resultado' : 'Siguiente <i class="bi bi-arrow-right"></i>'}</button>`;
+      $('#btn-next').addEventListener('click', siguiente);
+      $('#btn-next').focus();
+
+      anunciar(`${ok ? 'Correcto' : 'Incorrecto'}. ${q.explicacion || ''} Llevás ${aciertos} de ${i + 1}.`);
+    }
+
+    function siguiente() {
+      if (i < ronda.length - 1) { i++; pintarPregunta(); }
+      else pintarResultado();
+    }
+
+    function barraProgreso() {
+      return `<div class="progreso" aria-hidden="true">` +
+        ronda.map((_, idx) => `<span class="${idx < i ? 'hecho' : idx === i ? 'actual' : ''}"></span>`).join('') +
+        `</div>`;
+    }
+
+    /* ---------- unir conceptos ---------- */
+    function pintarPares() {
+      const izq = JUEGOS.pares;
+      const der = barajar(JUEGOS.pares);
+      panel.innerHTML = `
+        <div class="juego-cabecera">
+          <h3>${META.pares.titulo}</h3>
+          <div class="progreso__txt" id="pares-cont">0 / ${izq.length} parejas</div>
+        </div>
+        <div class="pares-cols">
+          <div>
+            <h4>Término</h4>
+            <ul id="col-term">${izq.map((p, idx) => `<li><button class="par-item" type="button" data-t="${idx}">${esc(p.termino)}</button></li>`).join('')}</ul>
+          </div>
+          <div>
+            <h4>Definición</h4>
+            <ul id="col-def">${der.map(p => `<li><button class="par-item" type="button" data-d="${esc(p.termino)}">${esc(p.definicion)}</button></li>`).join('')}</ul>
+          </div>
+        </div>
+        <div class="feedback" id="fb" role="alert"></div>`;
+
+      $$('#col-term .par-item', panel).forEach(b => b.addEventListener('click', () => elegirTermino(b)));
+      $$('#col-def .par-item', panel).forEach(b => b.addEventListener('click', () => elegirDefinicion(b)));
+    }
+
+    function elegirTermino(btn) {
+      if (btn.classList.contains('correcta')) return;
+      $$('#col-term .par-item', panel).forEach(b => b.classList.remove('sel'));
+      btn.classList.add('sel');
+      parSel = btn;
+      anunciar('Término elegido: ' + btn.textContent + '. Ahora elegí su definición.');
+    }
+
+    function elegirDefinicion(btn) {
+      if (!parSel || btn.classList.contains('correcta')) return;
+      const termIdx = +parSel.dataset.t;
+      const esperado = JUEGOS.pares[termIdx].termino;
+      if (btn.dataset.d === esperado) {
+        [parSel, btn].forEach(b => { b.classList.remove('sel'); b.classList.add('correcta'); b.disabled = true; });
+        parSel = null; paresOk++;
+        $('#pares-cont').textContent = `${paresOk} / ${JUEGOS.pares.length} parejas`;
+        anunciar('¡Bien! Pareja correcta. ' + paresOk + ' de ' + JUEGOS.pares.length + '.');
+        if (paresOk === JUEGOS.pares.length) setTimeout(pintarResultado, 400);
+      } else {
+        paresIntentosFallidos++;
+        btn.classList.add('err');
+        setTimeout(() => btn.classList.remove('err'), 350);
+        parSel.classList.remove('sel'); parSel = null;
+        anunciar('No corresponde. Probá de nuevo.');
+      }
+    }
+
+    /* ---------- resultado ---------- */
+    function pintarResultado() {
+      let score, total, msg;
+      if (tipo === 'pares') {
+        total = JUEGOS.pares.length;
+        score = total;
+        msg = paresIntentosFallidos === 0
+          ? '¡Perfecto! Uniste todas las parejas sin errores.'
+          : `Completaste las ${total} parejas con ${paresIntentosFallidos} intento${paresIntentosFallidos === 1 ? '' : 's'} fallido${paresIntentosFallidos === 1 ? '' : 's'}.`;
+      } else {
+        total = ronda.length; score = aciertos;
+        const pct = score / total;
+        msg = pct === 1 ? '¡Impecable! Dominás el tema.'
+            : pct >= 0.6 ? '¡Muy bien! Repasá lo que quedó flojo.'
+            : 'Volvé a leer la sección de conceptos y probá otra vez.';
+      }
+
+      const repaso = (tipo === 'pares')
+        ? `<div class="repaso"><h4>Para repasar</h4><ul>${JUEGOS.pares.map(p => `<li><b>${esc(p.termino)}:</b> ${esc(p.definicion)}</li>`).join('')}</ul></div>`
+        : (fallos.length
+            ? `<div class="repaso"><h4><i class="bi bi-journal-text"></i> Repasá lo que fallaste</h4><ul>${fallos.map(f => `<li><b>${esc(f.enunciado)}</b><br>Respuesta correcta: ${esc(f.correcta)}.<br><span class="text-soft">${esc(f.explicacion || '')}</span></li>`).join('')}</ul></div>`
+            : `<p class="text-soft">No fallaste ninguna. 🌳</p>`);
+
+      panel.innerHTML = `
+        <div class="resultado">
+          <div class="progreso__txt">Resultado</div>
+          <div class="resultado__score">${score} / ${total}</div>
+          <p class="resultado__msg">${msg}</p>
+          <div class="juego-acciones" style="justify-content:center">
+            <button class="btn-pv" type="button" id="btn-otra"><i class="bi bi-arrow-repeat"></i> Volver a jugar</button>
+            <button class="btn-pv btn-pv--outline" type="button" id="btn-otro"><i class="bi bi-grid"></i> Probar otro juego</button>
+          </div>
+          ${repaso}
+        </div>`;
+      $('#btn-otra').addEventListener('click', empezar);
+      $('#btn-otro').addEventListener('click', () => elegir(null));
+      $('#btn-otra').focus();
+      anunciar(`Resultado: ${score} de ${total}. ${msg}`);
+    }
+
+    /* ---------- selección de juego ---------- */
+    function elegir(nuevoTipo) {
+      tipo = nuevoTipo;
+      selBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.juego === tipo)));
+      if (!tipo) { pantallaVacia(); return; }
+      pantallaInicio();
+    }
+
+    function pantallaVacia() {
+      panel.innerHTML = `
+        <div class="resultado">
+          <div class="concepto__ic" style="margin-inline:auto;width:64px;height:64px;font-size:2rem"><i class="bi bi-controller"></i></div>
+          <h3 class="mt-3">Elegí un juego para empezar</h3>
+          <p class="resultado__msg prosa" style="margin-inline:auto">Arriba tenés cuatro opciones. Todas repasan los conceptos de espacios verdes y las plazas de la ciudad.</p>
+        </div>`;
+    }
+
+    selBtns.forEach(b => b.addEventListener('click', () => elegir(b.dataset.juego)));
+    pantallaVacia();
+  })();
+  </script>
+</body>
+</html>

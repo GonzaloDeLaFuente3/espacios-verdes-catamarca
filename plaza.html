@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Ficha de plaza · Catamarca Capital [MOCKUP]</title>
+  <meta name="description" content="Ficha informativa de una plaza de San Fernando del Valle de Catamarca: historia, equipamiento y cómo llegar.">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+  /* ════════════════ TOKENS — mismos que index.html (duplicado a propósito:
+     cada archivo es autocontenido). Fuente: municipal-frontend-skill/tokens.md ════════════════ */
+  :root {
+    --muni-primary:#002454; --muni-primary-mid:#0F4C94; --muni-primary-light:#45B5DB;
+    --muni-green-dark:#005151; --muni-green-mid:#45803B; --muni-green-light:#89AE24; --muni-green-accent:#CEDD0E;
+    --muni-orange:#F0901B; --muni-amber:#FFB000;
+    --muni-white:#fff; --muni-gray-50:#F8F9FA; --muni-gray-100:#F1F3F5; --muni-gray-200:#E9ECEF;
+    --muni-gray-400:#CED4DA; --muni-gray-600:#6C757D; --muni-gray-800:#343A40;
+    --muni-success:#1b6b1b; --muni-danger:#c62828;
+    --muni-font:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+    --fs-xs:.8125rem; --fs-base:1rem; --fs-lg:1.25rem; --fs-xl:1.5625rem; --fs-2xl:1.9375rem; --fs-3xl:2.4375rem;
+    --fs-hero:clamp(1.9rem,1.3rem + 2.6vw,2.9rem);
+    --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-6:24px; --sp-8:32px; --sp-12:48px; --sp-16:64px; --sp-20:80px;
+    --r-chip:999px; --r-btn:8px; --r-card:14px; --r-media:16px;
+    --sh-sm:0 1px 3px rgba(0,36,84,.08); --sh-md:0 6px 18px rgba(0,36,84,.10); --sh-lg:0 16px 40px rgba(0,36,84,.16);
+    --muni-transition:.2s ease;
+    --pv-bg:#F5F8F1; --pv-surface:#fff; --pv-surface-2:#EDF3E6; --pv-leaf:#E4EFD6; --pv-border:#DDE6D2;
+    --pv-text:#22271f; --pv-text-soft:#55605a; --pv-green-txt:var(--muni-green-dark);
+    --pv-scrim:rgba(6,20,10,.58);
+  }
+  *,*::before,*::after{box-sizing:border-box}*{margin:0}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:88px}
+  body{font-family:var(--muni-font);font-size:var(--fs-base);line-height:1.6;color:var(--pv-text);
+    background:var(--pv-bg);-webkit-font-smoothing:antialiased;min-height:100dvh;display:flex;flex-direction:column}
+  main{flex:1}
+  img,picture,svg{display:block;max-width:100%;height:auto}
+  input,button,select,textarea{font:inherit;color:inherit}
+  p,li,h1,h2,h3,h4{overflow-wrap:break-word}
+  h1,h2,h3,h4{line-height:1.15;text-wrap:balance;font-weight:700;color:var(--muni-primary)}
+  p{text-wrap:pretty}
+  :focus-visible{outline:3px solid var(--muni-primary-mid);outline-offset:2px;border-radius:3px}
+  .muni-navbar :focus-visible,.detalle-hero :focus-visible,.muni-footer :focus-visible{outline-color:#fff}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+  .contenedor{width:min(1180px,100% - 2 * var(--sp-4));margin-inline:auto}
+  .prosa{max-width:65ch}
+  .text-soft{color:var(--pv-text-soft)}
+  .skip-link{position:absolute;left:-9999px;top:0;z-index:2000;background:var(--muni-primary);color:#fff;padding:var(--sp-3) var(--sp-6);border-radius:0 0 var(--r-btn) 0;font-weight:600}
+  .skip-link:focus{left:0}
+  .mockup-badge{position:fixed;top:8px;right:12px;z-index:1900;background:var(--muni-amber);color:#3a2f00;font-size:11px;font-weight:800;letter-spacing:.5px;padding:3px 9px;border-radius:4px;box-shadow:var(--sh-sm);pointer-events:none}
+
+  /* navbar (igual que index) */
+  .muni-navbar{background:var(--muni-primary);box-shadow:var(--sh-md);padding-block:var(--sp-3);position:sticky;top:0;z-index:1000}
+  .muni-navbar .navbar-brand{display:flex;align-items:center;gap:var(--sp-3);padding:0}
+  .muni-navbar .navbar-brand img{height:40px;width:auto}
+  .muni-navbar .brand-fallback{color:#fff;font-weight:700;font-size:var(--fs-lg)}
+  .muni-navbar .navbar-toggler{border-color:rgba(255,255,255,.35)}
+  .muni-navbar .navbar-toggler-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,0.9)' stroke-linecap='round' stroke-width='2.4' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")}
+  .muni-navbar .nav-link{color:rgba(255,255,255,.82);font-weight:500;padding:var(--sp-2) var(--sp-4);border-radius:var(--r-btn);display:flex;align-items:center;gap:var(--sp-2)}
+  .muni-navbar .nav-link:hover{color:#fff;background:rgba(255,255,255,.10)}
+
+  /* botones (igual que index) */
+  .btn-pv{--_bg:var(--muni-green-dark);--_fg:#fff;--_bd:var(--muni-green-dark);display:inline-flex;align-items:center;gap:var(--sp-2);
+    background:var(--_bg);color:var(--_fg);border:2px solid var(--_bd);padding:12px 22px;border-radius:var(--r-btn);
+    font-weight:600;text-decoration:none;cursor:pointer;min-height:44px;transition:transform var(--muni-transition),background var(--muni-transition),box-shadow var(--muni-transition)}
+  .btn-pv:hover{background:#013e3e;box-shadow:var(--sh-md);transform:translateY(-1px)}
+  .btn-pv--outline{--_bg:transparent;--_fg:var(--muni-green-dark);--_bd:var(--muni-green-dark)}
+  .btn-pv--outline:hover{background:var(--pv-surface-2)}
+  .btn-pv--ghost{--_bg:transparent;--_fg:#fff;--_bd:rgba(255,255,255,.75)}
+  .btn-pv--ghost:hover{background:rgba(255,255,255,.14)}
+
+  /* ════════════════ BREADCRUMB ════════════════ */
+  .miga{padding-block:var(--sp-4);font-size:var(--fs-xs)}
+  .miga ol{list-style:none;display:flex;flex-wrap:wrap;gap:var(--sp-2);padding:0;align-items:center}
+  .miga a{color:var(--muni-primary-mid);text-decoration:none}
+  .miga a:hover{text-decoration:underline}
+  .miga li:not(:last-child)::after{content:"\F285";font-family:"bootstrap-icons";margin-left:var(--sp-2);color:var(--muni-gray-400)}
+  .miga [aria-current]{color:var(--pv-text-soft)}
+
+  /* ════════════════ HERO DE DETALLE ════════════════ */
+  .detalle-hero{position:relative;color:#fff;border-radius:var(--r-media);overflow:hidden;
+    background:var(--muni-green-dark);min-height:340px;display:flex;align-items:flex-end}
+  .detalle-hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .detalle-hero__ph{position:absolute;inset:0;display:grid;place-items:center;font-size:4rem;color:rgba(255,255,255,.85);
+    background:linear-gradient(135deg,var(--muni-green-dark),var(--muni-green-light))}
+  .detalle-hero__scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(3,12,6,.35) 45%,rgba(3,12,6,.85) 100%)}
+  .detalle-hero__body{position:relative;padding:var(--sp-12) var(--sp-8) var(--sp-8)}
+  .detalle-hero h1{color:#fff;font-size:var(--fs-hero);margin-top:var(--sp-2)}
+  .detalle-hero .barrio{font-weight:600;color:var(--muni-green-accent);display:inline-flex;align-items:center;gap:6px}
+  .detalle-hero__pills{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin-top:var(--sp-4)}
+  .pill{background:rgba(255,255,255,.16);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.25);
+    border-radius:var(--r-chip);padding:6px 14px;font-size:var(--fs-xs);font-weight:600;display:inline-flex;align-items:center;gap:6px}
+
+  /* ════════════════ CUERPO ════════════════ */
+  .detalle-cuerpo{display:grid;grid-template-columns:1fr 320px;gap:var(--sp-12);margin-top:var(--sp-12);align-items:start}
+  @media (max-width:900px){.detalle-cuerpo{grid-template-columns:1fr;gap:var(--sp-8)}}
+  .detalle-cuerpo h2{font-size:var(--fs-xl);margin:var(--sp-8) 0 var(--sp-3)}
+  .detalle-cuerpo h2:first-child{margin-top:0}
+  .detalle-cuerpo p + p{margin-top:var(--sp-3)}
+
+  .ficha{background:var(--pv-surface);border:1px solid var(--pv-border);border-radius:var(--r-card);padding:var(--sp-6);position:sticky;top:96px}
+  .ficha h2{font-size:var(--fs-lg);margin:0 0 var(--sp-4)}
+  .ficha dl{display:grid;gap:var(--sp-4);margin:0}
+  .ficha dt{font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--pv-text-soft);font-weight:700}
+  .ficha dd{margin:2px 0 0}
+  .ficha ul{list-style:none;padding:0;display:grid;gap:6px;margin:4px 0 0}
+  .ficha ul li{display:flex;gap:var(--sp-2);font-size:var(--fs-xs)}
+  .ficha ul li::before{content:"\F26E";font-family:"bootstrap-icons";color:var(--muni-green-light);flex:none}
+  @media (max-width:900px){.ficha{position:static}}
+
+  /* galería */
+  .galeria{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--sp-3);margin-top:var(--sp-3)}
+  .galeria button{border:0;padding:0;background:none;cursor:pointer;border-radius:var(--r-btn);overflow:hidden;aspect-ratio:4/3}
+  .galeria img,.galeria .ph{width:100%;height:100%;object-fit:cover;transition:transform .3s cubic-bezier(.4,0,.2,1)}
+  .galeria .ph{display:grid;place-items:center;font-size:1.6rem;color:rgba(255,255,255,.9);background:linear-gradient(135deg,var(--muni-green-dark),var(--muni-green-light))}
+  .galeria button:hover img{transform:scale(1.05)}
+  @media (prefers-reduced-motion:reduce){.galeria button:hover img{transform:none}}
+
+  dialog.lightbox{border:0;padding:0;background:transparent;max-width:92vw;max-height:92vh}
+  dialog.lightbox::backdrop{background:rgba(6,12,8,.82)}
+  dialog.lightbox img{border-radius:var(--r-media);max-height:88vh;width:auto}
+  dialog.lightbox .cerrar{position:absolute;top:-14px;right:-14px;background:#fff;border:0;border-radius:50%;width:40px;height:40px;cursor:pointer;box-shadow:var(--sh-md)}
+
+  /* cómo llegar */
+  .mapa{margin-top:var(--sp-3);border-radius:var(--r-media);overflow:hidden;border:1px solid var(--pv-border);aspect-ratio:16/7;background:var(--pv-surface-2)}
+  .mapa img{width:100%;height:100%;object-fit:cover}
+  .mapa .ph{width:100%;height:100%;display:grid;place-items:center;text-align:center;color:var(--pv-text-soft);padding:var(--sp-6)}
+  .mapa .ph i{font-size:2.4rem;color:var(--muni-green-light)}
+
+  /* navegación entre plazas */
+  .detalle-nav{display:flex;flex-wrap:wrap;gap:var(--sp-3);justify-content:space-between;margin-top:var(--sp-16);
+    border-top:1px solid var(--pv-border);padding-top:var(--sp-6)}
+  .detalle-nav a{text-decoration:none;color:var(--muni-primary-mid);font-weight:600;display:inline-flex;align-items:center;gap:var(--sp-2)}
+  .detalle-nav a:hover{text-decoration:underline}
+
+  /* estado 404 */
+  .estado{text-align:center;padding:var(--sp-20) var(--sp-6);max-width:560px;margin-inline:auto}
+  .estado i.big{font-size:3rem;color:var(--muni-green-light)}
+  .estado h1{font-size:var(--fs-2xl);margin:var(--sp-4) 0 var(--sp-2)}
+  .estado p{color:var(--pv-text-soft)}
+  .estado .lista{margin-top:var(--sp-6);text-align:left;display:inline-block}
+  .estado .lista a{color:var(--muni-primary-mid)}
+
+  /* footer (igual que index) */
+  .muni-footer{background:var(--muni-primary);color:rgba(255,255,255,.75);padding-block:var(--sp-12) var(--sp-8);margin-top:var(--sp-20)}
+  .muni-footer a{color:rgba(255,255,255,.85);text-decoration:none}
+  .muni-footer a:hover{color:#fff;text-decoration:underline}
+  .muni-footer .legal{border-top:1px solid rgba(255,255,255,.15);margin-top:var(--sp-6);padding-top:var(--sp-6);font-size:var(--fs-xs);display:flex;flex-wrap:wrap;gap:var(--sp-3);justify-content:space-between}
+  .muni-footer img{height:44px;margin-bottom:var(--sp-3)}
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+  <div class="mockup-badge" aria-hidden="true">MOCKUP</div>
+
+  <header>
+    <nav class="navbar navbar-expand-lg muni-navbar" aria-label="Navegación principal">
+      <div class="contenedor d-flex align-items-center w-100">
+        <a class="navbar-brand" href="index.html" aria-label="Inicio — Catamarca Capital">
+          <img src="assets/logos/logo-blanco.png" alt="Municipalidad de Catamarca Capital"
+               onerror="this.style.display='none';this.nextElementSibling.hidden=false;">
+          <span class="brand-fallback" hidden>Catamarca Capital</span>
+        </a>
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu"
+                aria-controls="navmenu" aria-expanded="false" aria-label="Abrir menú">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navmenu">
+          <ul class="navbar-nav gap-lg-1">
+            <li class="nav-item"><a class="nav-link" href="index.html#conceptos"><i class="bi bi-book"></i>Conceptos</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#plazas"><i class="bi bi-geo-alt"></i>Plazas</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#juegos"><i class="bi bi-controller"></i>Jugá y aprendé</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <div class="contenedor">
+      <nav class="miga" aria-label="Migas de pan" id="miga"></nav>
+    </div>
+    <div class="contenedor" id="detalle"><!-- render JS: ficha o estado 404 --></div>
+  </main>
+
+  <footer class="muni-footer">
+    <div class="contenedor">
+      <img src="assets/logos/logo-blanco.png" alt="Municipalidad de San Fernando del Valle de Catamarca" onerror="this.style.display='none'">
+      <div class="legal">
+        <span>Municipalidad de San Fernando del Valle de Catamarca — Dirección de Modernización</span>
+        <span>© 2026 · Mockup para validación interna</span>
+      </div>
+    </div>
+  </footer>
+
+  <dialog class="lightbox" id="lightbox">
+    <button class="cerrar" type="button" aria-label="Cerrar imagen" onclick="this.closest('dialog').close()"><i class="bi bi-x-lg"></i></button>
+    <img src="" alt="" id="lightbox-img">
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  /* ════════════════════════════════════════════════════════════════
+     DATOS DE DETALLE — hardcodeado para el mockup.
+     ═══ EJEMPLO — reemplazar con el/los MD de cada plaza ═══
+     El orden de PLAZAS define "anterior / siguiente".
+     ════════════════════════════════════════════════════════════════ */
+  const PLAZAS = [
+    "25-de-mayo","virgen-del-valle","san-martin","la-alameda","adan-quiroga",
+    "cristo-rey","fray-mamerto-esquiu","del-maestro","juan-chelemin","sarmiento"
+  ];
+
+  const PLAZAS_DETALLE = {
+    "25-de-mayo": {
+      nombre:"Plaza 25 de Mayo", barrio:"Centro", anio:"1800 (reformas 1916 y 2010)",
+      superficie:"1,2 ha", galeria:3,
+      intro:"Es la plaza fundacional de la ciudad y su corazón cívico. La rodean la Catedral Basílica de Nuestra Señora del Valle, la Casa de Gobierno y la Municipalidad.",
+      historia:["Trazada junto con la fundación de la ciudad en el siglo XVIII, siguió el modelo de plaza mayor española: un vacío central rodeado por los poderes civil y religioso.",
+        "Su diseño de paseos radiales y cantero central data de principios del siglo XX. Conserva palmeras, tipas y un busto-monumento a los próceres de Mayo."],
+      equipamiento:["Senderos accesibles y bancos","Iluminación ornamental LED","Fuente central","Mástil y monumento histórico","Wi-Fi público","Feria de artesanos los fines de semana"],
+      arbolado:["Palmera pindó","Tipa","Jacarandá","Naranjo amargo"],
+      accesibilidad:"Rampas en las cuatro esquinas y senderos de solado firme.",
+      direccion:"Sarmiento y República, entre Rivadavia y San Martín — Centro."
+    },
+    "virgen-del-valle": {
+      nombre:"Plaza Virgen del Valle", barrio:"Centro", anio:"1920", superficie:"0,6 ha", galeria:3,
+      intro:"Plaza de fuerte identidad devocional, punto de encuentro de peregrinos y vecinos.",
+      historia:["Se consolidó a comienzos del siglo XX como espacio de descanso junto al casco histórico.",
+        "Sus palmeras alineadas son de las más antiguas de la ciudad."],
+      equipamiento:["Bancos y glorieta","Juegos infantiles","Iluminación peatonal","Bebederos"],
+      arbolado:["Palmera datilera","Lapacho rosado","Fresno"],
+      accesibilidad:"Sendero perimetral accesible; juegos con solado amortiguante.",
+      direccion:"Núñez del Prado y Vicario Segura — Centro."
+    },
+    "san-martin": {
+      nombre:"Plaza San Martín", barrio:"Norte", anio:"1950", superficie:"1,0 ha", galeria:3,
+      intro:"Plaza amplia y deportiva, muy usada por la mañana temprano y al atardecer.",
+      historia:["Nació con la expansión de la ciudad hacia el norte a mediados del siglo XX.",
+        "Fue remodelada con criterio de plaza activa: circuito aeróbico y estación saludable."],
+      equipamiento:["Playón polideportivo","Estación saludable","Circuito aeróbico iluminado","Juegos inclusivos","Canil"],
+      arbolado:["Algarrobo","Mora","Crespón"],
+      accesibilidad:"Circuito de solado continuo y juegos inclusivos.",
+      direccion:"Av. Güemes al 800 — Barrio Norte."
+    },
+    "la-alameda": {
+      nombre:"Paseo de la Alameda", barrio:"Sur", anio:"Siglo XIX", superficie:"Paseo lineal, ~900 m", galeria:3,
+      intro:"Paseo verde lineal que acompaña la acequia histórica. Ideal para caminar a la sombra.",
+      historia:["La Alameda es uno de los paseos más antiguos de Catamarca, ligado al sistema de acequias de riego.",
+        "Sus sauces y álamos originales le dieron el nombre."],
+      equipamiento:["Sendero peatonal continuo","Bancos cada 50 m","Iluminación baja","Puentes sobre la acequia"],
+      arbolado:["Álamo","Sauce criollo","Aguaribay"],
+      accesibilidad:"Sendero de pendiente suave y solado firme en todo el recorrido.",
+      direccion:"Av. Virgen del Valle, tramo sur — Barrio Sur."
+    },
+    "adan-quiroga": {
+      nombre:"Parque Adán Quiroga", barrio:"Oeste", anio:"1975", superficie:"4,5 ha", galeria:3,
+      intro:"El gran pulmón verde del oeste: forestación densa, lago y áreas recreativas para toda la ciudad.",
+      historia:["Se creó en los años 70 sobre terrenos de una antigua finca, con criterio de parque urbano.",
+        "Lleva el nombre del arqueólogo y estudioso catamarqueño Adán Quiroga."],
+      equipamiento:["Lago con perímetro peatonal","Anfiteatro","Área de juegos grande","Sector de pícnic y parrillas","Sanitarios","Estacionamiento"],
+      arbolado:["Eucalipto","Pino","Ceibo","Tipa","Palo borracho"],
+      accesibilidad:"Senderos principales accesibles; sanitario adaptado.",
+      direccion:"Av. Ocampo y Maipú — Barrio Oeste."
+    },
+    "cristo-rey": {
+      nombre:"Plaza Cristo Rey", barrio:"Villa Cubas", anio:"1968", superficie:"0,5 ha", galeria:3,
+      intro:"Plaza barrial renovada, con juegos nuevos y cancha de uso múltiple muy activa.",
+      historia:["Es el centro social del barrio Villa Cubas desde su urbanización.",
+        "Fue puesta en valor recientemente con nueva luminaria y juegos."],
+      equipamiento:["Cancha de uso múltiple","Juegos infantiles nuevos","Estación saludable","Iluminación LED"],
+      arbolado:["Fresno","Paraíso","Crespón"],
+      accesibilidad:"Acceso a nivel desde la vereda; sendero central accesible.",
+      direccion:"Maestro Quiroga y los Sauces — Villa Cubas."
+    },
+    "fray-mamerto-esquiu": {
+      nombre:"Plaza Fray Mamerto Esquiú", barrio:"Este", anio:"1930", superficie:"0,7 ha", galeria:3,
+      intro:"Plaza de sombra generosa gracias a sus tipas añosas, con un pequeño anfiteatro al aire libre.",
+      historia:["Homenajea a Fray Mamerto Esquiú, orador y obispo catamarqueño del siglo XIX.",
+        "Sus árboles fueron plantados hace casi un siglo."],
+      equipamiento:["Anfiteatro al aire libre","Bancos y mesas de ajedrez","Juegos infantiles","Iluminación peatonal"],
+      arbolado:["Tipa","Jacarandá","Lapacho"],
+      accesibilidad:"Rampas en dos accesos; sector de juegos con solado amortiguante.",
+      direccion:"Esquiú y Maipú — Barrio Este."
+    },
+    "del-maestro": {
+      nombre:"Plaza del Maestro", barrio:"240 Viviendas", anio:"1985", superficie:"0,4 ha", galeria:3,
+      intro:"Homenaje a la docencia. Tiene una biblioteca a cielo abierto y actividades escolares.",
+      historia:["Se inauguró junto con el barrio 240 Viviendas.",
+        "La comunidad educativa cercana la adoptó como aula al aire libre."],
+      equipamiento:["Biblioteca a cielo abierto","Juegos infantiles","Pizarrón comunitario","Bancos"],
+      arbolado:["Sereno","Ligustro","Crespón"],
+      accesibilidad:"Sendero perimetral accesible.",
+      direccion:"Manzana central, Barrio 240 Viviendas."
+    },
+    "juan-chelemin": {
+      nombre:"Plaza Juan Chelemín", barrio:"Sur", anio:"2005", superficie:"0,6 ha", galeria:3,
+      intro:"Espacio joven con skatepark, pensado para adolescentes y deporte urbano.",
+      historia:["Lleva el nombre del cacique Juan Chelemín, líder de la resistencia calchaquí.",
+        "El skatepark se sumó en una remodelación posterior."],
+      equipamiento:["Skatepark de hormigón","Iluminación LED","Gradas","Bebederos"],
+      arbolado:["Aguaribay","Algarrobo","Mora"],
+      accesibilidad:"Acceso a nivel; miradores accesibles hacia el skatepark.",
+      direccion:"Av. Presidente Castillo al 1200 — Barrio Sur."
+    },
+    "sarmiento": {
+      nombre:"Plaza Sarmiento", barrio:"Centro", anio:"1911", superficie:"0,2 ha", galeria:3,
+      intro:"Plazoleta pequeña y sombreada, con una fuente y naranjos amargos históricos.",
+      historia:["Es una de las plazoletas más antiguas del centro.",
+        "Su fuente de hierro fue restaurada conservando el diseño original."],
+      equipamiento:["Fuente ornamental","Bancos","Iluminación baja"],
+      arbolado:["Naranjo amargo","Fresno"],
+      accesibilidad:"Solado firme; un acceso con rampa.",
+      direccion:"Sarmiento y Mate de Luna — Centro."
+    }
+  };
+
+  /* ════════════════ RENDER ════════════════ */
+  const $ = (s, c = document) => c.querySelector(s);
+  function esc(s){const d=document.createElement('div');d.textContent=s??'';return d.innerHTML;}
+
+  const slug = new URLSearchParams(location.search).get('plaza');
+  const d = slug ? PLAZAS_DETALLE[slug] : null;
+
+  if (!d) { render404(); } else { renderFicha(slug, d); }
+
+  function render404() {
+    document.title = 'Plaza no encontrada · Catamarca Capital [MOCKUP]';
+    $('#miga').innerHTML = `<ol><li><a href="index.html">Inicio</a></li><li><a href="index.html#plazas">Plazas</a></li><li aria-current="page">No encontrada</li></ol>`;
+    $('#detalle').innerHTML = `
+      <div class="estado" role="alert">
+        <i class="bi bi-signpost-2 big" aria-hidden="true"></i>
+        <h1>No encontramos esa plaza</h1>
+        <p>Puede que el enlace esté mal escrito o que esa plaza todavía no tenga ficha cargada.</p>
+        <p><a class="btn-pv" href="index.html#plazas"><i class="bi bi-arrow-left"></i> Volver a todas las plazas</a></p>
+        <div class="lista">
+          <p class="text-soft mb-1">Plazas con ficha disponible:</p>
+          <ul>${PLAZAS.map(s => `<li><a href="plaza.html?plaza=${s}">${esc(PLAZAS_DETALLE[s] ? PLAZAS_DETALLE[s].nombre : s)}</a></li>`).join('')}</ul>
+        </div>
+      </div>`;
+  }
+
+  function renderFicha(slug, d) {
+    document.title = `${d.nombre} · Plazas de Catamarca Capital [MOCKUP]`;
+
+    $('#miga').innerHTML = `<ol>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="index.html#plazas">Plazas</a></li>
+      <li aria-current="page">${esc(d.nombre)}</li>
+    </ol>`;
+
+    const idx = PLAZAS.indexOf(slug);
+    const prev = idx > 0 ? PLAZAS[idx - 1] : null;
+    const next = idx < PLAZAS.length - 1 ? PLAZAS[idx + 1] : null;
+
+    const galeria = Array.from({ length: d.galeria || 3 }, (_, k) => {
+      const n = k + 1;
+      return `<button type="button" data-img="assets/img/plazas/galeria/plaza-${slug}-${n}.jpg" data-cap="${esc(d.nombre)} — foto ${n}">
+        <img src="assets/img/plazas/galeria/plaza-${slug}-${n}.jpg" alt="${esc(d.nombre)}, imagen ${n} de ${d.galeria}"
+             loading="lazy" onerror="this.outerHTML='<div class=&quot;ph&quot;><i class=&quot;bi bi-image&quot;></i></div>'">
+      </button>`;
+    }).join('');
+
+    $('#detalle').innerHTML = `
+      <div class="detalle-hero">
+        <img class="detalle-hero__img" src="assets/img/plazas/plaza-${slug}.jpg" alt="Vista general de ${esc(d.nombre)}"
+             onerror="this.outerHTML='<div class=&quot;detalle-hero__ph&quot;><i class=&quot;bi bi-tree&quot;></i></div>'">
+        <div class="detalle-hero__scrim"></div>
+        <div class="detalle-hero__body">
+          <span class="barrio"><i class="bi bi-geo-alt-fill" aria-hidden="true"></i> ${esc(d.barrio)}</span>
+          <h1>${esc(d.nombre)}</h1>
+          <div class="detalle-hero__pills">
+            <span class="pill"><i class="bi bi-calendar3"></i> ${esc(d.anio)}</span>
+            <span class="pill"><i class="bi bi-rulers"></i> ${esc(d.superficie)}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detalle-cuerpo">
+        <div>
+          <h2>Sobre la plaza</h2>
+          <p class="prosa" style="font-size:var(--fs-lg)">${esc(d.intro)}</p>
+
+          <h2>Historia</h2>
+          ${d.historia.map(p => `<p class="prosa">${esc(p)}</p>`).join('')}
+
+          <h2>Galería</h2>
+          <p class="text-soft">Imágenes de referencia. <em>Se cargan según <code>IMAGENES.md</code>.</em></p>
+          <div class="galeria">${galeria}</div>
+
+          <h2>Cómo llegar</h2>
+          <p><i class="bi bi-pin-map" aria-hidden="true"></i> ${esc(d.direccion)}</p>
+          <div class="mapa">
+            <img src="assets/img/plazas/mapa-${slug}.png" alt="Mapa de ubicación de ${esc(d.nombre)}"
+                 onerror="this.outerHTML='<div class=&quot;ph&quot;><div><i class=&quot;bi bi-map&quot;></i><p class=&quot;mb-0 mt-2&quot;>Espacio para el mapa de ubicación.<br>Se reemplaza por una imagen estática o un mapa embebido.</p></div></div>'">
+          </div>
+
+          <div class="detalle-nav">
+            ${prev ? `<a href="plaza.html?plaza=${prev}"><i class="bi bi-arrow-left"></i> ${esc(PLAZAS_DETALLE[prev].nombre)}</a>` : '<span></span>'}
+            <a href="index.html#plazas">Todas las plazas <i class="bi bi-grid"></i></a>
+            ${next ? `<a href="plaza.html?plaza=${next}">${esc(PLAZAS_DETALLE[next].nombre)} <i class="bi bi-arrow-right"></i></a>` : '<span></span>'}
+          </div>
+        </div>
+
+        <aside class="ficha" aria-label="Ficha técnica">
+          <h2>Ficha técnica</h2>
+          <dl>
+            <div><dt>Barrio</dt><dd>${esc(d.barrio)}</dd></div>
+            <div><dt>Año</dt><dd>${esc(d.anio)}</dd></div>
+            <div><dt>Superficie</dt><dd>${esc(d.superficie)}</dd></div>
+            <div><dt>Equipamiento</dt><dd><ul>${d.equipamiento.map(e => `<li>${esc(e)}</li>`).join('')}</ul></dd></div>
+            <div><dt>Arbolado</dt><dd><ul>${d.arbolado.map(e => `<li>${esc(e)}</li>`).join('')}</ul></dd></div>
+            <div><dt>Accesibilidad</dt><dd>${esc(d.accesibilidad)}</dd></div>
+          </dl>
+        </aside>
+      </div>`;
+
+    // lightbox de galería (dialog nativo)
+    const lb = $('#lightbox'), lbImg = $('#lightbox-img');
+    $('#detalle').querySelectorAll('.galeria button').forEach(b => {
+      b.addEventListener('click', () => {
+        if (b.querySelector('.ph')) return;          // sin imagen real, no abre
+        lbImg.src = b.dataset.img; lbImg.alt = b.dataset.cap;
+        if (typeof lb.showModal === 'function') lb.showModal();
+      });
+    });
+  }
+  </script>
+</body>
+</html>
