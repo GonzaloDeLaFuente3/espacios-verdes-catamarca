@@ -48,6 +48,7 @@ arbolado: (lista de especies)
 accesibilidad: (1 oración)
 dirección / cómo llegar:
 cantidad de fotos de galería: (por defecto 3)
+mapa: (opcional — ver IMAGENES.md §5: campo `coords:"lat,lng"` es lo más simple; también `mapaEmbed` o imagen mapa-<slug>.png)
 ```
 
 ### 4. Preguntas del quiz

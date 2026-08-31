@@ -78,11 +78,44 @@ assets/img/plazas/galeria/plaza-25-de-mayo-3.jpg
 
 ## 5. Mapa de ubicación (opcional)
 
-- Ruta: `assets/img/plazas/mapa-<slug>.png`
-- Medida sugerida: **1600 × 700 px**
-- Captura estática del mapa con el punto de la plaza marcado.
-- Si no se sube, la ficha muestra un recuadro "Espacio para el mapa". Alternativa
-  futura: reemplazar el bloque por un `<iframe>` de mapa embebido.
+La ficha de plaza (`plaza.html`) muestra el mapa en la sección **"Cómo llegar"**,
+con un mapa embebido + un botón **"Abrir en Google Maps"**. Se configura por plaza,
+en `PLAZAS_DETALLE`, con cualquiera de estos campos (en orden de prioridad):
+
+### a) `coords` — recomendado, lo más simple
+
+Una sola línea. Genera el mapa embebido **y** hace que "Abrir en Google Maps" caiga
+en el punto exacto.
+
+```js
+"25-de-mayo": {
+  …,
+  coords: "-28.469257,-65.780347"   // "latitud,longitud"
+},
+```
+
+Cómo obtener las coordenadas: en Google Maps, **clic derecho sobre el punto → copiar
+las coordenadas** (o clic izquierdo y se ven abajo).
+
+### b) `mapaEmbed` — para un embed específico
+
+URL del `src` de "Insertar un mapa" de Google, la de OpenStreetMap, o el `<iframe>`
+entero pegado tal cual (en ese caso, entre backticks `` ` `` en vez de comillas).
+Las coordenadas para el botón se extraen solas de ese embed.
+
+- **Google**: buscá la plaza → **Compartir → "Insertar un mapa"** → copiá lo que está
+  entre comillas después de `src="…"`.
+- **OpenStreetMap** (sin cuenta): openstreetmap.org → **Compartir → "HTML"** → copiá el `src`.
+
+### c) Imagen estática
+
+- Ruta: `assets/img/plazas/mapa-<slug>.png` · Medida sugerida **1600 × 700 px**.
+- Captura del mapa con el punto marcado. Se usa solo si no hay `coords` ni `mapaEmbed`.
+
+### d) Nada
+
+Recuadro con la instrucción. El botón "Abrir en Google Maps" igual funciona: busca
+por **nombre** de la plaza + "San Fernando del Valle de Catamarca".
 
 ---
 
