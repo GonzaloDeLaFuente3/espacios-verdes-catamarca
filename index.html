@@ -1025,11 +1025,11 @@
     <section id="juegos" class="seccion" tabindex="-1" aria-labelledby="juegos-h">
       <div class="contenedor">
         <div class="seccion__intro">
-          <span class="kicker">Poné a prueba</span>
+          <span class="kicker">Ponte a prueba</span>
           <h2 id="juegos-h">Jugá y aprendé</h2>
-          <p class="prosa text-soft mt-2" style="font-size: var(--fs-lg)">
+          <p class=" text-soft mt-2" style="font-size: var(--fs-lg)">
             Un quiz para repasar lo que viste, con una versión para chicos y otra
-            para grandes. Las preguntas y las opciones salen mezcladas al azar en
+            para grandes.<br> Las preguntas y las opciones salen mezcladas al azar en
             cada partida.
           </p>
         </div>
@@ -1116,14 +1116,9 @@
   const PLAZAS = [
     { slug: "25-de-mayo",        nombre: "Plaza 25 de Mayo",        barrio: "Centro",          resumen: "La plaza principal, frente a la Catedral Basílica y la Casa de Gobierno." },
     { slug: "virgen-del-valle",  nombre: "Plaza Virgen del Valle",  barrio: "Centro",          resumen: "Punto de devoción y encuentro, con palmeras históricas." },
-    { slug: "san-martin",        nombre: "Plaza San Martín",        barrio: "Norte",           resumen: "Amplia, deportiva, con playón y estación saludable." },
     { slug: "la-alameda",        nombre: "Paseo de la Alameda",     barrio: "Sur",             resumen: "Paseo lineal sobre la acequia, ideal para caminar bajo los árboles." },
     { slug: "adan-quiroga",      nombre: "Parque Adán Quiroga",     barrio: "Oeste",           resumen: "Gran pulmón verde con forestación densa y áreas de juego." },
-    { slug: "cristo-rey",        nombre: "Plaza Cristo Rey",        barrio: "Villa Cubas",     resumen: "Plaza barrial con juegos nuevos y cancha de uso múltiple." },
-    { slug: "fray-mamerto-esquiu", nombre: "Plaza Fray Mamerto Esquiú", barrio: "Este",       resumen: "Rodeada de tipas añosas, con anfiteatro al aire libre." },
-    { slug: "del-maestro",       nombre: "Plaza del Maestro",       barrio: "Barrio 240 Viviendas", resumen: "Homenaje a la docencia, con biblioteca a cielo abierto." },
-    { slug: "juan-chelemin",     nombre: "Plaza Juan Chelemín",     barrio: "Sur",             resumen: "Espacio joven con skatepark y luminaria LED." },
-    { slug: "sarmiento",         nombre: "Plaza Sarmiento",         barrio: "Centro",          resumen: "Pequeña plazoleta con fuente y añosos naranjos amargos." }
+    { slug: "del-maestro",       nombre: "Plaza del Maestro",       barrio: "Barrio 240 Viviendas", resumen: "Homenaje a la docencia, con biblioteca a cielo abierto." }
   ];
 
   /* --- Banco de preguntas del quiz (Sección 3) --- */
@@ -1496,6 +1491,7 @@
             </div>
             <p class="nivel-hint" id="nivel-hint" aria-live="polite"></p>
           </fieldset>
+          <br>
           <button class="btn-pv" type="button" id="btn-comenzar"><i class="bi bi-play-fill"></i> Comenzar</button>
         </div>`;
 
