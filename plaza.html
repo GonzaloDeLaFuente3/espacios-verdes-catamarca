@@ -387,6 +387,21 @@
   const $ = (s, c = document) => c.querySelector(s);
   function esc(s){const d=document.createElement('div');d.textContent=s??'';return d.innerHTML;}
 
+  /* Al recargar, arrancar arriba (y sin #hash pegado). */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  (function noSaltarEnReload() {
+    const navEntry = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    const esReload = navEntry ? navEntry.type === 'reload'
+      : (performance.navigation && performance.navigation.type === 1);
+    if (esReload) {
+      if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+      const arriba = () => window.scrollTo(0, 0);
+      arriba();
+      addEventListener('DOMContentLoaded', arriba, { once: true });
+      addEventListener('load', arriba, { once: true });
+    }
+  })();
+
   /* Íconos de Bootstrap Icons: todos decorativos y junto a texto → aria-hidden,
      para los estáticos y para los que el render agrega después. */
   const ocultarIconos = (root) => root.querySelectorAll('i.bi:not([aria-hidden])').forEach(el => el.setAttribute('aria-hidden', 'true'));
