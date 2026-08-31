@@ -9,8 +9,9 @@ pasás cada MD, se reemplaza el contenido de ejemplo (marcado en el código con
 | 1 | Conceptos de espacios verdes | `index.html` | Bloque HTML dentro de `<section id="conceptos">` (entre `Contenido: MD "Conceptos..."` y `FIN CONTENIDO`) | ✅ Hecho (`conceptos_espacios_verdes.md`, Mayo 2026) |
 | 2 | Listado oficial de plazas (nombre, barrio, resumen) | `index.html` | Array `const PLAZAS = [...]` | ⬜ Pendiente |
 | 3 | Ficha de cada plaza (historia, año, superficie, equipamiento, arbolado, cómo llegar) | `plaza.html` | Objeto `const PLAZAS_DETALLE = {...}` y el array `const PLAZAS = [...]` (orden = anterior/siguiente) | ⬜ Pendiente |
-| 4 | Banco de preguntas de los juegos | `index.html` | Objeto `const JUEGOS = { quiz, vf, pares }` | ⬜ Pendiente |
+| 4 | Preguntas del quiz | `index.html` | Array `const JUEGOS = { quiz: [...] }` | 🟡 Parcial (nivel `grandes` cargado, BLOQUES 1-3; falta nivel `chicos`) |
 | 5 | Imágenes | (sin código) | Ver `IMAGENES.md` | ⬜ Pendiente |
+| 6 | Clasificación de calidad (★ a ★★★★★) + advertencias + impulsos | `index.html` | `<section id="calidad">` (contenido estático, sin marca de EJEMPLO) | ✅ Hecho (texto "Individualización / Regla de asignación", Ago 2026) |
 
 ---
 
@@ -49,22 +50,19 @@ dirección / cómo llegar:
 cantidad de fotos de galería: (por defecto 3)
 ```
 
-### 4. Banco de preguntas
-Cualquier formato claro sirve. El ideal:
+### 4. Preguntas del quiz
+La Sección 3 es **un solo quiz** de opción múltiple, con dos niveles (`chicos` y
+`grandes`). Formato por pregunta:
 ```
-[QUIZ]
+Nivel: chicos | grandes
 Pregunta:
 a) opción   b) opción   c) opción   d) opción
 Correcta: b
 Explicación: ...
-
-[VERDADERO/FALSO]
-Afirmación:
-Respuesta: Verdadero | Falso
-Explicación: ...
-
-[UNIR]
-Término = Definición
 ```
-Con eso se arman los 4 juegos (el de "¿Reconocés la plaza?" se genera solo con
-las fotos de las plazas).
+El motor mezcla al azar, en cada partida, el orden de las preguntas y el de las
+opciones (la respuesta correcta no queda fija en una letra). Se juegan 5
+preguntas por partida tomadas al azar del nivel elegido.
+
+Ya está cargado el nivel `grandes` (16 preguntas, BLOQUES 1-3). Falta el nivel
+`chicos` (hoy hay 5 de ejemplo marcadas `═══ EJEMPLO ═══`).

@@ -1,11 +1,13 @@
 # Espacios Verdes y Plazas — Catamarca Capital (mockup)
 
 Prototipo navegable de una página pública sobre los espacios verdes de San Fernando
-del Valle de Catamarca. Tres secciones en una sola página:
+del Valle de Catamarca. Cuatro secciones en una sola página:
 
 1. **Conceptos** — qué son los espacios verdes y por qué importan.
-2. **Plazas** — grilla de todas las plazas; cada tarjeta lleva a su ficha.
-3. **Jugá y aprendé** — cuatro juegos didácticos que repasan los conceptos.
+2. **Calidad** — la clasificación por estrellas (★ a ★★★★★), acumulativa como en
+   hotelería, con sus advertencias e impulsos de articulación.
+3. **Plazas** — grilla de todas las plazas; cada tarjeta lleva a su ficha.
+4. **Jugá y aprendé** — un quiz didáctico (niveles chicos y grandes) que repasa los conceptos.
 
 Es un **mockup**: sin backend, con contenido de ejemplo y sin las imágenes finales.
 Sirve para validar diseño y flujo antes de programarlo en el stack definitivo.
@@ -32,7 +34,7 @@ Abrí **`index.html`** en el navegador (doble clic alcanza).
 
 ```
 plazas/
-  index.html      Página principal (3 secciones). CSS y JS embebidos.
+  index.html      Página principal (4 secciones). CSS y JS embebidos.
   plaza.html      Ficha de plaza. Lee ?plaza=<slug>. CSS y JS embebidos.
   IMAGENES.md     Qué imágenes faltan, dónde van y con qué medidas.
   CONTENIDO.md    Qué MD reemplaza qué parte del código.
@@ -69,9 +71,10 @@ Ver **`CONTENIDO.md`**. Resumen:
 | Contenido | Archivo | Qué se edita |
 |---|---|---|
 | Conceptos | `index.html` | bloque HTML dentro de `<section id="conceptos">` |
+| Clasificación de calidad | `index.html` | bloque HTML dentro de `<section id="calidad">` (estático) |
 | Listado de plazas | `index.html` | array `PLAZAS` |
 | Fichas de plaza | `plaza.html` | objeto `PLAZAS_DETALLE` + array `PLAZAS` |
-| Preguntas de los juegos | `index.html` | objeto `JUEGOS` |
+| Preguntas del quiz | `index.html` | array `JUEGOS.quiz` (con `nivel: chicos \| grandes`) |
 | Imágenes | — | ver `IMAGENES.md` |
 
 ### Agregar o cambiar una plaza
@@ -88,11 +91,12 @@ Ver **`CONTENIDO.md`**. Resumen:
 - Reemplazar todo el contenido de ejemplo por los MD oficiales.
 - Cargar las imágenes (`IMAGENES.md`).
 - Confirmar el listado y los datos de cada plaza con el área competente.
-- Quitar la etiqueta **MOCKUP** (un `<div class="mockup-badge">` en cada HTML).
+- Quitar el `[MOCKUP]` de los `<title>` al pasar a producción.
 - Definir el "Cómo llegar": imagen estática de mapa o mapa embebido.
 - Completar enlaces del footer (sitio oficial, reclamos, contacto) y el canal de
   reporte de desperfectos en la sección Conceptos.
-- Revisión de accesibilidad sobre la versión con contenido real (`/ui-review`).
+- Re-verificar accesibilidad sobre la versión con contenido e imágenes reales
+  (contraste de textos sobre fotos, `alt` de cada imagen).
 - Definir dónde se aloja y si se integra al portal municipal (la navbar hoy es autónoma).
 
 ---
@@ -101,9 +105,11 @@ Ver **`CONTENIDO.md`**. Resumen:
 
 | Parte | Estado |
 |---|---|
-| Estructura y diseño de las 3 secciones | ✅ Listo |
+| Estructura y diseño de las 4 secciones | ✅ Listo |
+| Sección Calidad (clasificación ★, advertencias, impulsos) | ✅ Listo · contenido real |
 | Grilla de plazas + búsqueda + animación hover | ✅ Listo (contenido de ejemplo) |
 | Plantilla de ficha de plaza + estado "no encontrada" | ✅ Listo (contenido de ejemplo) |
-| 4 juegos didácticos | ✅ Listo (preguntas de ejemplo) |
-| Contenido real (conceptos, plazas, preguntas) | ⬜ A la espera de los MD |
+| Quiz didáctico por niveles (chicos / grandes) | ✅ Listo · nivel `grandes` con preguntas reales; `chicos` de ejemplo |
+| Auditoría `/ui-review` (a11y, targets, contraste, estados) | ✅ Pasada · 0 bloqueantes, [A] y [M] corregidos |
+| Contenido real (plazas, quiz nivel chicos) | ⬜ A la espera de los MD |
 | Imágenes | ⬜ A cargar |

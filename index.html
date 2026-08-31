@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="icon" type="image/png" href="https://www.catamarcaciudad.gob.ar/wp-content/uploads/favicons2020.png">
   <title>Espacios Verdes y Plazas · Catamarca Capital [MOCKUP]</title>
   <meta name="description" content="Conocé qué son los espacios verdes, recorré las plazas de San Fernando del Valle de Catamarca y aprendé jugando.">
 
@@ -11,7 +12,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
   /* ════════════════════════════════════════════════════════════════
@@ -90,6 +91,12 @@
     --pv-text-soft: #55605a;   /* texto secundario (~5.6:1) */
     --pv-green-txt: var(--muni-green-dark);
     --pv-scrim:     rgba(6, 20, 10, .58);  /* capa sobre fotos para contraste */
+
+    /* Bordes de controles y fondos semánticos (contraste verificado) */
+    --pv-field-border: var(--muni-gray-600);  /* borde de inputs/botones: 4.7:1 sobre blanco */
+    --pv-ok-bg:        #EAF6EA;  /* fondo suave de acierto — texto --muni-success 6:1 */
+    --pv-bad-bg:       #FDEAEA;  /* fondo suave de error   — texto --muni-danger 4.9:1 */
+    --pv-green-hover:  #013E3E;  /* hover del botón verde */
   }
 
   /* ════════════════ RESET MÍNIMO (ui-craft/html-css.md) ════════════════ */
@@ -155,14 +162,6 @@
   }
   .skip-link:focus { left: 0; }
 
-  .mockup-badge {
-    position: fixed; top: 8px; right: 12px; z-index: 1900;
-    background: var(--muni-amber); color: #3a2f00;
-    font-size: 11px; font-weight: 800; letter-spacing: .5px;
-    padding: 3px 9px; border-radius: 4px; box-shadow: var(--sh-sm);
-    pointer-events: none;
-  }
-
   /* ════════════════ NAVBAR ════════════════ */
   .muni-navbar {
     background: var(--muni-primary);
@@ -185,10 +184,15 @@
     color: rgba(255,255,255,.82);
     font-weight: 500;
     padding: var(--sp-2) var(--sp-4);
+    min-height: 44px;
     border-radius: var(--r-btn);
     display: flex; align-items: center; gap: var(--sp-2);
   }
   .muni-navbar .nav-link:hover { color: #fff; background: rgba(255,255,255,.10); }
+  /* menú colapsado (mobile): separación real entre targets */
+  @media (max-width: 991.98px) {
+    .muni-navbar .navbar-nav { gap: var(--sp-2); padding-block: var(--sp-2); }
+  }
   .muni-navbar .nav-link.is-active { color: #fff; background: rgba(69,181,219,.22); box-shadow: inset 0 -2px 0 var(--muni-primary-light); }
 
   /* ════════════════ HERO ════════════════ */
@@ -214,7 +218,7 @@
     text-decoration: none; cursor: pointer; min-height: 44px;
     transition: transform var(--muni-transition), background var(--muni-transition), box-shadow var(--muni-transition);
   }
-  .btn-pv:hover { background: #013e3e; box-shadow: var(--sh-md); transform: translateY(-1px); }
+  .btn-pv:hover { background: var(--pv-green-hover); box-shadow: var(--sh-md); transform: translateY(-1px); }
   .btn-pv:active { transform: translateY(0); }
   .btn-pv--ghost { --_bg: transparent; --_fg: #fff; --_bd: rgba(255,255,255,.75); }
   .btn-pv--ghost:hover { --_bg: rgba(255,255,255,.14); background: rgba(255,255,255,.14); }
@@ -250,8 +254,8 @@
   .beneficio h4 { font-size: var(--fs-lg); display: flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-3); }
   .beneficio h4 i { color: var(--muni-green-dark); }
   .beneficio ul { list-style: none; padding: 0; display: grid; gap: var(--sp-2); }
-  .beneficio li { display: flex; gap: var(--sp-2); font-size: var(--fs-xs); }
-  .beneficio li::before { content: "\F633"; font-family: "bootstrap-icons"; color: var(--muni-green-light); flex: none; }
+  .beneficio li { position: relative; padding-left: calc(var(--sp-4) + var(--sp-1)); font-size: var(--fs-xs); }
+  .beneficio li::before { content: "\F633"; font-family: "bootstrap-icons"; color: var(--muni-green-dark); position: absolute; left: 0; top: 0; line-height: inherit; }
 
   .pautas { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--sp-3); margin-top: var(--sp-4); }
   .pautas li {
@@ -290,15 +294,47 @@
   .cifra p { font-size: var(--fs-xs); color: var(--pv-text-soft); margin-top: var(--sp-2); }
   .cifras__fuente { grid-column: 1 / -1; margin: 0; font-size: var(--fs-xs); color: var(--pv-text-soft); }
 
+  /* ════════════════ SECCIÓN · CALIDAD (clasificación por estrellas) ════════════════ */
+  .escalera { list-style: none; padding: 0; margin: var(--sp-6) 0 0; display: grid; gap: var(--sp-4); }
+  .nivel { background: var(--pv-surface); border: 1px solid var(--pv-border); border-radius: var(--r-card); padding: var(--sp-6); }
+  .nivel__cab { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); align-items: baseline; }
+  .estrellas { flex: none; display: inline-flex; gap: 3px; font-size: 1.1rem; line-height: 1; }
+  .estrellas .bi-star-fill { color: var(--muni-green-dark); }
+  .estrellas .bi-star { color: var(--muni-gray-400); }
+  .nivel__cab h4 { font-size: var(--fs-lg); margin-bottom: 2px; }
+  .nivel__resumen { font-size: var(--fs-xs); color: var(--pv-text-soft); }
+  .nivel details { margin-top: var(--sp-4); border-top: 1px solid var(--pv-border); padding-top: var(--sp-4); }
+  .nivel summary { cursor: pointer; font-weight: 600; font-size: var(--fs-xs); color: var(--muni-green-dark);
+    display: inline-flex; align-items: center; gap: var(--sp-2); list-style: none; min-height: 44px; padding-block: var(--sp-2); }
+  .nivel summary::-webkit-details-marker { display: none; }
+  .nivel summary::before { content: "\F64D"; font-family: "bootstrap-icons"; transition: transform var(--muni-transition); }
+  .nivel details[open] summary::before { transform: rotate(90deg); }
+  .requisitos { display: grid; gap: var(--sp-3); margin: var(--sp-4) 0 0; }
+  .requisitos > div { display: grid; grid-template-columns: 160px 1fr; gap: var(--sp-1) var(--sp-4); }
+  .requisitos dt { font-size: var(--fs-xs); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muni-green-dark); }
+  .requisitos dd { margin: 0; font-size: var(--fs-xs); color: var(--pv-text); }
+  .requisitos dd ul { margin: 0; padding-left: 1.1rem; display: grid; gap: 2px; }
+  @media (max-width: 620px) { .requisitos > div { grid-template-columns: 1fr; gap: 2px; } }
+
+  .advertencias { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: var(--sp-4); margin-top: var(--sp-4); }
+  .adv { background: var(--pv-surface); border: 1px solid var(--pv-border); border-top: 3px solid var(--muni-amber);
+    border-radius: var(--r-card); padding: var(--sp-6); }
+  .adv h4 { font-size: var(--fs-base); display: flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-2); }
+  .adv h4 i { color: var(--muni-orange); flex: none; }
+  .adv p { font-size: var(--fs-xs); color: var(--pv-text-soft); }
+  .adv p + p { margin-top: var(--sp-2); }
+  .adv .propuesta { color: var(--pv-text); font-weight: 600; }
+
   /* ════════════════ SECCIÓN 2 · PLAZAS ════════════════ */
   .plazas-toolbar { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; margin-bottom: var(--sp-6); }
   .buscador { position: relative; flex: 1 1 320px; max-width: 440px; }
   .buscador i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muni-gray-600); }
   .buscador input {
     width: 100%; padding: 12px 14px 12px 40px; min-height: 44px;
-    border: 1.5px solid var(--pv-border); border-radius: var(--r-chip);
+    border: 1.5px solid var(--pv-field-border); border-radius: var(--r-chip);
     background: var(--pv-surface);
   }
+  .buscador input::placeholder { color: var(--muni-gray-600); opacity: 1; }
   .buscador input:focus-visible { border-color: var(--muni-primary-mid); outline-offset: 1px; }
   .plazas-count { font-size: var(--fs-xs); color: var(--pv-text-soft); }
 
@@ -373,24 +409,37 @@
     border: 1px dashed var(--pv-border); border-radius: var(--r-card);
     background: var(--pv-surface);
   }
-  .estado i { font-size: 2.6rem; color: var(--muni-green-light); }
+  .estado i { font-size: 2.6rem; color: var(--muni-green-dark); }
   .estado h3 { font-size: var(--fs-xl); margin: var(--sp-3) 0 var(--sp-2); }
   .estado p { color: var(--pv-text-soft); max-width: 46ch; margin-inline: auto; }
   .estado .acciones { margin-top: var(--sp-4); display: flex; gap: var(--sp-3); justify-content: center; flex-wrap: wrap; }
 
-  /* ════════════════ SECCIÓN 3 · JUEGOS ════════════════ */
-  .juego-selector { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--sp-4); margin-bottom: var(--sp-8); }
-  .juego-selector button {
-    text-align: left; background: var(--pv-surface); border: 1.5px solid var(--pv-border);
-    border-radius: var(--r-card); padding: var(--sp-4); cursor: pointer;
-    display: flex; flex-direction: column; gap: 6px; min-height: 44px;
-    transition: border-color var(--muni-transition), box-shadow var(--muni-transition), transform var(--muni-transition);
+  /* ════════════════ SECCIÓN 3 · QUIZ ════════════════ */
+  /* Selector de nivel (Para chicos / Para grandes / Todos) — aparece en la
+     pantalla de inicio del quiz. Radios reales dentro de un fieldset. */
+  .nivel-pick {
+    border: 1px solid var(--pv-border); border-radius: var(--r-card);
+    padding: var(--sp-4) var(--sp-6) var(--sp-6); margin: var(--sp-6) auto 0;
+    max-width: 540px; text-align: left;
   }
-  .juego-selector button:hover { border-color: var(--muni-green-light); transform: translateY(-2px); box-shadow: var(--sh-sm); }
-  .juego-selector button[aria-pressed="true"] { border-color: var(--muni-green-dark); box-shadow: inset 0 0 0 1px var(--muni-green-dark); background: var(--pv-surface-2); }
-  .juego-selector .t { font-weight: 700; color: var(--muni-primary); display: flex; align-items: center; gap: var(--sp-2); }
-  .juego-selector .t i { color: var(--muni-green-dark); font-size: 1.15rem; }
-  .juego-selector .d { font-size: var(--fs-xs); color: var(--pv-text-soft); }
+  .nivel-pick legend {
+    font-size: var(--fs-xs); font-weight: 700; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--pv-text-soft); padding: 0 var(--sp-2);
+  }
+  .nivel-pick .ops { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+  .nivel-pick label {
+    display: inline-flex; align-items: center; gap: var(--sp-2);
+    border: 1.5px solid var(--pv-border); border-radius: var(--r-chip);
+    padding: 8px 16px; cursor: pointer; font-size: var(--fs-xs); font-weight: 600;
+    min-height: 44px; transition: border-color var(--muni-transition), background var(--muni-transition);
+  }
+  .nivel-pick label:hover { border-color: var(--muni-green-light); background: var(--pv-surface-2); }
+  .nivel-pick label:has(input:checked) {
+    border-color: var(--muni-green-dark); background: var(--pv-surface-2);
+    box-shadow: inset 0 0 0 1px var(--muni-green-dark);
+  }
+  .nivel-pick input { width: 18px; height: 18px; accent-color: var(--muni-green-dark); flex: none; }
+  .nivel-hint { font-size: var(--fs-xs); color: var(--pv-text-soft); margin-top: var(--sp-4); }
 
   .juego-panel {
     background: var(--pv-surface); border: 1px solid var(--pv-border);
@@ -401,59 +450,36 @@
   .juego-cabecera h3 { font-size: var(--fs-xl); }
   .progreso { display: flex; gap: 5px; flex-wrap: wrap; }
   .progreso span {
-    width: 26px; height: 6px; border-radius: 999px; background: var(--muni-gray-200);
+    width: 26px; height: 6px; border-radius: 999px; background: var(--muni-gray-400);
   }
-  .progreso span.hecho { background: var(--muni-green-light); }
-  .progreso span.actual { background: var(--muni-green-dark); }
+  .progreso span.hecho  { background: var(--muni-green-mid); }
+  .progreso span.actual { background: var(--muni-green-dark); width: 34px; }
   .progreso__txt { font-size: var(--fs-xs); color: var(--pv-text-soft); font-weight: 600; }
 
   .pregunta { font-size: var(--fs-lg); font-weight: 600; color: var(--muni-primary); margin-bottom: var(--sp-6); }
   .opciones { display: grid; gap: var(--sp-3); }
   .opcion {
     display: flex; align-items: center; gap: var(--sp-3); width: 100%; text-align: left;
-    background: var(--pv-surface); border: 1.5px solid var(--pv-border);
+    background: var(--pv-surface); border: 1.5px solid var(--pv-field-border);
     border-radius: var(--r-btn); padding: 14px 16px; cursor: pointer; min-height: 44px;
     transition: border-color var(--muni-transition), background var(--muni-transition);
   }
-  .opcion:hover:not([disabled]) { border-color: var(--muni-green-light); background: var(--pv-surface-2); }
-  .opcion .marca { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--muni-gray-400); flex: none; display: grid; place-items: center; font-size: .9rem; }
+  .opcion:hover:not([disabled]) { border-color: var(--muni-green-dark); background: var(--pv-surface-2); }
+  .opcion .marca { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--pv-field-border); flex: none; display: grid; place-items: center; font-size: .9rem; }
   .opcion[disabled] { cursor: default; }
-  .opcion.correcta { border-color: var(--muni-success); background: #eaf6ea; }
+  .opcion.correcta { border-color: var(--muni-success); background: var(--pv-ok-bg); }
   .opcion.correcta .marca { border-color: var(--muni-success); background: var(--muni-success); color: #fff; }
-  .opcion.incorrecta { border-color: var(--muni-danger); background: #fdeaea; }
+  .opcion.incorrecta { border-color: var(--muni-danger); background: var(--pv-bad-bg); }
   .opcion.incorrecta .marca { border-color: var(--muni-danger); background: var(--muni-danger); color: #fff; }
 
   .feedback { margin-top: var(--sp-6); border-radius: var(--r-btn); padding: var(--sp-4); font-size: var(--fs-base); display: none; }
   .feedback.visible { display: block; }
-  .feedback.ok { background: #eaf6ea; border: 1px solid var(--muni-success); }
-  .feedback.mal { background: #fdeaea; border: 1px solid var(--muni-danger); }
+  .feedback.ok { background: var(--pv-ok-bg); border: 1px solid var(--muni-success); }
+  .feedback.mal { background: var(--pv-bad-bg); border: 1px solid var(--muni-danger); }
   .feedback .head { font-weight: 700; display: flex; align-items: center; gap: var(--sp-2); margin-bottom: 4px; }
   .feedback.ok .head { color: var(--muni-success); }
   .feedback.mal .head { color: var(--muni-danger); }
   .juego-acciones { margin-top: var(--sp-6); display: flex; gap: var(--sp-3); flex-wrap: wrap; }
-
-  /* Unir conceptos */
-  .pares-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-6); }
-  .pares-cols h4 { font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--pv-text-soft); margin-bottom: var(--sp-3); }
-  .pares-cols ul { list-style: none; padding: 0; display: grid; gap: var(--sp-2); }
-  .par-item {
-    width: 100%; text-align: left; background: var(--pv-surface);
-    border: 1.5px solid var(--pv-border); border-radius: var(--r-btn);
-    padding: 12px 14px; cursor: pointer; min-height: 44px; font-size: var(--fs-xs);
-    transition: border-color var(--muni-transition), background var(--muni-transition), transform var(--muni-transition);
-  }
-  .par-item:hover:not([disabled]) { border-color: var(--muni-green-light); }
-  .par-item.sel { border-color: var(--muni-primary-mid); background: #eaf1fb; }
-  .par-item.correcta { border-color: var(--muni-success); background: #eaf6ea; cursor: default; }
-  .par-item.err { border-color: var(--muni-danger); animation: sacudir .3s; }
-  @keyframes sacudir { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
-  @media (prefers-reduced-motion: reduce) { .par-item.err { animation: none; } }
-  @media (max-width: 560px) { .pares-cols { grid-template-columns: 1fr; } }
-
-  /* Reconocé la plaza */
-  .plaza-adivina { border-radius: var(--r-media); overflow: hidden; aspect-ratio: 16/10; background: var(--muni-green-dark); margin-bottom: var(--sp-6); }
-  .plaza-adivina img, .plaza-adivina .ph { width: 100%; height: 100%; object-fit: cover; }
-  .plaza-adivina .ph { display: grid; place-items: center; color: rgba(255,255,255,.9); font-size: 3rem; background: linear-gradient(135deg, var(--muni-green-dark), var(--muni-green-light)); }
 
   /* Resultado */
   .resultado { text-align: center; }
@@ -473,7 +499,8 @@
   .muni-footer .cols { display: grid; grid-template-columns: 1.6fr 1fr 1.2fr 1fr; gap: var(--sp-8); align-items: start; }
   .muni-footer img { height: 44px; width: auto; margin-bottom: var(--sp-3); }
   .muni-footer h4 { color: #fff; font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: .08em; margin-bottom: var(--sp-4); }
-  .muni-footer ul { list-style: none; padding: 0; display: grid; gap: var(--sp-2); }
+  .muni-footer ul { list-style: none; padding: 0; display: grid; gap: var(--sp-1); }
+  .muni-footer ul a { display: inline-flex; align-items: center; min-height: 44px; }
   .muni-footer .footer-datos { font-size: var(--fs-xs); color: rgba(255,255,255,.72); }
   .muni-footer .footer-datos li { line-height: 1.45; }
 
@@ -481,10 +508,11 @@
   .muni-footer .redes { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-1); }
   .muni-footer .redes a {
     display: grid; place-items: center;
-    width: 40px; height: 40px;
+    width: 44px; height: 44px;
     border: 1px solid rgba(255,255,255,.22);
     border-radius: var(--r-btn);
     color: rgba(255,255,255,.85);
+    font-size: 1.15rem;
     transition: background var(--muni-transition), border-color var(--muni-transition), transform var(--muni-transition);
   }
   .muni-footer .redes a:hover {
@@ -494,8 +522,6 @@
     text-decoration: none;
     transform: translateY(-2px);
   }
-  .muni-footer .redes svg { width: 20px; height: 20px; }
-
   .muni-footer .legal { border-top: 1px solid rgba(255,255,255,.15); margin-top: var(--sp-8); padding-top: var(--sp-6); font-size: var(--fs-xs); display: flex; flex-wrap: wrap; gap: var(--sp-3); justify-content: space-between; }
   @media (max-width: 800px) { .muni-footer .cols { grid-template-columns: 1fr 1fr; gap: var(--sp-6); } }
   @media (max-width: 520px) { .muni-footer .cols { grid-template-columns: 1fr; } }
@@ -521,6 +547,7 @@
       <div class="contenedor d-flex align-items-center w-100 px-5">
         <a class="navbar-brand" href="#main" aria-label="Inicio — Catamarca Capital">
           <img src="assets/logos/logo-capital-dark-BCmcLDWl.webp" alt="Municipalidad de Catamarca Capital"
+               width="1714" height="470"
                onerror="this.style.display='none';this.nextElementSibling.hidden=false;">
           <span class="brand-fallback" hidden>Catamarca Capital<small>Espacios Verdes</small></span>
         </a>
@@ -534,6 +561,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navmenu">
           <ul class="navbar-nav gap-lg-1">
             <li class="nav-item"><a class="nav-link" href="#conceptos"><i class="bi bi-book"></i>Conceptos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#calidad"><i class="bi bi-stars"></i>Calidad</a></li>
             <li class="nav-item"><a class="nav-link" href="#plazas"><i class="bi bi-geo-alt"></i>Plazas</a></li>
             <li class="nav-item"><a class="nav-link" href="#juegos"><i class="bi bi-controller"></i>Jugá y aprendé</a></li>
           </ul>
@@ -549,7 +577,7 @@
       <div class="contenedor hero__inner">
         <h1>Espacios verdes de Catamarca Capital</h1>
         <p>Descubrí qué son, por qué cuidan la ciudad y recorré todas las plazas de
-           San Fernando del Valle. Al final, poné a prueba lo que aprendiste.</p>
+           San Fernando del Valle de Catamarca. Al final, poné a prueba lo que aprendiste.</p>
         <div class="hero__cta">
           <a class="btn-pv btn-pv--light" href="#conceptos"><i class="bi bi-book"></i>Conocé los conceptos</a>
           <a class="btn-pv btn-pv--ghost" href="#plazas"><i class="bi bi-geo-alt"></i>Explorá las plazas</a>
@@ -564,7 +592,8 @@
     </section>
 
     <!-- ═══════════════════════ SECCIÓN 1 · CONCEPTOS ═══════════════════════ -->
-    <section id="conceptos" class="seccion" tabindex="-1" aria-labelledby="conceptos-h">
+    <section id="conceptos" class="seccion" tabindex="-1" aria-labelledby="conceptos-h" style="
+    padding-bottom: unset;">
       <div class="contenedor">
         <div class="seccion__intro">
           <span class="kicker">Aprendé</span>
@@ -659,6 +688,25 @@
           </div>
         </div>
 
+        <h3 class="mt-5 mb-3" style="font-size: var(--fs-xl)">La regla 3-30-300</h3>
+        <p class="prosa text-soft">Una guía sencilla para planificar el verde de una ciudad, propuesta
+        por el investigador Cecil Konijnendijk. Resume en tres números lo que un barrio necesita:</p>
+        <div class="concepto-grid">
+          <article class="concepto"><div class="concepto__ic"><i class="bi bi-tree"></i></div>
+            <h4>3 árboles</h4><p>a la vista desde cada vivienda. Ver vegetación desde casa hace bien a la salud mental.</p></article>
+          <article class="concepto"><div class="concepto__ic"><i class="bi bi-umbrella"></i></div>
+            <h4>30 % de sombra</h4><p>de cobertura de copas de árboles en cada barrio. Baja la temperatura, mejora el aire y el microclima.</p></article>
+          <article class="concepto"><div class="concepto__ic"><i class="bi bi-signpost-2"></i></div>
+            <h4>300 metros</h4><p>hasta el espacio verde más cercano: a menos de 5 minutos caminando, como recomienda la OMS.</p></article>
+        </div>
+        <p class="prosa text-soft mt-3" style="font-size: var(--fs-xs)">
+          Un primer estudio de ISGlobal (Barcelona, muestra de 3.145 personas) puso la regla a prueba:
+          cumplir los tres criterios se asoció con <strong>mejor salud mental</strong> —sobre todo, con
+          menos consultas de salud mental— y el factor de mayor peso fue el <strong>30&nbsp;% de cobertura
+          arbórea</strong> del barrio. Solo el 4,7&nbsp;% de las personas cumplía los tres a la vez, así que
+          es una meta a la que las ciudades recién empiezan a acercarse.
+        </p>
+
         <h3 class="mt-5 mb-2" style="font-size: var(--fs-xl)">El rol de cada vecino y vecina</h3>
         <p class="prosa text-soft">Cuidar los espacios verdes es una tarea compartida entre el municipio y la ciudadanía.</p>
         <ul class="pautas">
@@ -679,7 +727,7 @@
           </details>
           <details>
             <summary>Infraestructura verde urbana</summary>
-            <div class="cuerpo">Red planificada e interconectada de todo lo vegetado de la ciudad —plazas, arbolado, corredores, canteros, techos verdes— pensada para prestar servicios ambientales, igual que la infraestructura "gris" de calles y caños. Incluye piezas por las que no se puede circular.</div>
+            <div class="cuerpo">Red planificada e interconectada de todo lo vegetado de la ciudad (plazas, arbolado, corredores, canteros, techos verdes) pensada para prestar servicios ambientales, igual que la infraestructura "gris" de calles y caños. Incluye piezas por las que no se puede circular.</div>
           </details>
           <details>
             <summary>Espacio verde de calidad</summary>
@@ -722,10 +770,205 @@
         <!-- ═══ FIN CONTENIDO ═══ -->
       </div>
 
-      <div class="separador separador--sobre-surface" aria-hidden="true">
+      <div class="separador separador--sobre-claro" aria-hidden="true">
         <svg viewBox="0 0 1440 96" preserveAspectRatio="none" role="presentation">
           <path class="f2" d="M0,60 C260,100 520,20 760,52 C1000,84 1220,40 1440,68 L1440,96 L0,96 Z"></path>
           <path class="f1" d="M0,74 C240,44 480,92 720,74 C960,56 1200,92 1440,66 L1440,96 L0,96 Z"></path>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════ SECCIÓN · CALIDAD ═══════════════════════ -->
+    <section id="calidad" class="seccion" tabindex="-1" aria-labelledby="calidad-h">
+      <div class="contenedor">
+        <div class="seccion__intro">
+          <span class="kicker">Cómo se mide</span>
+          <h2 id="calidad-h">La calidad de una plaza, en estrellas</h2>
+          <p class="prosa text-soft mt-2" style="font-size: var(--fs-lg)">
+            No todas las plazas ofrecen lo mismo. Esta clasificación le pone un número
+            claro a la calidad de cada espacio verde —de 1 a 5 estrellas— para saber
+            qué tiene, qué le falta y hacia dónde tiene que crecer.
+          </p>
+        </div>
+
+        <h3 class="mt-5 mb-3" style="font-size: var(--fs-xl)">Individualizar para cuidar</h3>
+        <div class="prosa">
+          <p>Cada plaza es <strong>patrimonio social y cultural</strong> de su barrio.
+          Individualizarla —darle nombre, ficha y estrella— ayuda a que su cuidado sea
+          una tarea compartida entre las distintas áreas del municipio y la comunidad,
+          y no responsabilidad de una sola oficina.</p>
+          <p class="text-soft">Medir la calidad <strong>en público</strong> permite reconocer,
+          pensar y valorar lo que tenemos: la vecina y el vecino dejan de ser solo
+          usuarios y pasan a ser parte de la calidad del espacio. Sin ese trabajo, lo
+          construido durante años se deteriora en silencio: primero baja el
+          mantenimiento, después llega la desatención y al final el abandono del
+          espacio de todos.</p>
+        </div>
+
+        <div class="callout" style="margin-top: var(--sp-6)">
+          <i class="bi bi-star-half" aria-hidden="true"></i>
+          <div>
+            <p class="mb-0"><strong>Se asigna como en un hotel: es acumulativa.</strong>
+            Para tener N estrellas, una plaza tiene que cumplir todos los requisitos de
+            ese nivel y también todos los de los niveles anteriores. Si falla un solo
+            ítem, baja al nivel anterior.</p>
+          </div>
+        </div>
+
+        <h3 class="mt-5 mb-2" style="font-size: var(--fs-xl)">Los cinco niveles</h3>
+        <p class="prosa text-soft">Cada nivel evalúa seis dimensiones: uso, accesibilidad,
+        equipamiento, seguridad, mantenimiento y ambiente. Desplegá un nivel para ver el detalle.</p>
+        <ol class="escalera">
+
+          <li class="nivel">
+            <div class="nivel__cab">
+              <span class="estrellas" aria-hidden="true"><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></span>
+              <div>
+                <h4><span class="visually-hidden">Nivel 1 de 5. </span>Plaza utilizable</h4>
+                <p class="nivel__resumen">Condición mínima: se puede entrar y estar sin riesgos.</p>
+              </div>
+            </div>
+            <details>
+              <summary>Ver los requisitos de base</summary>
+              <dl class="requisitos">
+                <div><dt>Uso</dt><dd>Superficie pública libre, sin ocupación privada ni usurpada.</dd></div>
+                <div><dt>Accesibilidad</dt><dd>Al menos un acceso peatonal directo y abierto desde la vereda.</dd></div>
+                <div><dt>Equipamiento</dt><dd>Superficie transitable definida, aunque sea de tierra compactada.</dd></div>
+                <div><dt>Seguridad</dt><dd>Sin elementos peligrosos: vidrios, hierros expuestos, juegos rotos, pozos.</dd></div>
+                <div><dt>Mantenimiento</dt><dd>Sin residuos acumulados ni microbasurales.</dd></div>
+                <div><dt>Ambiente</dt><dd>Cobertura vegetal viva en ≥ 30 % de la superficie, o un mínimo de 3 árboles adultos.</dd></div>
+              </dl>
+            </details>
+          </li>
+
+          <li class="nivel">
+            <div class="nivel__cab">
+              <span class="estrellas" aria-hidden="true"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></span>
+              <div>
+                <h4><span class="visually-hidden">Nivel 2 de 5. </span>Plaza equipada básica</h4>
+                <p class="nivel__resumen">Ya tiene luz, bancos, cestos, senderos firmes y un cartel con su nombre.</p>
+              </div>
+            </div>
+            <details>
+              <summary>Ver lo que se suma en este nivel</summary>
+              <dl class="requisitos">
+                <div><dt>Seguridad</dt><dd>Iluminación perimetral completa y al menos un punto de luz interior.</dd></div>
+                <div><dt>Equipamiento</dt><dd><ul><li>Bancos: mínimo 1 cada 500 m² (al menos 4 en total).</li><li>Cestos de residuos (mínimo 2), con recolección semanal.</li></ul></dd></div>
+                <div><dt>Accesibilidad</dt><dd>Senderos continuos y de material consolidado, no solo huellas de paso.</dd></div>
+                <div><dt>Ambiente</dt><dd>Sombra efectiva en ≥ 20 % de la superficie al mediodía.</dd></div>
+                <div><dt>Mantenimiento</dt><dd>Corte y poda con frecuencia registrada (mínimo mensual en temporada).</dd></div>
+                <div><dt>Uso social</dt><dd>Cartel identificatorio con el nombre de la plaza.</dd></div>
+              </dl>
+            </details>
+          </li>
+
+          <li class="nivel">
+            <div class="nivel__cab">
+              <span class="estrellas" aria-hidden="true"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></span>
+              <div>
+                <h4><span class="visually-hidden">Nivel 3 de 5. </span>Plaza de calidad</h4>
+                <p class="nivel__resumen">Cumple al menos el 60 % de los indicadores: accesible, con juegos y sombra, y con plan de mantenimiento.</p>
+              </div>
+            </div>
+            <details>
+              <summary>Ver lo que se suma en este nivel</summary>
+              <dl class="requisitos">
+                <div><dt>Accesibilidad</dt><dd><ul><li>Itinerario accesible continuo desde la vereda al sector principal: ancho ≥ 1,20 m, pendiente ≤ 8 %, sin escalones.</li><li>Rampas y vados en los accesos, y cruce peatonal señalizado en al menos una esquina.</li></ul></dd></div>
+                <div><dt>Uso social</dt><dd>Sector de juegos infantiles en buen estado, con superficie de amortiguación.</dd></div>
+                <div><dt>Ambiente</dt><dd>Sombra ≥ 30 % y un mínimo de 2 especies adaptadas al clima local.</dd></div>
+                <div><dt>Seguridad</dt><dd>Iluminación uniforme en senderos y sector de juegos, sin puntos oscuros.</dd></div>
+                <div><dt>Mantenimiento</dt><dd><ul><li>Riego asegurado (red, programado o cisterna).</li><li>Plan de mantenimiento con responsable asignado y frecuencia definida.</li></ul></dd></div>
+              </dl>
+            </details>
+          </li>
+
+          <li class="nivel">
+            <div class="nivel__cab">
+              <span class="estrellas" aria-hidden="true"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i></span>
+              <div>
+                <h4><span class="visually-hidden">Nivel 4 de 5. </span>Plaza inclusiva y activa</h4>
+                <p class="nivel__resumen">Usable por todas las edades y capacidades: juego inclusivo, guía táctil, deporte y baños.</p>
+              </div>
+            </div>
+            <details>
+              <summary>Ver lo que se suma en este nivel</summary>
+              <dl class="requisitos">
+                <div><dt>Accesibilidad</dt><dd><ul><li>Al menos un juego inclusivo, usable por niñas y niños con discapacidad.</li><li>Sendero accesible que vincula todas las áreas de la plaza.</li><li>Piso podotáctil (guía táctil) en todos los accesos principales.</li></ul></dd></div>
+                <div><dt>Uso social</dt><dd><ul><li>Sectores diferenciados para 3 grupos etarios: infancia, jóvenes y adultos, y personas mayores.</li><li>Equipamiento deportivo o de ejercicio: multicancha, estación aeróbica o pista.</li></ul></dd></div>
+                <div><dt>Ambiente</dt><dd><ul><li>≥ 50 % de superficie absorbente.</li><li>≥ 60 % de especies nativas o adaptadas.</li></ul></dd></div>
+                <div><dt>Seguridad</dt><dd>Visibilidad desde la calle (sin muros ni vegetación que la bloqueen) e iluminación LED sin zonas ciegas.</dd></div>
+                <div><dt>Equipamiento</dt><dd>Baños públicos, o convenio de uso con establecimientos cercanos.</dd></div>
+                <div><dt>Mantenimiento</dt><dd>Canal de reclamos visible (QR o teléfono) con respuesta registrada.</dd></div>
+              </dl>
+            </details>
+          </li>
+
+          <li class="nivel">
+            <div class="nivel__cab">
+              <span class="estrellas" aria-hidden="true"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
+              <div>
+                <h4><span class="visually-hidden">Nivel 5 de 5. </span>Plaza de referencia</h4>
+                <p class="nivel__resumen">Con vida propia: actividades todos los meses, participación vecinal, identidad y refugio climático.</p>
+              </div>
+            </div>
+            <details>
+              <summary>Ver lo que se suma en este nivel</summary>
+              <dl class="requisitos">
+                <div><dt>Uso social</dt><dd><ul><li>Programación regular de actividades (cultural, deportiva, feria): mínimo 1 por mes.</li><li>Participación ciudadana: comités vecinales o acuerdos de cuidado, más una encuesta anual a usuarios.</li><li>Elemento identitario: mural, monumento, patrimonio o arbolado singular.</li></ul></dd></div>
+                <div><dt>Accesibilidad</dt><dd>Accesibilidad universal certificada en toda la plaza, incluidos los sanitarios.</dd></div>
+                <div><dt>Seguridad</dt><dd>Cruces seguros en todo el perímetro y conexión con transporte público o ciclovía a menos de 300 m.</dd></div>
+                <div><dt>Ambiente</dt><dd><ul><li>Riego eficiente, gestión de poda y compostaje, y luminarias de bajo consumo o solares.</li><li>Refugio climático verificado en verano: sombra, agua y asientos.</li></ul></dd></div>
+                <div><dt>Mantenimiento</dt><dd>Continuidad del servicio: sin incidencias críticas en el último año y reclamos atendidos en tiempo y forma.</dd></div>
+              </dl>
+            </details>
+          </li>
+
+        </ol>
+
+        <h3 class="mt-5 mb-2" style="font-size: var(--fs-xl)">Cómo leer la clasificación</h3>
+        <p class="prosa text-soft">La estrella es una herramienta de gestión, no una etiqueta. Cuatro criterios para usarla bien:</p>
+        <div class="advertencias">
+          <article class="adv">
+            <h4><i class="bi bi-rulers" aria-hidden="true"></i> El tamaño no es calidad</h4>
+            <p>Una plazoleta de menos de 4.000 m² nunca va a tener multicancha ni sanitarios. Con la misma vara, quedaría en 2 estrellas por tamaño, no por calidad.</p>
+            <p class="propuesta">Se evalúa por tipología —plazoleta, plaza, parque— con requisitos escalables en los niveles 4 y 5.</p>
+          </article>
+          <article class="adv">
+            <h4><i class="bi bi-clock-history" aria-hidden="true"></i> La estrella caduca</h4>
+            <p>Una plaza de 4 estrellas pasa a 2 si se cortan tres luminarias. Sin vigencia, el sistema pierde credibilidad al primer reclamo.</p>
+            <p class="propuesta">Evaluación anual y reauditoría de cada espacio.</p>
+          </article>
+          <article class="adv">
+            <h4><i class="bi bi-card-checklist" aria-hidden="true"></i> De ranking a plan de obras</h4>
+            <p>Decir en público que una plaza tiene “1 estrella” puede leerse como abandono.</p>
+            <p class="propuesta">Se comunica la estrella actual junto con la estrella meta y una fecha estimada para alcanzarla.</p>
+          </article>
+          <article class="adv">
+            <h4><i class="bi bi-diagram-3" aria-hidden="true"></i> Jerarquía no es calidad</h4>
+            <p>Un parque metropolitano no es “mejor” que una plaza barrial: son escalas distintas.</p>
+            <p class="propuesta">La estrella mide calidad, no tamaño ni jerarquía.</p>
+          </article>
+        </div>
+
+        <h3 class="mt-5 mb-2" style="font-size: var(--fs-xl)">Impulsos y articulación</h3>
+        <p class="prosa text-soft">Medir es el punto de partida. Alrededor se articulan estrategias
+        sencillas entre el municipio y la comunidad, que se potencian entre sí:</p>
+        <div class="concepto-grid">
+          <article class="concepto"><div class="concepto__ic"><i class="bi bi-qr-code-scan"></i></div>
+            <h4>Reclamos por QR</h4><p>Un código en luminarias y cartelería. Se escanea y el reclamo entra directo a la guardia de Alumbrado Público. Sin registro, sin app y sin formularios.</p></article>
+          <article class="concepto"><div class="concepto__ic"><i class="bi bi-chat-square-heart"></i></div>
+            <h4>Sugerencias por QR</h4><p>La misma mecánica, con otra cartelería, para proponer mejoras para la plaza.</p></article>
+          <article class="concepto"><div class="concepto__ic"><i class="bi bi-clipboard2-data"></i></div>
+            <h4>Medición pública</h4><p>Publicar la calidad de cada plaza impulsa la apropiación: se cuida más lo que se puede ver, comparar y reclamar.</p></article>
+          <article class="concepto"><div class="concepto__ic"><i class="bi bi-mortarboard"></i></div>
+            <h4>Las plazas en la escuela</h4><p>Llevar el espacio público a las actividades del aula, en una primera etapa dentro del SEM.</p></article>
+        </div>
+      </div>
+
+      <div class="separador separador--sobre-surface" aria-hidden="true">
+        <svg viewBox="0 0 1440 96" preserveAspectRatio="none" role="presentation">
+          <path class="f2" d="M0,58 C240,96 480,24 720,54 C960,84 1200,32 1440,64 L1440,96 L0,96 Z"></path>
+          <path class="f1" d="M0,76 C240,48 480,90 720,72 C960,54 1200,90 1440,66 L1440,96 L0,96 Z"></path>
         </svg>
       </div>
     </section>
@@ -780,41 +1023,24 @@
       </div>
     </section>
 
-    <!-- ═══════════════════════ SECCIÓN 3 · JUEGOS ═══════════════════════ -->
+    <!-- ═══════════════════════ SECCIÓN 3 · QUIZ ═══════════════════════ -->
     <section id="juegos" class="seccion" tabindex="-1" aria-labelledby="juegos-h">
       <div class="contenedor">
         <div class="seccion__intro">
           <span class="kicker">Poné a prueba</span>
           <h2 id="juegos-h">Jugá y aprendé</h2>
           <p class="prosa text-soft mt-2" style="font-size: var(--fs-lg)">
-            Cuatro formas de repasar lo que viste. Elegí una para empezar.
+            Un quiz para repasar lo que viste, con una versión para chicos y otra
+            para grandes. Las preguntas y las opciones salen mezcladas al azar en
+            cada partida.
           </p>
         </div>
 
         <noscript>
           <p class="noscript-aviso"><i class="bi bi-exclamation-triangle"></i>
-            Los juegos necesitan JavaScript activado. El resto de la página
+            El quiz necesita JavaScript activado. El resto de la página
             (conceptos y plazas) funciona igual sin él.</p>
         </noscript>
-
-        <div class="juego-selector" id="juego-selector" role="group" aria-label="Elegí un juego">
-          <button type="button" data-juego="quiz" aria-pressed="false">
-            <span class="t"><i class="bi bi-patch-question"></i> Quiz</span>
-            <span class="d">Preguntas de opción múltiple con explicación.</span>
-          </button>
-          <button type="button" data-juego="vf" aria-pressed="false">
-            <span class="t"><i class="bi bi-check2-square"></i> Verdadero o Falso</span>
-            <span class="d">Ronda rápida de afirmaciones para resolver.</span>
-          </button>
-          <button type="button" data-juego="pares" aria-pressed="false">
-            <span class="t"><i class="bi bi-link-45deg"></i> Unir conceptos</span>
-            <span class="d">Emparejá cada término con su definición.</span>
-          </button>
-          <button type="button" data-juego="plazas" aria-pressed="false">
-            <span class="t"><i class="bi bi-image"></i> ¿Reconocés la plaza?</span>
-            <span class="d">Mirá la foto y elegí el nombre correcto.</span>
-          </button>
-        </div>
 
         <div class="juego-panel" id="juego-panel"><!-- render JS --></div>
 
@@ -831,7 +1057,7 @@
       <div class="cols">
         <div>
           <img src="assets/logos/logo-capital-dark-BCmcLDWl.webp" alt="Municipalidad de San Fernando del Valle de Catamarca"
-               onerror="this.style.display='none'">
+               width="1714" height="470" onerror="this.style.display='none'">
           <p class="mb-0" style="max-width: 34ch">Espacios verdes al servicio de una ciudad más fresca, sana y con más encuentro.</p>
         </div>
 
@@ -839,6 +1065,7 @@
           <h4 id="footer-secciones">Secciones</h4>
           <ul>
             <li><a href="#conceptos">Conceptos</a></li>
+            <li><a href="#calidad">Calidad</a></li>
             <li><a href="#plazas">Plazas</a></li>
             <li><a href="#juegos">Jugá y aprendé</a></li>
           </ul>
@@ -857,27 +1084,16 @@
           <h4 id="footer-redes">Seguinos</h4>
           <div class="redes" aria-labelledby="footer-redes">
             <a href="https://www.facebook.com/catamarcatucapital" target="_blank" rel="noopener noreferrer" aria-label="Facebook de Catamarca Capital (abre en una pestaña nueva)">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-              </svg>
+              <i class="bi bi-facebook" aria-hidden="true"></i>
             </a>
             <a href="https://x.com/MuniSFVC" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter) de la Municipalidad (abre en una pestaña nueva)">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
-              </svg>
+              <i class="bi bi-twitter-x" aria-hidden="true"></i>
             </a>
             <a href="https://www.instagram.com/catamarcacapital/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Catamarca Capital (abre en una pestaña nueva)">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-              </svg>
+              <i class="bi bi-instagram" aria-hidden="true"></i>
             </a>
             <a href="https://www.youtube.com/channel/UCMAeIcE5sQa7chR-J13zlDw" target="_blank" rel="noopener noreferrer" aria-label="Canal de YouTube de la Municipalidad (abre en una pestaña nueva)">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path>
-                <path d="m10 15 5-3-5-3z"></path>
-              </svg>
+              <i class="bi bi-youtube" aria-hidden="true"></i>
             </a>
           </div>
         </div>
@@ -912,59 +1128,150 @@
     { slug: "sarmiento",         nombre: "Plaza Sarmiento",         barrio: "Centro",          resumen: "Pequeña plazoleta con fuente y añosos naranjos amargos." }
   ];
 
-  /* --- Banco de contenidos de los juegos (Sección 3) --- */
-  /* ═══ EJEMPLO — reemplazar con el MD de preguntas / opciones / respuestas ═══
-     quiz: opción múltiple (3-4 opciones). "correcta" = índice base 0.
-     vf:   afirmación con esVerdadero true/false.
-     pares: término + definición.
-     La partida "¿Reconocés la plaza?" se arma sola con PLAZAS. */
+  /* --- Banco de preguntas del quiz (Sección 3) --- */
+  /* Cada pregunta lleva `nivel: "chicos" | "grandes"`. El selector de la pantalla
+     de inicio filtra por nivel; "Todos los niveles" usa el banco completo.
+     El motor mezcla al azar el orden de las preguntas Y el orden de las opciones
+     en cada partida (ver `mezclarOpciones`), así la respuesta correcta no queda
+     siempre en la misma posición.
+       opción múltiple (2-4 opciones). "correcta" = índice base 0 sobre `opciones`. */
   const JUEGOS = {
     quiz: [
-      { pregunta: "¿Cuál es la función ambiental más directa del arbolado urbano en una ciudad calurosa como Catamarca?",
-        opciones: ["Aumentar el valor de las propiedades", "Dar sombra y bajar la temperatura", "Delimitar los barrios", "Decorar las avenidas"],
-        correcta: 1,
-        explicacion: "El árbol intercepta la radiación solar y, al transpirar, enfría el aire: es la herramienta más efectiva contra la isla de calor." },
-      { pregunta: "La OMS recomienda un mínimo de espacio verde público por habitante de aproximadamente…",
-        opciones: ["1 a 2 m²", "10 a 15 m²", "50 a 60 m²", "No existe una recomendación"],
-        correcta: 1,
-        explicacion: "La referencia habitual es de 10 a 15 m² de verde por habitante. [Confirmar el dato local con el MD.]" },
-      { pregunta: "¿Qué es una plazoleta?",
-        opciones: ["Un parque de gran escala", "Una plaza de pequeña escala, a menudo en un cruce de calles", "Un cantero sin acceso público", "Una plaza privada"],
-        correcta: 1,
-        explicacion: "La plazoleta es una plaza chica; muchas veces surge de ampliar un cantero o una esquina." },
-      { pregunta: "El agua de lluvia que cae sobre una plaza con césped y árboles, comparada con la que cae sobre asfalto…",
-        opciones: ["Se infiltra más y genera menos anegamiento", "Corre más rápido hacia los desagües", "Es igual en ambos casos", "Se evapora al instante"],
-        correcta: 0,
-        explicacion: "El suelo vegetado absorbe e infiltra el agua; reduce el caudal que va a la calle y el riesgo de anegamiento." },
-      { pregunta: "¿Cuál de estas acciones ciudadanas CUIDA mejor una plaza?",
-        opciones: ["Regar el césped con manguera todo el día", "Podar los árboles por cuenta propia", "Llevarte los residuos si el cesto está lleno", "Andar en moto por los senderos"],
+      /* ═══ Nivel "grandes" — MD "Material didáctico · Quiz" (BLOQUES 1 a 3) ═══ */
+      { nivel: "grandes",
+        pregunta: "¿Qué necesita un lugar para ser considerado espacio verde urbano?",
+        opciones: ["Que tenga pasto y algunos árboles",
+                   "Que sea propiedad de la municipalidad",
+                   "Que tenga vegetación y suelo absorbente, y que sea de uso público",
+                   "Que esté cercado y tenga horario de apertura"],
         correcta: 2,
-        explicacion: "Si el cesto está lleno, lo mejor es llevarte la basura. La poda la hace personal municipal capacitado." },
-      { pregunta: "\"Infraestructura verde\" significa…",
-        opciones: ["Los caños y cables pintados de verde", "La red de plazas, arbolado y canteros que presta servicios ambientales", "Un tipo de pavimento permeable", "El alumbrado de bajo consumo"],
+        explicacion: "Un espacio verde urbano es un área abierta con predominio de vegetación y suelo absorbente, destinada al uso público, la recreación, el descanso y la interacción social." },
+      { nivel: "grandes",
+        pregunta: "Una rotonda con césped y plantas en el medio de una avenida, ¿es un espacio verde?",
+        opciones: ["Sí, porque tiene vegetación",
+                   "Sí, si el municipio la mantiene",
+                   "No, porque no se puede entrar ni quedarse en ella",
+                   "No, porque está en una avenida"],
+        correcta: 2,
+        explicacion: "Las rotondas viales, platabandas, separadores de avenidas y canteros ornamentales no se consideran espacios verdes. Aportan al sistema verde de la ciudad, pero no son lugares donde estar." },
+      { nivel: "grandes",
+        pregunta: "¿Cuál es la diferencia entre espacio público y espacio verde?",
+        opciones: ["Ninguna, son dos nombres para lo mismo",
+                   "El espacio verde siempre es más grande",
+                   "El espacio público es del Estado y el verde puede ser privado",
+                   "Todo espacio verde de uso público es espacio público, pero hay espacios públicos sin vegetación"],
+        correcta: 3,
+        explicacion: "Una peatonal, una plaza seca o un mercado son espacio público sin ser espacio verde." },
+      { nivel: "grandes",
+        pregunta: "¿Cuál de estos es espacio público pero no es espacio verde?",
+        opciones: ["Una plazoleta de barrio", "Una calle peatonal del centro", "Un parque lineal", "Una plaza con juegos"],
         correcta: 1,
-        explicacion: "Se llama así porque cumple funciones de infraestructura (drenaje, clima, aire) con base en la vegetación." }
-    ],
-    vf: [
-      { afirmacion: "Las plazas ayudan a reducir la temperatura del aire en verano.", esVerdadero: true,
-        explicacion: "La vegetación da sombra y, al transpirar, enfría el entorno inmediato." },
-      { afirmacion: "El cemento y el asfalto enfrían la ciudad más que los árboles.", esVerdadero: false,
-        explicacion: "Al revés: acumulan calor durante el día y lo liberan de noche, agravando la isla de calor." },
-      { afirmacion: "El arbolado de vereda es parte de los espacios verdes de la ciudad.", esVerdadero: true,
-        explicacion: "Es infraestructura verde: cumple funciones ambientales aunque no sea una plaza." },
-      { afirmacion: "Está bien dejar la basura al lado del cesto si está lleno.", esVerdadero: false,
-        explicacion: "Se vuela y ensucia la plaza. Lo correcto es llevártela hasta encontrar un cesto disponible." },
-      { afirmacion: "Un parque presta servicio a toda la ciudad, no solo a un barrio.", esVerdadero: true,
-        explicacion: "Por su escala y equipamiento, el parque tiene alcance urbano; la plaza es más barrial." },
-      { afirmacion: "Las plazas no tienen ningún efecto sobre la salud de las personas.", esVerdadero: false,
-        explicacion: "Favorecen la actividad física, el descanso y la vida social, y mejoran el aire que respiramos." }
-    ],
-    pares: [
-      { termino: "Isla de calor", definicion: "El centro de la ciudad está más caliente que la zona rural que la rodea." },
-      { termino: "Plaza", definicion: "Espacio abierto de encuentro barrial con senderos, bancos y juegos." },
-      { termino: "Parque", definicion: "Gran superficie verde con alcance para toda la ciudad." },
-      { termino: "Cantero central", definicion: "Franja verde que separa las dos manos de una avenida." },
-      { termino: "m²/habitante", definicion: "Indicador que reparte la superficie verde entre la población." }
+        explicacion: "La calle peatonal es espacio público de uso común, pero sin predominio de vegetación ni suelo absorbente no llega a ser un espacio verde." },
+      { nivel: "grandes",
+        pregunta: "Si un lugar tiene mucha vegetación pero está cerrado con rejas y no se puede ingresar, entonces:",
+        opciones: ["Igual es un espacio verde público",
+                   "Aporta beneficios ambientales, pero no es un espacio verde de uso público",
+                   "Es un parque metropolitano",
+                   "No sirve para nada"],
+        correcta: 1,
+        explicacion: "El criterio que separa \"verde\" de \"espacio verde\" es poder entrar y permanecer." },
+      { nivel: "grandes",
+        pregunta: "Un espacio verde público de menos de 4.000 m², de escala pequeña y valor simbólico, se llama:",
+        opciones: ["Plaza", "Plazoleta", "Parque", "Boulevard"],
+        correcta: 1,
+        explicacion: "La plazoleta es un espacio verde de escala menor, muchas veces en un cruce de calles o en un cantero ampliado." },
+      { nivel: "grandes",
+        pregunta: "¿Qué tamaño tiene una plaza?",
+        opciones: ["Menos de 4.000 m²", "Entre 4.000 y 15.000 m²", "Entre 15.000 y 50.000 m²", "Más de 15 hectáreas"],
+        correcta: 1,
+        explicacion: "La plaza es de escala barrial: su función es el encuentro social y la recreación del barrio." },
+      { nivel: "grandes",
+        pregunta: "¿A partir de cuántas hectáreas un parque deja de ser urbano y pasa a considerarse metropolitano?",
+        opciones: ["5 hectáreas", "10 hectáreas", "15 hectáreas", "25 hectáreas"],
+        correcta: 2,
+        explicacion: "Hasta unas 15 ha el parque tiene alcance urbano; por encima de ese umbral estructura el verde a escala metropolitana." },
+      { nivel: "grandes",
+        pregunta: "¿Qué es un corredor verde?",
+        opciones: ["Un sendero para correr dentro de un parque",
+                   "Un espacio lineal con vegetación que conecta parques y áreas verdes de la ciudad",
+                   "Una calle cortada al tránsito",
+                   "El pasillo central de una plaza"],
+        correcta: 1,
+        explicacion: "El corredor verde enlaza plazas y parques entre sí y permite moverse por la ciudad bajo los árboles." },
+      { nivel: "grandes",
+        pregunta: "La faja verde es:",
+        opciones: ["El césped del centro de una plaza",
+                   "Una plaza alargada",
+                   "La franja vegetada ubicada entre la vereda y la calzada",
+                   "El límite del ejido urbano"],
+        correcta: 2,
+        explicacion: "Es el soporte físico del arbolado de vereda y está definida en el Nuevo Código Urbanístico." },
+      { nivel: "grandes",
+        pregunta: "¿A qué distancia aproximada debería tener una plaza el vecindario que la usa?",
+        opciones: ["100 metros", "300 metros", "1.000 metros", "3.000 metros"],
+        correcta: 1,
+        explicacion: "300 m es el área de influencia de plazas y plazoletas: unos 5 minutos caminando." },
+      { nivel: "grandes",
+        pregunta: "¿Por qué se habla de \"infraestructura verde\" y no simplemente de \"las plazas\"?",
+        opciones: ["Porque suena más técnico",
+                   "Porque incluye solo los parques grandes",
+                   "Porque es un sistema planificado e interconectado, no una suma de espacios sueltos",
+                   "Porque la construye el municipio"],
+        correcta: 2,
+        explicacion: "Sin conexión entre ellos, cada espacio verde es un parche aislado. Conectados, funcionan como sistema." },
+      { nivel: "grandes",
+        pregunta: "Los espacios verdes más grandes (5 hectáreas o más), que estructuran todo el sistema y regulan el clima a escala ciudad, se llaman:",
+        opciones: ["Nodos principales", "Núcleos", "Mallas verdes", "Conectores"],
+        correcta: 1,
+        explicacion: "Los núcleos son las piezas mayores del sistema verde y ordenan el resto de la red." },
+      { nivel: "grandes",
+        pregunta: "Dentro de la red verde de la ciudad, las plazas funcionan como:",
+        opciones: ["Núcleos", "Nodos principales, de escala barrial", "Corredores", "Áreas de amortiguación"],
+        correcta: 1,
+        explicacion: "La plaza es un nodo de escala barrial: recibe el uso cotidiano del vecindario y se conecta con el resto por los corredores." },
+      { nivel: "grandes",
+        pregunta: "¿Cuál es la función de los corredores y conectores verdes?",
+        opciones: ["Decorar las avenidas",
+                   "Dar sombra a los autos",
+                   "Unir los parques y plazas entre sí para que el verde funcione como red",
+                   "Separar los carriles de circulación"],
+        correcta: 2,
+        explicacion: "Los corredores enlazan los espacios verdes: sin ellos el sistema se fragmenta en piezas sueltas." },
+      { nivel: "grandes",
+        pregunta: "Las áreas de amortiguación (como la Sierra del Colorado) sirven para:",
+        opciones: ["Ampliar el ejido urbano",
+                   "Amortiguar el contacto entre la ciudad y el entorno natural, protegiendo zonas de valor ambiental",
+                   "Construir nuevos barrios",
+                   "Estacionar vehículos"],
+        correcta: 1,
+        explicacion: "Median entre lo urbano y lo natural, y resguardan áreas de valor ambiental de la presión de la ciudad." },
+
+      /* ═══ EJEMPLO — reemplazar con el MD de nivel "chicos" ═══ */
+      { nivel: "chicos",
+        pregunta: "En un día de mucho calor, ¿para qué sirven los árboles de una plaza?",
+        opciones: ["Para dar sombra y refrescar el aire", "Solo para decorar", "Para marcar dónde termina el barrio", "Para que no pasen los autos"],
+        correcta: 0,
+        explicacion: "Los árboles hacen sombra y, al largar vapor de agua por las hojas, refrescan el aire alrededor." },
+      { nivel: "chicos",
+        pregunta: "¿Qué es una plazoleta?",
+        opciones: ["Una plaza chica", "Un parque enorme", "El patio de una casa", "Una cancha de fútbol"],
+        correcta: 0,
+        explicacion: "Es una plaza de tamaño pequeño; muchas veces está en una esquina o en un cantero agrandado." },
+      { nivel: "chicos",
+        pregunta: "El agua de lluvia que cae sobre el pasto y la tierra, comparada con la que cae sobre el asfalto:",
+        opciones: ["Se mete en la tierra y ayuda a que no se inunde", "Corre más rápido", "Desaparece al toque", "Ensucia la plaza"],
+        correcta: 0,
+        explicacion: "La tierra con plantas absorbe el agua como una esponja; el asfalto no, y por eso el agua se junta en la calle." },
+      { nivel: "chicos",
+        pregunta: "Si el cesto de basura está lleno, ¿qué conviene hacer?",
+        opciones: ["Llevarte la basura hasta encontrar otro cesto", "Dejarla al lado del cesto", "Tirarla abajo de un árbol", "Esconderla entre las plantas"],
+        correcta: 0,
+        explicacion: "Si la dejás afuera, el viento la vuela y ensucia toda la plaza. Mejor llevarla hasta un cesto con lugar." },
+      { nivel: "chicos",
+        pregunta: "¿Cuál de estas cosas cuida una plaza?",
+        opciones: ["Usar los juegos con cuidado y esperar el turno", "Arrancar ramas de los árboles", "Andar en moto por los senderos", "Pisar los canteros con plantas"],
+        correcta: 0,
+        explicacion: "Cuidar los juegos, las plantas y compartir los espacios hace que la plaza dure para todos." }
     ]
   };
 
@@ -992,13 +1299,26 @@
   function barajar(arr) { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
   function esc(s) { const d = document.createElement('div'); d.textContent = s ?? ''; return d.innerHTML; }
 
+  /* Todos los íconos de Bootstrap Icons de esta página son decorativos y acompañan
+     texto visible → marcarlos aria-hidden para que el lector de pantalla no anuncie
+     el carácter de la fuente. Cubre los estáticos y los que el JS agrega después. */
+  const ocultarIconos = (root) => root.querySelectorAll('i.bi:not([aria-hidden])').forEach(el => el.setAttribute('aria-hidden', 'true'));
+  ocultarIconos(document);
+  new MutationObserver(muts => {
+    for (const m of muts) for (const n of m.addedNodes) {
+      if (n.nodeType !== 1) continue;
+      if (n.matches?.('i.bi:not([aria-hidden])')) n.setAttribute('aria-hidden', 'true');
+      if (n.querySelectorAll) ocultarIconos(n);
+    }
+  }).observe(document.body, { childList: true, subtree: true });
+
   /* ════════════════════════════════════════════════════════════════
      NAV — enlace activo según la sección visible + foco al navegar
      ════════════════════════════════════════════════════════════════ */
   (function nav() {
     const links = $$('.muni-navbar .nav-link');
     const map = new Map(links.map(l => [l.getAttribute('href').slice(1), l]));
-    const secciones = ['conceptos', 'plazas', 'juegos'].map(id => document.getElementById(id));
+    const secciones = ['conceptos', 'calidad', 'plazas', 'juegos'].map(id => document.getElementById(id));
 
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver((entries) => {
@@ -1064,13 +1384,21 @@
       chips.hidden = !hayFiltro;
       chips.innerHTML = hayFiltro
         ? `<span class="chip"><i class="bi bi-funnel-fill"></i> Búsqueda: ${esc(q)}</span>
-           <button class="btn-pv btn-pv--outline" style="padding:5px 12px;min-height:0" type="button" id="chip-limpiar"><i class="bi bi-x"></i> Limpiar</button>`
+           <button class="btn-pv btn-pv--outline" style="padding:8px 16px" type="button" id="chip-limpiar"><i class="bi bi-x"></i> Limpiar</button>`
         : '';
       const c = lista.length;
       count.textContent = hayFiltro
         ? `${c} ${c === 1 ? 'plaza' : 'plazas'} para “${q}” · de ${PLAZAS.length}`
         : `${PLAZAS.length} plazas`;
       const btn = $('#chip-limpiar'); if (btn) btn.addEventListener('click', limpiar);
+    }
+
+    /* Guarda la búsqueda en la URL (?q=) para que "Atrás" desde una ficha la conserve. */
+    function sincronizarURL(q) {
+      const u = new URL(location.href);
+      if (q) u.searchParams.set('q', q); else u.searchParams.delete('q');
+      u.hash = 'plazas';
+      history.replaceState(null, '', u);
     }
 
     function filtrar() {
@@ -1080,97 +1408,109 @@
         ? PLAZAS.filter(p => (p.nombre + ' ' + p.barrio).toLowerCase().includes(qn))
         : PLAZAS;
       render(lista, q);
+      sincronizarURL(q);
       if (qn) anunciar(`${lista.length} resultado${lista.length === 1 ? '' : 's'} para ${q}`);
     }
     function limpiar() { input.value = ''; filtrar(); input.focus(); }
 
     input.addEventListener('input', filtrar);
     $('#sr-limpiar').addEventListener('click', limpiar);
-    render(PLAZAS, '');
+
+    // Al cargar: si venís con ?q= (por ejemplo tras "Atrás"), re-aplica el filtro.
+    const qInicial = new URLSearchParams(location.search).get('q');
+    if (qInicial) { input.value = qInicial; filtrar(); }
+    else render(PLAZAS, '');
   })();
 
   /* ════════════════════════════════════════════════════════════════
-     SECCIÓN 3 — MOTOR DE JUEGOS
+     SECCIÓN 3 — MOTOR DEL QUIZ
+     Un solo juego (quiz de opción múltiple). Selector de nivel en la
+     pantalla de inicio; preguntas y opciones al azar en cada partida.
      ════════════════════════════════════════════════════════════════ */
-  (function juegos() {
+  (function quiz() {
     const panel = $('#juego-panel');
-    const selBtns = $$('#juego-selector button');
     const TOTAL_QUIZ = 5;   // preguntas por partida (si hay menos, usa todas)
+    const TITULO = 'Quiz de espacios verdes';
+    const INTRO  = 'Vas a responder preguntas de opción múltiple. Al elegir vas a ver si acertaste y por qué.';
+    const ICONO  = 'bi-patch-question';
 
-    const META = {
-      quiz:   { titulo: "Quiz de espacios verdes", intro: "Vas a responder preguntas de opción múltiple. Al elegir vas a ver si acertaste y por qué.", icono: "bi-patch-question" },
-      vf:     { titulo: "Verdadero o Falso", intro: "Decidí si cada afirmación es verdadera o falsa. Después te mostramos la explicación.", icono: "bi-check2-square" },
-      pares:  { titulo: "Unir concepto y definición", intro: "Tocá un término de la izquierda y después su definición en la derecha.", icono: "bi-link-45deg" },
-      plazas: { titulo: "¿Reconocés la plaza?", intro: "Mirá la foto y elegí el nombre correcto entre las opciones.", icono: "bi-image" }
-    };
+    let ronda = [], i = 0, aciertos = 0, fallos = [], respondida = false;
+    let nivelActivo = 'todo';   // 'todo' | 'chicos' | 'grandes' — lo fija el selector de la pantalla de inicio
 
-    let tipo = null, ronda = [], i = 0, aciertos = 0, fallos = [], respondida = false;
-    let parSel = null, paresOk = 0, paresIntentosFallidos = 0;
-
-    /* ---------- pantallas ---------- */
-    function pantallaInicio() {
-      panel.innerHTML = `
-        <div class="resultado">
-          <div class="concepto__ic" style="margin-inline:auto;width:64px;height:64px;font-size:2rem"><i class="bi ${META[tipo].icono}"></i></div>
-          <h3 class="mt-3">${META[tipo].titulo}</h3>
-          <p class="resultado__msg prosa" style="margin-inline:auto">${META[tipo].intro}</p>
-          <button class="btn-pv" type="button" id="btn-comenzar"><i class="bi bi-play-fill"></i> Comenzar</button>
-        </div>`;
-      $('#btn-comenzar').addEventListener('click', empezar);
-      $('#btn-comenzar').focus();
+    /* Filtra el banco por el nivel activo. "todo" usa el banco completo.
+       Los ítems sin `nivel` se consideran "grandes". */
+    function porNivel(banco) {
+      return nivelActivo === 'todo' ? banco.slice() : banco.filter(x => (x.nivel || 'grandes') === nivelActivo);
     }
 
+    /* Copia de la pregunta con las opciones en orden al azar y el índice
+       `correcta` recalculado. Mezcla índices (no textos) para tolerar opciones
+       repetidas. Así la respuesta correcta no queda siempre en la misma letra. */
+    function mezclarOpciones(q) {
+      const orden = barajar(q.opciones.map((_, k) => k));
+      return { ...q, opciones: orden.map(k => q.opciones[k]), correcta: orden.indexOf(q.correcta) };
+    }
+
+    /* ---------- pantalla de inicio (con selector de nivel) ---------- */
+    function pantallaInicio() {
+      const niveles = [['todo', 'Todos los niveles'], ['chicos', 'Para chicos'], ['grandes', 'Para grandes']];
+      panel.innerHTML = `
+        <div class="resultado">
+          <div class="concepto__ic" style="margin-inline:auto;width:64px;height:64px;font-size:2rem"><i class="bi ${ICONO}"></i></div>
+          <h3 class="mt-3">${TITULO}</h3>
+          <p class="resultado__msg prosa" style="margin-inline:auto">${INTRO}</p>
+          <fieldset class="nivel-pick">
+            <legend>¿Para quién es esta ronda?</legend>
+            <div class="ops">
+              ${niveles.map(([v, txt]) => `
+                <label><input type="radio" name="nivel-juego" value="${v}"${v === nivelActivo ? ' checked' : ''}> ${txt}</label>`).join('')}
+            </div>
+            <p class="nivel-hint" id="nivel-hint" aria-live="polite"></p>
+          </fieldset>
+          <button class="btn-pv" type="button" id="btn-comenzar"><i class="bi bi-play-fill"></i> Comenzar</button>
+        </div>`;
+
+      const btn = $('#btn-comenzar');
+      function refrescarHint() {
+        const n = porNivel(JUEGOS.quiz).length;
+        const hint = $('#nivel-hint');
+        if (n === 0) {
+          hint.textContent = 'Todavía no hay preguntas para ese nivel. Elegí otro nivel.';
+          btn.disabled = true;
+        } else {
+          hint.textContent = `${n} ${n === 1 ? 'pregunta' : 'preguntas'} para este nivel. Salen mezcladas al azar en cada partida.`;
+          btn.disabled = false;
+        }
+      }
+      $$('input[name="nivel-juego"]', panel).forEach(r =>
+        r.addEventListener('change', () => { nivelActivo = r.value; refrescarHint(); }));
+      btn.addEventListener('click', empezar);
+      refrescarHint();
+      btn.focus();
+    }
+
+    /* ---------- partida ---------- */
     function empezar() {
       i = 0; aciertos = 0; fallos = []; respondida = false;
-      parSel = null; paresOk = 0; paresIntentosFallidos = 0;
-
-      if (tipo === 'quiz')  ronda = barajar(JUEGOS.quiz).slice(0, TOTAL_QUIZ);
-      if (tipo === 'vf')    ronda = barajar(JUEGOS.vf).slice(0, TOTAL_QUIZ + 1);
-      if (tipo === 'plazas') {
-        const base = PLAZAS.length >= 4 ? barajar(PLAZAS).slice(0, Math.min(TOTAL_QUIZ, PLAZAS.length)) : [];
-        ronda = base.map(p => {
-          const distract = barajar(PLAZAS.filter(x => x.slug !== p.slug)).slice(0, 3).map(x => x.nombre);
-          const opciones = barajar([p.nombre, ...distract]);
-          return { plaza: p, pregunta: '¿Qué plaza aparece en la foto?', opciones, correcta: opciones.indexOf(p.nombre),
-                   explicacion: `${p.nombre} está en ${p.barrio}. ${p.resumen}` };
-        });
-      }
-      if (tipo === 'pares') { pintarPares(); return; }
-
-      if (!ronda.length) {
-        panel.innerHTML = `<div class="estado" style="border:0"><i class="bi bi-image"></i>
-          <h3>Disponible al cargar las fotos</h3>
-          <p>Este juego necesita al menos 4 plazas con imagen. Cuando estén cargadas en
-          <code>assets/img/plazas/</code>, se activa solo.</p>
-          <div class="acciones"><button class="btn-pv btn-pv--outline" id="volver-sel" type="button">Elegir otro juego</button></div></div>`;
-        $('#volver-sel').addEventListener('click', () => elegir(null));
-        return;
-      }
+      ronda = barajar(porNivel(JUEGOS.quiz)).slice(0, TOTAL_QUIZ).map(mezclarOpciones);
+      if (!ronda.length) { pantallaInicio(); return; }   // red de seguridad (el botón ya se deshabilita)
       pintarPregunta();
     }
 
-    /* ---------- quiz / vf / plazas ---------- */
     function pintarPregunta() {
       respondida = false;
       const q = ronda[i];
-      const enunciado = tipo === 'vf' ? q.afirmacion : q.pregunta;
-      const opciones = tipo === 'vf' ? ['Verdadero', 'Falso'] : q.opciones;
-
-      const media = tipo === 'plazas'
-        ? `<div class="plaza-adivina"><img src="assets/img/plazas/plaza-${q.plaza.slug}.jpg" alt="Foto de una plaza para identificar" data-ph="guess"></div>` : '';
-
       panel.innerHTML = `
         <div class="juego-cabecera">
-          <h3>${META[tipo].titulo}</h3>
+          <h3>${TITULO}</h3>
           <div>
             ${barraProgreso()}
             <div class="progreso__txt mt-1">Pregunta ${i + 1} de ${ronda.length}</div>
           </div>
         </div>
-        ${media}
-        <p class="pregunta">${esc(enunciado)}</p>
+        <p class="pregunta">${esc(q.pregunta)}</p>
         <div class="opciones" role="group" aria-label="Opciones de respuesta">
-          ${opciones.map((o, idx) => `
+          ${q.opciones.map((o, idx) => `
             <button class="opcion" type="button" data-idx="${idx}">
               <span class="marca" aria-hidden="true">${String.fromCharCode(65 + idx)}</span>
               <span>${esc(o)}</span>
@@ -1187,17 +1527,12 @@
       if (respondida) return;
       respondida = true;
       const q = ronda[i];
-      const idxCorrecta = tipo === 'vf' ? (q.esVerdadero ? 0 : 1) : q.correcta;
+      const idxCorrecta = q.correcta;
       const ok = elegido === idxCorrecta;
       if (ok) aciertos++;
-      else fallos.push({
-        enunciado: tipo === 'vf' ? q.afirmacion : q.pregunta,
-        correcta: tipo === 'vf' ? (q.esVerdadero ? 'Verdadero' : 'Falso') : q.opciones[idxCorrecta],
-        explicacion: q.explicacion
-      });
+      else fallos.push({ enunciado: q.pregunta, correcta: q.opciones[idxCorrecta], explicacion: q.explicacion });
 
-      const botones = $$('.opcion', panel);
-      botones.forEach((b, idx) => {
+      $$('.opcion', panel).forEach((b, idx) => {
         b.disabled = true;
         if (idx === idxCorrecta) { b.classList.add('correcta'); b.querySelector('.marca').innerHTML = '<i class="bi bi-check-lg"></i>'; }
         if (idx === elegido && !ok) { b.classList.add('incorrecta'); b.querySelector('.marca').innerHTML = '<i class="bi bi-x-lg"></i>'; }
@@ -1211,8 +1546,7 @@
         <div>${esc(q.explicacion || '')}</div>`;
 
       const ultima = i === ronda.length - 1;
-      const acc = $('#acc');
-      acc.innerHTML = `<button class="btn-pv" type="button" id="btn-next">
+      $('#acc').innerHTML = `<button class="btn-pv" type="button" id="btn-next">
         ${ultima ? '<i class="bi bi-flag-fill"></i> Ver resultado' : 'Siguiente <i class="bi bi-arrow-right"></i>'}</button>`;
       $('#btn-next').addEventListener('click', siguiente);
       $('#btn-next').focus();
@@ -1231,117 +1565,35 @@
         `</div>`;
     }
 
-    /* ---------- unir conceptos ---------- */
-    function pintarPares() {
-      const izq = JUEGOS.pares;
-      const der = barajar(JUEGOS.pares);
-      panel.innerHTML = `
-        <div class="juego-cabecera">
-          <h3>${META.pares.titulo}</h3>
-          <div class="progreso__txt" id="pares-cont">0 / ${izq.length} parejas</div>
-        </div>
-        <div class="pares-cols">
-          <div>
-            <h4>Término</h4>
-            <ul id="col-term">${izq.map((p, idx) => `<li><button class="par-item" type="button" data-t="${idx}">${esc(p.termino)}</button></li>`).join('')}</ul>
-          </div>
-          <div>
-            <h4>Definición</h4>
-            <ul id="col-def">${der.map(p => `<li><button class="par-item" type="button" data-d="${esc(p.termino)}">${esc(p.definicion)}</button></li>`).join('')}</ul>
-          </div>
-        </div>
-        <div class="feedback" id="fb" role="alert"></div>`;
-
-      $$('#col-term .par-item', panel).forEach(b => b.addEventListener('click', () => elegirTermino(b)));
-      $$('#col-def .par-item', panel).forEach(b => b.addEventListener('click', () => elegirDefinicion(b)));
-    }
-
-    function elegirTermino(btn) {
-      if (btn.classList.contains('correcta')) return;
-      $$('#col-term .par-item', panel).forEach(b => b.classList.remove('sel'));
-      btn.classList.add('sel');
-      parSel = btn;
-      anunciar('Término elegido: ' + btn.textContent + '. Ahora elegí su definición.');
-    }
-
-    function elegirDefinicion(btn) {
-      if (!parSel || btn.classList.contains('correcta')) return;
-      const termIdx = +parSel.dataset.t;
-      const esperado = JUEGOS.pares[termIdx].termino;
-      if (btn.dataset.d === esperado) {
-        [parSel, btn].forEach(b => { b.classList.remove('sel'); b.classList.add('correcta'); b.disabled = true; });
-        parSel = null; paresOk++;
-        $('#pares-cont').textContent = `${paresOk} / ${JUEGOS.pares.length} parejas`;
-        anunciar('¡Bien! Pareja correcta. ' + paresOk + ' de ' + JUEGOS.pares.length + '.');
-        if (paresOk === JUEGOS.pares.length) setTimeout(pintarResultado, 400);
-      } else {
-        paresIntentosFallidos++;
-        btn.classList.add('err');
-        setTimeout(() => btn.classList.remove('err'), 350);
-        parSel.classList.remove('sel'); parSel = null;
-        anunciar('No corresponde. Probá de nuevo.');
-      }
-    }
-
     /* ---------- resultado ---------- */
     function pintarResultado() {
-      let score, total, msg;
-      if (tipo === 'pares') {
-        total = JUEGOS.pares.length;
-        score = total;
-        msg = paresIntentosFallidos === 0
-          ? '¡Perfecto! Uniste todas las parejas sin errores.'
-          : `Completaste las ${total} parejas con ${paresIntentosFallidos} intento${paresIntentosFallidos === 1 ? '' : 's'} fallido${paresIntentosFallidos === 1 ? '' : 's'}.`;
-      } else {
-        total = ronda.length; score = aciertos;
-        const pct = score / total;
-        msg = pct === 1 ? '¡Impecable! Dominás el tema.'
-            : pct >= 0.6 ? '¡Muy bien! Repasá lo que quedó flojo.'
-            : 'Volvé a leer la sección de conceptos y probá otra vez.';
-      }
+      const total = ronda.length, score = aciertos, pct = score / total;
+      const msg = pct === 1 ? '¡Impecable! Dominás el tema.'
+                : pct >= 0.6 ? '¡Muy bien! Repasá lo que quedó flojo.'
+                : 'Volvé a leer la sección de conceptos y probá otra vez.';
 
-      const repaso = (tipo === 'pares')
-        ? `<div class="repaso"><h4>Para repasar</h4><ul>${JUEGOS.pares.map(p => `<li><b>${esc(p.termino)}:</b> ${esc(p.definicion)}</li>`).join('')}</ul></div>`
-        : (fallos.length
-            ? `<div class="repaso"><h4><i class="bi bi-journal-text"></i> Repasá lo que fallaste</h4><ul>${fallos.map(f => `<li><b>${esc(f.enunciado)}</b><br>Respuesta correcta: ${esc(f.correcta)}.<br><span class="text-soft">${esc(f.explicacion || '')}</span></li>`).join('')}</ul></div>`
-            : `<p class="text-soft">No fallaste ninguna. 🌳</p>`);
+      const repaso = fallos.length
+        ? `<div class="repaso"><h4><i class="bi bi-journal-text"></i> Repasá lo que fallaste</h4><ul>${fallos.map(f => `<li><b>${esc(f.enunciado)}</b><br>Respuesta correcta: ${esc(f.correcta)}.<br><span class="text-soft">${esc(f.explicacion || '')}</span></li>`).join('')}</ul></div>`
+        : `<p class="text-soft">No fallaste ninguna. ¡Impecable!</p>`;
 
       panel.innerHTML = `
         <div class="resultado">
-          <div class="progreso__txt">Resultado</div>
+          <h3 class="progreso__txt">Resultado</h3>
           <div class="resultado__score">${score} / ${total}</div>
           <p class="resultado__msg">${msg}</p>
           <div class="juego-acciones" style="justify-content:center">
             <button class="btn-pv" type="button" id="btn-otra"><i class="bi bi-arrow-repeat"></i> Volver a jugar</button>
-            <button class="btn-pv btn-pv--outline" type="button" id="btn-otro"><i class="bi bi-grid"></i> Probar otro juego</button>
+            <button class="btn-pv btn-pv--outline" type="button" id="btn-nivel"><i class="bi bi-people"></i> Cambiar de nivel</button>
           </div>
           ${repaso}
         </div>`;
       $('#btn-otra').addEventListener('click', empezar);
-      $('#btn-otro').addEventListener('click', () => elegir(null));
+      $('#btn-nivel').addEventListener('click', pantallaInicio);
       $('#btn-otra').focus();
       anunciar(`Resultado: ${score} de ${total}. ${msg}`);
     }
 
-    /* ---------- selección de juego ---------- */
-    function elegir(nuevoTipo) {
-      tipo = nuevoTipo;
-      selBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.juego === tipo)));
-      if (!tipo) { pantallaVacia(); return; }
-      pantallaInicio();
-    }
-
-    function pantallaVacia() {
-      panel.innerHTML = `
-        <div class="resultado">
-          <div class="concepto__ic" style="margin-inline:auto;width:64px;height:64px;font-size:2rem"><i class="bi bi-controller"></i></div>
-          <h3 class="mt-3">Elegí un juego para empezar</h3>
-          <p class="resultado__msg prosa" style="margin-inline:auto">Arriba tenés cuatro opciones. Todas repasan los conceptos de espacios verdes y las plazas de la ciudad.</p>
-        </div>`;
-    }
-
-    selBtns.forEach(b => b.addEventListener('click', () => elegir(b.dataset.juego)));
-    pantallaVacia();
+    pantallaInicio();
   })();
   </script>
 </body>
