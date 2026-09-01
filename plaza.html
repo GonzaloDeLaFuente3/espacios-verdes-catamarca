@@ -128,6 +128,18 @@
   .galeria button:hover img{transform:scale(1.05)}
   @media (prefers-reduced-motion:reduce){.galeria button:hover img{transform:none}}
 
+  /* fotos históricas dentro de "Historia" */
+  .historia-fotos{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-4);margin:var(--sp-4) 0 var(--sp-2)}
+  @media (max-width:560px){.historia-fotos{grid-template-columns:1fr}}
+  .historia-fotos figure{margin:0}
+  .historia-fotos button{display:block;width:100%;border:1px solid var(--pv-border);padding:0;background:none;cursor:pointer;border-radius:var(--r-btn);overflow:hidden;aspect-ratio:4/3}
+  .historia-fotos img,.historia-fotos .ph{width:100%;height:100%;object-fit:cover;transition:transform .3s cubic-bezier(.4,0,.2,1)}
+  .historia-fotos img{filter:sepia(.32) contrast(.96) brightness(1.02)}
+  .historia-fotos .ph{display:grid;place-items:center;font-size:1.6rem;color:rgba(255,255,255,.9);background:linear-gradient(135deg,#6b5b3e,#a89065)}
+  .historia-fotos button:hover img{transform:scale(1.04)}
+  @media (prefers-reduced-motion:reduce){.historia-fotos button:hover img{transform:none}}
+  .historia-fotos figcaption{font-size:var(--fs-xs);color:var(--pv-text-soft);margin-top:var(--sp-2);line-height:1.4}
+
   /* Lightbox: el <dialog> ocupa toda la pantalla y oscurece el fondo él mismo
      (no dependemos de ::backdrop). El reset `*{margin:0}` obliga a fijar todo esto. */
   dialog.lightbox{position:fixed;inset:0;width:auto;height:auto;max-width:none;max-height:none;
@@ -313,6 +325,10 @@
       intro:"Es la plaza fundacional de la ciudad y su corazón cívico. La rodean la Catedral Basílica de Nuestra Señora del Valle, la Casa de Gobierno y la Municipalidad.",
       historia:["Trazada junto con la fundación de la ciudad en el siglo XVIII, siguió el modelo de plaza mayor española: un vacío central rodeado por los poderes civil y religioso.",
         "Su diseño de paseos radiales y cantero central data de principios del siglo XX. Conserva palmeras, tipas y un busto-monumento a los próceres de Mayo."],
+      historicas:[
+        { src:"assets/img/plazas/historicas/plaza-25-de-mayo-h1.jpg", cap:"La plaza y la Catedral Basílica hacia 1910, antes de la reforma del cantero central." },
+        { src:"assets/img/plazas/historicas/plaza-25-de-mayo-h2.jpg", cap:"Postal de la fuente y los paseos radiales, década de 1930." }
+      ],
       equipamiento:["Senderos accesibles y bancos","Iluminación ornamental LED","Fuente central","Mástil y monumento histórico","Wi-Fi público","Feria de artesanos los fines de semana"],
       arbolado:["Palmera pindó","Tipa","Jacarandá","Naranjo amargo"],
       accesibilidad:"Rampas en las cuatro esquinas y senderos de solado firme.",
@@ -328,6 +344,10 @@
       intro:"Plaza de fuerte identidad devocional, punto de encuentro de peregrinos y vecinos.",
       historia:["Se consolidó a comienzos del siglo XX como espacio de descanso junto al casco histórico.",
         "Sus palmeras alineadas son de las más antiguas de la ciudad."],
+      historicas:[
+        { src:"assets/img/plazas/historicas/plaza-virgen-del-valle-h1.jpg", cap:"Las palmeras recién plantadas alrededor del cantero, c. 1925." },
+        { src:"assets/img/plazas/historicas/plaza-virgen-del-valle-h2.jpg", cap:"Procesión de la Virgen del Valle cruzando la plaza, años 40." }
+      ],
       equipamiento:["Bancos y glorieta","Juegos infantiles","Iluminación peatonal","Bebederos"],
       arbolado:["Palmera datilera","Lapacho rosado","Fresno"],
       accesibilidad:"Sendero perimetral accesible; juegos con solado amortiguante.",
@@ -339,6 +359,10 @@
       intro:"Paseo verde lineal que acompaña la acequia histórica. Ideal para caminar a la sombra.",
       historia:["La Alameda es uno de los paseos más antiguos de Catamarca, ligado al sistema de acequias de riego.",
         "Sus sauces y álamos originales le dieron el nombre."],
+      historicas:[
+        { src:"assets/img/plazas/historicas/plaza-la-alameda-h1.jpg", cap:"El paseo y la acequia con sus álamos originales, fines del siglo XIX." },
+        { src:"assets/img/plazas/historicas/plaza-la-alameda-h2.jpg", cap:"Vecinos caminando bajo los sauces, c. 1940." }
+      ],
       equipamiento:["Sendero peatonal continuo","Bancos cada 50 m","Iluminación baja","Puentes sobre la acequia"],
       arbolado:["Álamo","Sauce criollo","Aguaribay"],
       accesibilidad:"Sendero de pendiente suave y solado firme en todo el recorrido.",
@@ -350,6 +374,10 @@
       intro:"El gran pulmón verde del oeste: forestación densa, lago y áreas recreativas para toda la ciudad.",
       historia:["Se creó en los años 70 sobre terrenos de una antigua finca, con criterio de parque urbano.",
         "Lleva el nombre del arqueólogo y estudioso catamarqueño Adán Quiroga."],
+      historicas:[
+        { src:"assets/img/plazas/historicas/plaza-adan-quiroga-h1.jpg", cap:"Forestación inicial del parque sobre la antigua finca, 1976." },
+        { src:"assets/img/plazas/historicas/plaza-adan-quiroga-h2.jpg", cap:"Inauguración del lago y el anfiteatro, 1978." }
+      ],
       equipamiento:["Lago con perímetro peatonal","Anfiteatro","Área de juegos grande","Sector de pícnic y parrillas","Sanitarios","Estacionamiento"],
       arbolado:["Eucalipto","Pino","Ceibo","Tipa","Palo borracho"],
       accesibilidad:"Senderos principales accesibles; sanitario adaptado.",
@@ -361,6 +389,10 @@
       intro:"Homenaje a la docencia. Tiene una biblioteca a cielo abierto y actividades escolares.",
       historia:["Se inauguró junto con el barrio 240 Viviendas.",
         "La comunidad educativa cercana la adoptó como aula al aire libre."],
+      historicas:[
+        { src:"assets/img/plazas/historicas/plaza-del-maestro-h1.jpg", cap:"Acto inaugural junto al barrio 240 Viviendas, 1985." },
+        { src:"assets/img/plazas/historicas/plaza-del-maestro-h2.jpg", cap:"Primeras actividades escolares en la biblioteca a cielo abierto, c. 1990." }
+      ],
       equipamiento:["Biblioteca a cielo abierto","Juegos infantiles","Pizarrón comunitario","Bancos"],
       arbolado:["Sereno","Ligustro","Crespón"],
       accesibilidad:"Sendero perimetral accesible.",
@@ -552,6 +584,18 @@
 
           <h2>Historia</h2>
           ${d.historia.map(p => `<p class="prosa">${esc(p)}</p>`).join('')}
+          ${Array.isArray(d.historicas) && d.historicas.length ? `
+          <div class="historia-fotos">
+            ${d.historicas.map(f => `
+              <figure>
+                <button type="button" data-hsrc="${esc(f.src)}" data-hcap="${esc(f.cap)}" aria-label="Ampliar foto histórica: ${esc(f.cap)}">
+                  <img src="${esc(f.src)}" alt="${esc(f.cap)}" loading="lazy"
+                       onerror="this.outerHTML='<div class=&quot;ph&quot;><i class=&quot;bi bi-image&quot;></i></div>'">
+                </button>
+                <figcaption>${esc(f.cap)}</figcaption>
+              </figure>`).join('')}
+          </div>
+          <p class="text-soft">Imágenes históricas de referencia.</p>` : ''}
 
           <h2>Galería</h2>
           <p class="text-soft">Imágenes de referencia.</p>
@@ -589,6 +633,17 @@
         if (btn.querySelector('.ph')) return;                       // este slot no tiene imagen real
         const reales = galBtns.filter(x => !x.querySelector('.ph'));
         const items = reales.map(x => ({ src: x.dataset.img, cap: x.dataset.cap }));
+        lbAbrir(items, reales.indexOf(btn));
+      });
+    });
+
+    // fotos históricas → mismo lightbox, navegando solo entre las históricas
+    const histBtns = [...$('#detalle').querySelectorAll('.historia-fotos button')];
+    histBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.querySelector('.ph')) return;
+        const reales = histBtns.filter(x => !x.querySelector('.ph'));
+        const items = reales.map(x => ({ src: x.dataset.hsrc, cap: x.dataset.hcap }));
         lbAbrir(items, reales.indexOf(btn));
       });
     });

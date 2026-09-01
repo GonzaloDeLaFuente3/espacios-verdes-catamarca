@@ -45,14 +45,9 @@ ficha de detalle (apaisada). Subí una sola imagen por plaza, en **4:3 y buena r
 |---|---|
 | Plaza 25 de Mayo | `assets/img/plazas/plaza-25-de-mayo.jpg` |
 | Plaza Virgen del Valle | `assets/img/plazas/plaza-virgen-del-valle.jpg` |
-| Plaza San Martín | `assets/img/plazas/plaza-san-martin.jpg` |
 | Paseo de la Alameda | `assets/img/plazas/plaza-la-alameda.jpg` |
 | Parque Adán Quiroga | `assets/img/plazas/plaza-adan-quiroga.jpg` |
-| Plaza Cristo Rey | `assets/img/plazas/plaza-cristo-rey.jpg` |
-| Plaza Fray Mamerto Esquiú | `assets/img/plazas/plaza-fray-mamerto-esquiu.jpg` |
 | Plaza del Maestro | `assets/img/plazas/plaza-del-maestro.jpg` |
-| Plaza Juan Chelemín | `assets/img/plazas/plaza-juan-chelemin.jpg` |
-| Plaza Sarmiento | `assets/img/plazas/plaza-sarmiento.jpg` |
 
 > El listado de plazas es **de ejemplo**. Cuando llegue el listado oficial (MD),
 > se ajustan los `slug` en `index.html` y `plaza.html`, y estos nombres de archivo
@@ -73,6 +68,34 @@ assets/img/plazas/galeria/plaza-25-de-mayo-2.jpg
 assets/img/plazas/galeria/plaza-25-de-mayo-3.jpg
 ```
 …y lo mismo para cada slug de la tabla anterior.
+
+---
+
+## 4b. Fotos históricas de cada plaza (sección "Historia")
+
+La ficha de plaza muestra **2 fotos históricas** debajo del texto de "Historia".
+Se hacen clic para ampliar (mismo visor que la galería).
+
+- Ruta: `assets/img/plazas/historicas/plaza-<slug>-h<n>.jpg`  (n = 1, 2)
+- Medida sugerida: **1200 × 900 px**, JPG < 400 KB
+- Contenido: imagen de archivo / postal antigua de la plaza. El epígrafe (año y
+  descripción) se edita por plaza en `PLAZAS_DETALLE[...].historicas[n].cap`.
+
+```
+assets/img/plazas/historicas/plaza-25-de-mayo-h1.jpg
+assets/img/plazas/historicas/plaza-25-de-mayo-h2.jpg
+assets/img/plazas/historicas/plaza-virgen-del-valle-h1.jpg
+assets/img/plazas/historicas/plaza-virgen-del-valle-h2.jpg
+assets/img/plazas/historicas/plaza-la-alameda-h1.jpg
+assets/img/plazas/historicas/plaza-la-alameda-h2.jpg
+assets/img/plazas/historicas/plaza-adan-quiroga-h1.jpg
+assets/img/plazas/historicas/plaza-adan-quiroga-h2.jpg
+assets/img/plazas/historicas/plaza-del-maestro-h1.jpg
+assets/img/plazas/historicas/plaza-del-maestro-h2.jpg
+```
+
+> Los epígrafes cargados son **de ejemplo** para el mockup. Reemplazar por datos
+> reales cuando llegue el material de archivo.
 
 ---
 
@@ -122,9 +145,10 @@ por **nombre** de la plaza + "San Fernando del Valle de Catamarca".
 ## Checklist de carga
 
 - [ ] `hero-espacios-verdes.jpg`
-- [ ] 10 fotos `plaza-<slug>.jpg`
-- [ ] 30 fotos de galería `galeria/plaza-<slug>-<n>.jpg`
-- [ ] 10 mapas `mapa-<slug>.png` (opcional)
+- [ ] 5 fotos `plaza-<slug>.jpg`
+- [ ] 15 fotos de galería `galeria/plaza-<slug>-<n>.jpg`
+- [ ] 10 fotos históricas `historicas/plaza-<slug>-h<n>.jpg`
+- [ ] 5 mapas `mapa-<slug>.png` (opcional)
 
 ## Recomendaciones generales
 
