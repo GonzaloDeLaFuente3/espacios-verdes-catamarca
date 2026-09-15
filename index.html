@@ -1511,7 +1511,7 @@
         r.addEventListener('change', () => { nivelActivo = r.value; refrescarHint(); }));
       btn.addEventListener('click', empezar);
       refrescarHint();
-      btn.focus();
+      if (foco) btn.focus();
     }
 
     /* ---------- partida ---------- */
