@@ -5,6 +5,14 @@
   publish = "."
   command = ""
 
+# La home ("/") muestra la página de la Secretaría (secretaria.html).
+# Es un rewrite (status 200): la URL sigue siendo la raíz del sitio, no cambia
+# a /secretaria.html. index.html (Espacios Verdes) sigue disponible en su URL.
+[[redirects]]
+  from = "/"
+  to = "/secretaria.html"
+  status = 200
+
 # Cabeceras de seguridad para todo el sitio
 [[headers]]
   for = "/*"
