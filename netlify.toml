@@ -5,6 +5,14 @@
   publish = "."
   command = ""
 
+# El sitio usa links relativos a archivos .html "a mano" (index.html, plaza.html,
+# secretaria.html), no rutas "lindas". Sin esto, el post-procesado de Netlify
+# reescribe cualquier href="index.html" a href="/" — lo que, combinado con el
+# redirect forzado de abajo, hacía que esos links volvieran a mostrar
+# secretaria.html en vez de index.html.
+[build.processing.html]
+  pretty_urls = false
+
 # La home ("/") muestra la página de la Secretaría (secretaria.html).
 # Es un rewrite (status 200): la URL sigue siendo la raíz del sitio, no cambia
 # a /secretaria.html. index.html (Espacios Verdes) sigue disponible en su URL.
