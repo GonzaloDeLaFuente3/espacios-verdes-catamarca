@@ -1,0 +1,1064 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="https://www.catamarcaciudad.gob.ar/wp-content/uploads/favicons2020.png">
+<title>Parque Adán Quiroga Vivo · Catamarca Capital [MOCKUP]</title>
+<meta name="description" content="Qué sabemos del Parque Adán Quiroga, cómo lo estudiamos y qué sigue. Prototipo de la Municipalidad de San Fernando del Valle de Catamarca.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#002454; --blue:#0F4C94; --sky:#45B5DB;
+  --green-dark:#005151; --green:#45803B; --lime:#89AE24;
+  --orange:#F0901B; --amber:#FFB000;
+  --bg:#F8F9FA; --surface:#FFFFFF; --surface-2:#EEF3F1; --line:#DCE3E8;
+  --text:#2B3137; --muted:#545C64; --heading:#002454;
+  --link:#0F4C94; --accent:#005151; --accent-text:#FFFFFF;
+  --focus:#0F4C94;
+  --badge-ok-bg:#E3F0E0; --badge-ok-fg:#2E5E27;
+  --badge-pre-bg:#FDEBD3; --badge-pre-fg:#7A4300;
+  --badge-con-bg:#FFF3CC; --badge-con-fg:#6B4A00;
+  --badge-dev-bg:#E9ECEF; --badge-dev-fg:#3F464D;
+  --badge-val-bg:#D6ECEC; --badge-val-fg:#004040;
+  --bar:#005151; --bar-2:#89AE24; --track:#E3E8EC;
+  --radius-s:6px; --radius-m:10px; --radius-l:18px;
+  --font:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#071A31; --surface:#0C2544; --surface-2:#0F2E4F; --line:#1F4168;
+    --text:#E4ECF4; --muted:#AEBDCC; --heading:#F2F6FA;
+    --link:#8CCBEA; --accent:#7FC7A0; --accent-text:#062016; --focus:#8CCBEA;
+    --badge-ok-bg:#1D3F24; --badge-ok-fg:#BFE6B4;
+    --badge-pre-bg:#4A2E0A; --badge-pre-fg:#FFD29B;
+    --badge-con-bg:#453A0B; --badge-con-fg:#FFE58A;
+    --badge-dev-bg:#243447; --badge-dev-fg:#D3DCE5;
+    --badge-val-bg:#0E3B3B; --badge-val-fg:#A8E3E3;
+    --bar:#7FC7A0; --bar-2:#C3DD6B; --track:#1F3A5A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#071A31; --surface:#0C2544; --surface-2:#0F2E4F; --line:#1F4168;
+  --text:#E4ECF4; --muted:#AEBDCC; --heading:#F2F6FA;
+  --link:#8CCBEA; --accent:#7FC7A0; --accent-text:#062016; --focus:#8CCBEA;
+  --badge-ok-bg:#1D3F24; --badge-ok-fg:#BFE6B4;
+  --badge-pre-bg:#4A2E0A; --badge-pre-fg:#FFD29B;
+  --badge-con-bg:#453A0B; --badge-con-fg:#FFE58A;
+  --badge-dev-bg:#243447; --badge-dev-fg:#D3DCE5;
+  --badge-val-bg:#0E3B3B; --badge-val-fg:#A8E3E3;
+  --bar:#7FC7A0; --bar-2:#C3DD6B; --track:#1F3A5A;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;font-family:var(--font);font-size:1rem;line-height:1.6;color:var(--text);background:var(--bg);overflow-x:hidden}
+img,svg{max-width:100%;height:auto}
+a{color:var(--link);text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:4px}
+h1,h2,h3,h4{line-height:1.2;margin:0 0 .5em;color:var(--heading)}
+h2{font-size:clamp(1.6rem,1.1rem + 2vw,2.35rem);font-weight:800;letter-spacing:-.02em}
+h3{font-size:1.2rem;font-weight:700}
+p{margin:0 0 1em}
+.wrap{width:min(1160px,100% - 40px);margin-inline:auto}
+.skip{position:absolute;left:-999px;top:8px;background:#fff;color:#002454;padding:10px 16px;border-radius:6px;z-index:100;font-weight:600}
+.skip:focus{left:12px}
+.tabular{font-variant-numeric:tabular-nums}
+
+/* ---------- prototipo ---------- */
+.proto{background:#FFB000;color:#231800;font-size:.9rem}
+.proto .wrap{display:flex;gap:10px;align-items:flex-start;padding:10px 0}
+.proto svg{flex:none;margin-top:3px}
+.proto p{margin:0;max-width:none}
+
+/* ---------- header ---------- */
+.site-header{background:#002454;color:#fff;position:sticky;top:0;z-index:50;border-bottom:1px solid rgba(255,255,255,.12)}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;min-height:68px;gap:16px}
+.brand{display:flex;align-items:center;gap:14px;color:#fff;text-decoration:none;flex:none}
+.brand img{height:38px;width:auto;display:block}
+.brand span{font-size:.8rem;line-height:1.25;border-left:1px solid rgba(255,255,255,.3);padding-left:14px;color:#D6E2F0}
+.nav-toggle{display:none;background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:8px;min-width:44px;min-height:44px;cursor:pointer;flex:none}
+
+/* Nav: "volver" (salir de la página) separado por un separador vertical de las
+   secciones (moverse dentro de la página); el CTA queda aparte, siempre verde. */
+.nav{display:flex;align-items:center;gap:22px;flex-wrap:nowrap;justify-content:flex-end;flex:none}
+.nav-back{display:inline-flex;align-items:center;gap:7px;min-height:44px;color:#B9CBE0;text-decoration:none;
+  font-weight:500;font-size:.86rem;white-space:nowrap;flex:none;padding-right:20px;border:1px solid rgba(255,255,255,.2)}
+.nav-back:hover{color:#fff}
+.nav-back svg{flex:none}
+.nav ul{list-style:none;display:flex;flex-wrap:nowrap;gap:2px;margin:0;padding:0;flex:none}
+.nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 11px;color:#E8EFF7;text-decoration:none;
+  font-weight:500;font-size:.9rem;border-radius:8px;white-space:nowrap}
+.nav a:hover{background:rgba(255,255,255,.1);color:#fff}
+.nav a.is-active{background:rgba(255,255,255,.16);color:#fff}
+.nav a.cta{background:#89AE24;color:#0E1F00;font-weight:700;flex:none}
+.nav a.cta:hover{background:#A0C43A}
+.site-header :focus-visible{outline-color:#FFB000}
+@media (max-width:1240px){
+  .brand span{display:none}
+  .nav-toggle{display:inline-flex;align-items:center;justify-content:center}
+  .nav{position:absolute;left:0;right:0;top:100%;background:#002454;border-bottom:1px solid rgba(255,255,255,.15);
+    display:none;flex-direction:column;align-items:stretch;gap:0;padding:6px 16px 18px;
+    max-height:calc(100dvh - 68px);overflow-y:auto}
+  .nav.open{display:flex}
+  .nav-back{width:100%;border-right:0;border-bottom:1px solid rgba(255,255,255,.15);padding:14px 4px;margin-bottom:4px}
+  .nav ul{flex-direction:column;gap:2px}
+  .nav ul a{width:100%}
+  .nav a.cta{margin-top:10px;justify-content:center}
+}
+
+/* ---------- hero ---------- */
+.hero{background:#002454;color:#fff;padding:56px 0 0;overflow:hidden}
+.miga-ext{font-size:.82rem;color:#A9BDD3;margin:0 0 18px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.miga-ext a{color:#BFD3E8;text-decoration:none}
+.miga-ext a:hover{color:#fff;text-decoration:underline}
+.miga-ext span{color:#5C7A9C}
+.miga-ext [aria-current]{color:#fff;font-weight:600}
+.hero-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:40px;align-items:end}
+.kicker{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#C3DD6B;margin-bottom:14px}
+.hero h1{color:#fff;font-size:clamp(2.3rem,1.3rem + 3.6vw,4rem);font-weight:800;letter-spacing:-.035em;line-height:1.02;margin-bottom:18px}
+.hero h1 small{display:block;font-size:.42em;font-weight:500;letter-spacing:-.01em;color:#BFD3E8;margin-top:10px}
+.hero .lead{font-size:1.15rem;color:#DCE6F1;max-width:44ch}
+.motto{margin:26px 0 40px;padding:0;list-style:none;display:grid;gap:6px;font-size:1rem;color:#fff}
+.motto li{display:flex;gap:10px;align-items:baseline}
+.motto b{color:#C3DD6B;min-width:92px;font-weight:700}
+.hero-figure{margin:0;align-self:end}
+.hero-figure figcaption{font-size:.8rem;color:#A9BDD3;padding:8px 0 14px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:48px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;font-weight:700;text-decoration:none;font-size:1rem;border:2px solid transparent;cursor:pointer}
+.btn-primary{background:#89AE24;color:#0E1F00}
+.btn-primary:hover{background:#A0C43A}
+.btn-ghost{border-color:rgba(255,255,255,.55);color:#fff}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:8px}.hero-actions{margin-bottom:20px}.motto{margin-bottom:24px}}
+
+/* ---------- secciones ---------- */
+section{padding:72px 0}
+.section-head{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:32px;align-items:end;margin-bottom:36px}
+.section-head p{color:var(--muted);margin:0}
+@media (max-width:820px){.section-head{grid-template-columns:1fr;gap:10px}}
+.alt{background:var(--surface-2)}
+
+/* badges */
+.badge{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;padding:3px 10px 3px 8px;border-radius:999px;white-space:nowrap;line-height:1.5}
+.badge::before{content:"";width:8px;height:8px;flex:none}
+.b-ok{background:var(--badge-ok-bg);color:var(--badge-ok-fg)} .b-ok::before{background:currentColor;border-radius:50%}
+.b-pre{background:var(--badge-pre-bg);color:var(--badge-pre-fg)} .b-pre::before{border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:8px solid currentColor;width:0;height:0}
+.b-con{background:var(--badge-con-bg);color:var(--badge-con-fg)} .b-con::before{background:currentColor;transform:rotate(45deg);width:7px;height:7px}
+.b-dev{background:var(--badge-dev-bg);color:var(--badge-dev-fg)} .b-dev::before{border:2px solid currentColor;border-radius:50%}
+.b-val{background:var(--badge-val-bg);color:var(--badge-val-fg)} .b-val::before{background:currentColor;border-radius:2px}
+
+/* ---------- cifras ---------- */
+.figures{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:18px}
+.fig{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);padding:22px 22px 18px;display:flex;flex-direction:column;gap:8px}
+.fig .num{font-size:clamp(2rem,1.6rem + 1.4vw,2.8rem);font-weight:800;letter-spacing:-.03em;color:var(--heading);line-height:1}
+.fig .num span{font-size:.45em;font-weight:600;margin-left:4px;color:var(--muted)}
+.fig .what{font-weight:600}
+.fig p{font-size:.92rem;color:var(--muted);margin:0}
+.fig.wide{grid-column:span 6}.fig.third{grid-column:span 4}
+.fig.feature{grid-column:span 6;grid-row:span 2;background:var(--accent);border-color:transparent;color:var(--accent-text)}
+.fig.feature .num,.fig.feature .num span,.fig.feature p,.fig.feature .what{color:var(--accent-text)}
+.fig.feature .num{font-size:clamp(3rem,2rem + 4vw,5.4rem)}
+.mini{margin:auto 0 0;padding-top:18px;border-top:1px solid currentColor;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.mini dt{font-size:.78rem;opacity:.85}.mini dd{margin:0;font-size:1.35rem;font-weight:800}
+.fig details{font-size:.9rem;margin-top:4px}
+.fig summary{cursor:pointer;font-weight:600;min-height:32px;display:flex;align-items:center}
+.fig ul{margin:6px 0 0;padding-left:18px}
+@media (max-width:900px){.fig.wide,.fig.third,.fig.feature{grid-column:span 12}.fig.feature{grid-row:auto}}
+.note-empty{margin-top:18px;display:flex;gap:12px;align-items:flex-start;border-left:4px solid var(--green);background:var(--surface);padding:14px 18px;border-radius:0 var(--radius-s) var(--radius-s) 0}
+.note-empty p{margin:0}
+
+/* ---------- adán ---------- */
+.adan{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:start}
+.adan .pull{max-width:none;margin:0;font-size:clamp(1.3rem,1rem + 1.2vw,1.9rem);font-weight:700;line-height:1.3;letter-spacing:-.015em;color:var(--heading);border-top:4px solid var(--lime);padding-top:18px}
+.adan dl{display:grid;grid-template-columns:max-content 1fr;gap:10px 20px;margin:20px 0 0}
+.adan dt{font-weight:700;color:var(--heading)}
+.adan dd{margin:0}
+.src{font-size:.82rem;color:var(--muted)}
+@media (max-width:820px){.adan{grid-template-columns:1fr;gap:24px}.adan dl{grid-template-columns:1fr;gap:2px}.adan dd{margin-bottom:10px}}
+
+/* ---------- fuentes ---------- */
+.sources{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:2px solid var(--heading)}
+.source{padding:24px 24px 24px 0;border-right:1px solid var(--line)}
+.source+.source{padding-left:24px}
+.source:last-child{border-right:0}
+.source svg{width:56px;height:56px;margin-bottom:12px}
+.source h3{margin-bottom:4px}
+.source .when{font-size:.88rem;font-weight:600;color:var(--muted);margin-bottom:10px;display:block}
+.source ul{margin:10px 0 0;padding-left:18px;font-size:.95rem}
+@media (max-width:820px){.sources{grid-template-columns:1fr}.source,.source+.source{padding:22px 0;border-right:0;border-bottom:1px solid var(--line)}}
+
+.flow{list-style:none;margin:44px 0 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));counter-reset:f}
+.flow li{counter-increment:f;position:relative;padding:44px 14px 0 0;font-size:.92rem}
+.flow li::before{content:counter(f);position:absolute;top:0;left:0;width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-text);display:grid;place-items:center;font-weight:800;font-size:.9rem}
+.flow li::after{content:"";position:absolute;top:15px;left:40px;right:8px;height:2px;background:var(--line)}
+.flow li:last-child::after{display:none}
+.flow b{display:block;color:var(--heading);margin-bottom:2px}
+@media (max-width:900px){.flow{grid-template-columns:1fr 1fr;row-gap:24px}.flow li::after{display:none}}
+@media (max-width:480px){.flow{grid-template-columns:1fr}}
+
+/* ---------- confianza ---------- */
+.trust{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:28px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-l);padding:28px}
+.scale{margin:22px 0 8px;position:relative;height:74px}
+.scale .rail{position:absolute;left:0;right:0;top:34px;height:10px;border-radius:5px;background:linear-gradient(90deg,var(--track),var(--bar))}
+.scale .tick{position:absolute;top:50px;font-size:.78rem;color:var(--muted);transform:translateX(-50%)}
+.scale .tick:first-of-type{transform:none}
+.scale .tick.end{transform:translateX(-100%)}
+.marker{position:absolute;top:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;font-size:.8rem;font-weight:700;white-space:nowrap;color:var(--heading)}
+.marker::after{content:"";width:3px;height:26px;background:var(--heading);margin-top:2px;border-radius:2px}
+.marker.m2{top:0}
+.plain{font-size:.95rem}
+.err-row{display:grid;grid-template-columns:160px 1fr 64px;gap:10px;align-items:center;margin:10px 0;font-size:.9rem}
+.err-bar{height:14px;background:var(--track);border-radius:7px;overflow:hidden}
+.err-bar i{display:block;height:100%;background:var(--bar);border-radius:7px}
+.err-bar i.warn{background:var(--orange)}
+.not-list{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px}
+.not-list li{display:flex;gap:10px;align-items:flex-start}
+.not-list svg{flex:none;margin-top:3px}
+.imp{margin:16px 0 0;padding:0;list-style:none}
+.imp li{display:grid;grid-template-columns:minmax(0,190px) 1fr 60px;gap:10px;align-items:center;padding:5px 0;font-size:.9rem}
+.imp .lbl b{display:block;font-weight:700;color:var(--heading)}
+.imp .lbl small{color:var(--muted);font-size:.78rem}
+.imp .track{height:12px;background:var(--track);border-radius:6px;overflow:hidden}
+.imp .track i{display:block;height:100%;background:var(--bar-2)}
+.imp .val{text-align:right;white-space:nowrap}
+@media (max-width:820px){.trust{grid-template-columns:1fr}}
+@media (max-width:480px){.err-row{grid-template-columns:110px 1fr 56px}.imp li{grid-template-columns:1fr 60px}.imp .track{grid-column:1/-1;order:3}}
+
+/* ---------- capas (tabs) ---------- */
+.layers{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-l);overflow:hidden}
+.tablist{display:flex;flex-direction:column;border-right:1px solid var(--line);padding:10px}
+.tab{appearance:none;background:transparent;border:0;text-align:left;font:inherit;color:var(--text);padding:12px 14px;min-height:48px;border-radius:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:600}
+.tab:hover{background:var(--surface-2)}
+.tab[aria-selected="true"]{background:var(--accent);color:var(--accent-text)}
+.tab small{font-weight:500;font-size:.78rem;opacity:.85}
+.tabpanel{padding:28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.tabpanel[hidden]{display:none}
+.tabpanel .art{border-radius:var(--radius-m);overflow:hidden;border:1px solid var(--line);background:var(--surface-2)}
+.tabpanel .art figcaption{font-size:.76rem;color:var(--muted);padding:6px 10px}
+.tabpanel dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 14px;font-size:.9rem;margin:14px 0 0}
+.tabpanel dt{font-weight:700;color:var(--heading)}
+.tabpanel dd{margin:0}
+@media (max-width:900px){
+  .layers{grid-template-columns:1fr}
+  .tablist{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}
+  .tab{flex:none}
+  .tab small{display:none}
+  .tabpanel{grid-template-columns:1fr;padding:20px}
+}
+
+/* ---------- ejes ---------- */
+.axes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden}
+.axis{background:var(--surface);padding:24px;display:flex;flex-direction:column;gap:8px}
+.axis .q{font-style:italic;color:var(--muted);font-size:.95rem;margin:0}
+.axis .meta{margin-top:auto;padding-top:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:.85rem}
+.prio{display:flex;align-items:center;gap:8px}
+.prio .track{width:90px;height:8px;background:var(--track);border-radius:4px;overflow:hidden}
+.prio .track i{display:block;height:100%;background:var(--bar)}
+.axis svg{width:40px;height:40px}
+@media (max-width:900px){.axes{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.axes{grid-template-columns:1fr}}
+
+/* ---------- hoja de ruta ---------- */
+.road{list-style:none;margin:0;padding:0;position:relative}
+.road::before{content:"";position:absolute;left:15px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.road li{position:relative;padding:0 0 28px 52px;display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:8px 24px}
+.road li::before{content:"";position:absolute;left:8px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--surface);border:3px solid var(--accent)}
+.road li.now::before{background:var(--amber);border-color:var(--amber)}
+.road h3{margin:0}
+.road .h{font-size:.85rem;color:var(--muted);font-weight:600}
+.road p{margin:0}
+@media (max-width:700px){.road li{grid-template-columns:1fr}}
+
+/* ---------- estados ---------- */
+.states{display:flex;flex-wrap:wrap;gap:14px 28px;margin:0;padding:0;list-style:none}
+.states li{display:flex;flex-direction:column;gap:6px;max-width:250px;font-size:.9rem}
+
+/* ---------- participá ---------- */
+.part{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:16px 0 0}
+.chips li{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-size:.88rem}
+.cta-box{background:#002454;color:#fff;border-radius:var(--radius-l);padding:30px}
+.cta-box h3{color:#fff}
+.cta-box p{color:#D6E2F0}
+.cta-box ol{padding-left:20px;margin:0 0 16px;color:#fff}
+.cta-box ol li{margin-bottom:6px}
+.cta-box a{color:#C3DD6B}
+.cta-box :focus-visible{outline-color:#FFB000}
+@media (max-width:820px){.part{grid-template-columns:1fr}}
+
+/* ---------- faq ---------- */
+.faq{display:grid;gap:10px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m)}
+.faq summary{cursor:pointer;list-style:none;padding:16px 52px 16px 20px;font-weight:700;color:var(--heading);position:relative;min-height:48px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";position:absolute;right:22px;top:50%;width:10px;height:10px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-70%) rotate(45deg);transition:transform .18s}
+.faq details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.faq .ans{padding:0 20px 18px}
+.faq .ans p:last-child{margin:0}
+
+/* ---------- docs ---------- */
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-m);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:.92rem}
+caption{text-align:left;padding:14px 16px;font-weight:700;color:var(--heading)}
+th,td{padding:11px 16px;text-align:left;border-top:1px solid var(--line);vertical-align:top}
+th{font-size:.82rem;color:var(--muted);font-weight:700}
+td.date{white-space:nowrap}
+
+/* ---------- footer ---------- */
+.site-footer{background:#002454;color:#D6E2F0;padding:48px 0 24px;font-size:.92rem}
+.site-footer .cols{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,3fr) minmax(0,3fr);gap:32px}
+.site-footer h4{color:#fff;font-size:1rem;margin-bottom:10px}
+.site-footer img{height:44px;width:auto;margin-bottom:12px}
+.footer-datos{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.redes{display:flex;gap:8px}
+.redes a{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(255,255,255,.35);color:#fff}
+.redes a:hover{background:rgba(255,255,255,.12)}
+.redes svg{width:20px;height:20px}
+.site-footer :focus-visible{outline-color:#FFB000}
+.legal{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;border-top:1px solid rgba(255,255,255,.18);margin-top:36px;padding-top:18px;font-size:.82rem;color:#B5C7DB}
+@media (max-width:820px){.site-footer .cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<div class="proto" role="note">
+  <div class="wrap">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>
+    <p><strong>Prototipo para revisión.</strong> Esta página no es una publicación oficial. Sus contenidos salen de documentos técnicos en borrador y necesitan la aprobación de la Mesa Técnica antes de difundirse.</p>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/logos/logo-capital-dark-BCmcLDWl.webp" alt="Catamarca Capital, Municipalidad de San Fernando del Valle de Catamarca" width="1714" height="470">
+      <span>Secretaría de Ambiente<br>y Espacios Públicos</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <nav class="nav" id="menu" aria-label="Secciones">
+      <a class="nav-back" href="plaza.html?plaza=adan-quiroga">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        Volver a la ficha
+      </a>
+      <ul>
+        <li><a href="#el-parque">El parque</a></li>
+        <li><a href="#como-lo-estudiamos">Cómo lo estudiamos</a></li>
+        <li><a href="#que-sabemos">Qué sabemos</a></li>
+        <li><a href="#que-sigue">Qué sigue</a></li>
+        <li><a href="#preguntas">Preguntas</a></li>
+      </ul>
+      <a class="cta" href="#participa">Participá</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido" tabindex="-1">
+
+<!-- HERO -->
+<div class="hero" id="inicio">
+  <div class="wrap">
+    <nav class="miga-ext" aria-label="Migas de pan">
+      <a href="index.html">Inicio</a><span aria-hidden="true">/</span>
+      <a href="index.html#plazas">Plazas</a><span aria-hidden="true">/</span>
+      <a href="plaza.html?plaza=adan-quiroga">Parque Adán Quiroga</a><span aria-hidden="true">/</span>
+      <span aria-current="page">Vivo</span>
+    </nav>
+  </div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker">Parque urbano · Catamarca Capital</span>
+      <h1>Parque Adán Quiroga Vivo<small>Ciencia, naturaleza y ciudad</small></h1>
+      <p class="lead">Estamos estudiando el parque con satélites, un dron y trabajo de campo para entender cómo funciona y cuidarlo mejor.</p>
+      <ul class="motto">
+        <li><b>Conocer</b> para conservar</li>
+        <li><b>Medir</b> para decidir</li>
+        <li><b>Monitorear</b> para gestionar</li>
+      </ul>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#que-sabemos">Ver qué sabemos</a>
+        <a class="btn btn-ghost" href="#como-lo-estudiamos">Cómo lo estudiamos</a>
+      </div>
+    </div>
+    <figure class="hero-figure">
+      <svg viewBox="0 0 720 440" role="img" aria-labelledby="heroT heroD">
+        <title id="heroT">Ilustración: tres formas de estudiar el parque</title>
+        <desc id="heroD">Un satélite envía un pulso láser hacia los árboles, un dron fotografía el parque desde arriba y una persona mide el tronco de un árbol en el suelo. Al fondo se ven las sierras.</desc>
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#002454"/><stop offset="1" stop-color="#0F4C94"/></linearGradient>
+          <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1E5E7A"/><stop offset="1" stop-color="#15496B"/></linearGradient>
+          <linearGradient id="soil" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9A56B"/><stop offset="1" stop-color="#9C7A45"/></linearGradient>
+          <pattern id="px" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M34 0H0V34" fill="none" stroke="#C3DD6B" stroke-opacity=".55" stroke-width="1"/></pattern>
+        </defs>
+        <rect width="720" height="440" fill="url(#sky)"/>
+        <g fill="#fff" opacity=".7"><circle cx="60" cy="40" r="1.2"/><circle cx="210" cy="24" r="1"/><circle cx="330" cy="60" r="1.3"/><circle cx="470" cy="30" r="1"/><circle cx="640" cy="70" r="1.2"/><circle cx="560" cy="16" r="1"/></g>
+        <!-- sierras -->
+        <path d="M0 250 L80 190 L150 220 L240 150 L330 205 L420 160 L510 212 L600 170 L720 230 V330 H0Z" fill="url(#hill)"/>
+        <path d="M0 280 L120 238 L220 262 L340 230 L470 258 L590 236 L720 262 V340 H0Z" fill="#23707B" opacity=".75"/>
+        <!-- satélite -->
+        <g transform="translate(92 70)">
+          <rect x="-44" y="-8" width="30" height="16" fill="#45B5DB" stroke="#fff" stroke-width="1.5"/>
+          <rect x="14" y="-8" width="30" height="16" fill="#45B5DB" stroke="#fff" stroke-width="1.5"/>
+          <rect x="-12" y="-12" width="24" height="24" rx="3" fill="#E4ECF4"/>
+          <circle cx="0" cy="14" r="4" fill="#FFB000"/>
+        </g>
+        <path d="M92 88 L206 318" stroke="#FFB000" stroke-width="2.5" stroke-dasharray="7 6"/>
+        <ellipse cx="206" cy="322" rx="30" ry="7" fill="none" stroke="#FFB000" stroke-width="2"/>
+        <text x="136" y="64" fill="#fff" font-size="13" font-weight="700" font-family="Inter,sans-serif">Satélite</text>
+        <text x="136" y="80" fill="#BFD3E8" font-size="11.5" font-family="Inter,sans-serif">GEDI y Sentinel-2</text>
+        <!-- dron -->
+        <g transform="translate(560 82)">
+          <path d="M-100 250 L0 8 L110 250Z" fill="#C3DD6B" opacity=".13"/>
+          <rect x="-18" y="-6" width="36" height="12" rx="5" fill="#E4ECF4"/>
+          <path d="M-34 -2h-10M34 -2h10" stroke="#E4ECF4" stroke-width="3"/>
+          <ellipse cx="-44" cy="-8" rx="16" ry="3" fill="#BFD3E8"/><ellipse cx="44" cy="-8" rx="16" ry="3" fill="#BFD3E8"/>
+          <circle cx="0" cy="9" r="3.5" fill="#1E2A38"/>
+        </g>
+        <text x="600" y="120" fill="#fff" font-size="13" font-weight="700" font-family="Inter,sans-serif">Dron</text>
+        <text x="600" y="136" fill="#BFD3E8" font-size="11.5" font-family="Inter,sans-serif">abril de 2026</text>
+        <!-- suelo -->
+        <path d="M0 330 C120 318 240 334 360 326 S600 318 720 330 V440 H0Z" fill="#4F7F3A"/>
+        <path d="M0 378 C160 368 300 384 460 374 S640 370 720 378 V440 H0Z" fill="url(#soil)"/>
+        <!-- grilla de píxeles sobre sector -->
+        <rect x="420" y="250" width="240" height="120" fill="url(#px)" opacity=".9"/>
+        <!-- árboles -->
+        <g>
+          <rect x="202" y="300" width="8" height="44" fill="#5B3E22"/><circle cx="206" cy="292" r="32" fill="#2F6B35"/><circle cx="188" cy="302" r="20" fill="#3E7F3E"/><circle cx="226" cy="300" r="22" fill="#397A3B"/>
+          <rect x="298" y="316" width="6" height="30" fill="#5B3E22"/><circle cx="301" cy="308" r="20" fill="#89AE24"/>
+          <rect x="378" y="296" width="9" height="52" fill="#5B3E22"/><ellipse cx="382" cy="284" rx="40" ry="30" fill="#2B5E30"/><circle cx="360" cy="296" r="16" fill="#35703A"/>
+          <rect x="478" y="306" width="7" height="40" fill="#5B3E22"/><circle cx="481" cy="296" r="26" fill="#3E7F3E"/>
+          <rect x="560" y="296" width="9" height="50" fill="#5B3E22"/><ellipse cx="564" cy="284" rx="34" ry="34" fill="#2F6B35"/><circle cx="590" cy="296" r="18" fill="#45803B"/>
+          <rect x="642" y="318" width="5" height="26" fill="#5B3E22"/><circle cx="644" cy="312" r="15" fill="#89AE24"/>
+          <rect x="94" y="318" width="6" height="28" fill="#5B3E22"/><circle cx="97" cy="310" r="18" fill="#45803B"/>
+          <path d="M20 346c8-10 16-10 24 0M130 348c6-8 12-8 18 0M250 350c7-9 14-9 21 0" stroke="#89AE24" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- sendero -->
+        <path d="M250 440 C300 410 340 396 420 386 S560 376 620 368" stroke="#E8D6B0" stroke-width="10" fill="none" stroke-linecap="round" opacity=".85"/>
+        <!-- persona midiendo -->
+        <g transform="translate(398 330)">
+          <circle cx="0" cy="-22" r="7" fill="#F2C9A0"/>
+          <path d="M-7 -14h14l3 22h-20z" fill="#F0901B"/>
+          <path d="M-5 8l-2 18M5 8l2 18" stroke="#1E2A38" stroke-width="4" stroke-linecap="round"/>
+          <path d="M-8 -8 L-16 -4" stroke="#F2C9A0" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M-16 -4 C-20 -2 -20 4 -16 5" stroke="#FFB000" stroke-width="2" fill="none"/>
+        </g>
+        <text x="300" y="424" fill="#fff" font-size="13" font-weight="700" font-family="Inter,sans-serif">Campo</text>
+        <text x="352" y="424" fill="#FFF3CC" font-size="11.5" font-family="Inter,sans-serif">parcelas de 20 × 20 m (propuesta)</text>
+        <text x="560" y="262" fill="#E4F2C2" font-size="11" font-family="Inter,sans-serif">píxeles satelitales</text>
+      </svg>
+      <figcaption>Ilustración de referencia. No representa la forma real del parque ni la ubicación de sus árboles.</figcaption>
+    </figure>
+  </div>
+</div>
+
+<!-- EL PARQUE EN CIFRAS -->
+<section id="el-parque" aria-labelledby="t-parque">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="t-parque">El parque en cifras</h2>
+      <p>Cada número indica su estado. Algunas cifras todavía son estimaciones o están en revisión, y así las mostramos.</p>
+    </div>
+    <div class="figures">
+      <article class="fig feature">
+        <span class="badge b-pre" style="background:rgba(255,255,255,.18);color:inherit">Estimación preliminar</span>
+        <div class="num tabular">2.143<span>toneladas</span></div>
+        <div class="what">de biomasa aérea estimada</div>
+        <p>Es el peso seco de troncos, ramas y hojas que hay sobre el suelo, calculado con datos satelitales entre 2019 y 2023. Equivale a unas 24,7 toneladas por hectárea.</p>
+        <p><a href="#que-sabemos" style="color:inherit;font-weight:700">Cuánto confiar en este número</a></p>
+        <dl class="mini tabular"><div><dt>Por hectárea</dt><dd>24,7 t</dd></div><div><dt>Período</dt><dd>2019 a 2023</dd></div><div><dt>Puntos de referencia</dt><dd>80</dd></div></dl>
+      </article>
+      <article class="fig wide">
+        <span class="badge b-con">Por conciliar</span>
+        <div class="num tabular">86,7<span>ha</span></div>
+        <div class="what">Superficie de referencia del parque</div>
+        <p>Los documentos del proyecto usan valores distintos. Falta confirmar el límite oficial del parque.</p>
+        <details>
+          <summary>Ver los valores que aparecen</summary>
+          <ul>
+            <li>86,7 ha: referencia usada en los informes.</li>
+            <li>86,9 ha: superficie que usó el modelo satelital.</li>
+            <li>87,41 ha: valor citado en otro documento.</li>
+          </ul>
+        </details>
+      </article>
+      <article class="fig third" style="grid-column:span 3">
+        <span class="badge b-ok">Disponible</span>
+        <div class="num tabular">Abr 2026</div>
+        <div class="what">Vuelo con dron</div>
+        <p>Imagen aérea, modelos de relieve y un modelo 3D del parque.</p>
+      </article>
+      <article class="fig third" style="grid-column:span 3">
+        <span class="badge b-dev">Propuesta</span>
+        <div class="num tabular">48</div>
+        <div class="what">Parcelas de campo</div>
+        <p>Cuadrados de 20 × 20 m para medir árboles. Todavía no se relevaron.</p>
+      </article>
+    </div>
+    <div class="note-empty">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><circle cx="12" cy="16.5" r=".6" fill="currentColor"/></svg>
+      <p><strong>Todavía no hay datos validados.</strong> Un dato pasa a "validado" cuando se contrasta con mediciones en el lugar y el equipo técnico lo aprueba. Ese es el próximo paso del proyecto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ADÁN QUIROGA -->
+<section class="alt" aria-labelledby="t-adan">
+  <div class="wrap adan">
+    <div>
+      <h2 id="t-adan">¿Quién fue Adán Quiroga?</h2>
+      <p class="pull">Abogado, poeta, arqueólogo e intendente de la ciudad. Trabajó con la pala y con la pluma.</p>
+    </div>
+    <div>
+      <p>Nació en San Juan en 1863 y llegó a Catamarca a los tres años, cuando su padre fue nombrado juez federal. Por eso se lo considera catamarqueño. Estudió Derecho en Córdoba y luego fue fiscal, juez y legislador.</p>
+      <p>Entre 1898 y 1900 fue intendente de la capital. Recorrió el oeste de la provincia para estudiar la arqueología y las tradiciones de los pueblos originarios. Publicó poesía y estudios de folklore. Murió en Buenos Aires en 1904, a los 41 años.</p>
+      <dl>
+        <dt>Nacimiento</dt><dd>6 de marzo de 1863, San Juan</dd>
+        <dt>Intendente</dt><dd>1898 a 1900, San Fernando del Valle de Catamarca</dd>
+        <dt>Obras</dt><dd><cite>Flores del aire</cite> (poesía, 1893) y <cite>Folklore calchaquí</cite> (publicado en 1928)</dd>
+        <dt>Homenajes</dt><dd>Museo Arqueológico Adán Quiroga y este parque llevan su nombre</dd>
+      </dl>
+      <br>
+      <p class="src">Fuentes: <a href="https://es.wikipedia.org/wiki/Ad%C3%A1n_Quiroga" target="_blank" rel="noopener noreferrer">Wikipedia</a> y <a href="https://www.elesquiu.com/correoyopinion/2017/11/10/anos-muerte-adan-quiroga-263211.html" target="_blank" rel="noopener noreferrer">El Esquiú</a>. La historia del parque está en preparación.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO LO ESTUDIAMOS -->
+<section id="como-lo-estudiamos" aria-labelledby="t-como">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="t-como">Cómo estudiamos el parque</h2>
+      <p>Combinamos tres miradas. Cada una aporta algo que las otras no pueden dar.</p>
+    </div>
+    <div class="sources">
+      <div class="source">
+        <svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="27" fill="var(--surface-2)"/><rect x="12" y="23" width="10" height="8" fill="#45B5DB"/><rect x="34" y="23" width="10" height="8" fill="#45B5DB"/><rect x="22" y="20" width="12" height="14" rx="2" fill="#0F4C94"/><path d="M28 34v12" stroke="#FFB000" stroke-width="2" stroke-dasharray="3 2"/></svg>
+        <h3>Desde el espacio</h3>
+        <span class="when">Datos de 2019 a 2023</span>
+        <p>Usamos dos satélites públicos. Uno mide la estructura de la vegetación con un láser. El otro toma imágenes en distintos colores de la luz.</p>
+        <ul>
+          <li><strong>GEDI</strong> (NASA): 80 puntos de medición dentro del parque.</li>
+          <li><strong>Sentinel-2</strong> (Unión Europea): verdor, humedad y textura de la vegetación.</li>
+        </ul>
+      </div>
+      <div class="source">
+        <svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="27" fill="var(--surface-2)"/><rect x="20" y="24" width="16" height="7" rx="3" fill="#0F4C94"/><ellipse cx="15" cy="21" rx="7" ry="2" fill="#45B5DB"/><ellipse cx="41" cy="21" rx="7" ry="2" fill="#45B5DB"/><path d="M20 34 L14 46 H42 L36 34" fill="#89AE24" opacity=".5"/></svg>
+        <h3>Desde el aire</h3>
+        <span class="when">Vuelo de abril de 2026</span>
+        <p>Un dron fotografió todo el parque con gran detalle. Con esas fotos armamos mapas y modelos.</p>
+        <ul>
+          <li>Imagen aérea de todo el parque (ortomosaico).</li>
+          <li>Modelos de superficie, del terreno y de la altura de los árboles.</li>
+          <li>Un modelo 3D con texturas.</li>
+        </ul>
+      </div>
+      <div class="source">
+        <svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="27" fill="var(--surface-2)"/><rect x="26" y="26" width="5" height="18" fill="#5B3E22"/><circle cx="28" cy="22" r="10" fill="#45803B"/><rect x="12" y="34" width="32" height="12" fill="none" stroke="#F0901B" stroke-width="2" stroke-dasharray="3 2"/></svg>
+        <h3>En el lugar</h3>
+        <span class="when">Próxima etapa, con la Universidad</span>
+        <p>Brigadas de campo van a medir árboles para comprobar si los modelos son correctos.</p>
+        <ul>
+          <li>Especie, diámetro del tronco a 1,30 m y altura.</li>
+          <li>Tamaño de la copa y estado de salud.</li>
+          <li>Ubicación con GPS y fotografías.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:56px">Cómo se calculó la biomasa</h3>
+    <ol class="flow">
+      <li><b>Límite</b>Se marca el borde del parque.</li>
+      <li><b>Referencias</b>Se toman los 80 puntos medidos por GEDI.</li>
+      <li><b>Imágenes</b>Se suman los datos de Sentinel-2 en esos puntos.</li>
+      <li><b>Aprendizaje</b>Un modelo llamado Random Forest aprende la relación entre ambos.</li>
+      <li><b>Mapa</b>El modelo estima la biomasa en unos 9.900 píxeles del parque.</li>
+      <li><b>Total</b>Se suma la biomasa de todos los píxeles.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- QUÉ SABEMOS -->
+<section id="que-sabemos" class="alt" aria-labelledby="t-sabemos">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="t-sabemos">Qué sabemos, y cuánto confiar</h2>
+      <p>La estimación de biomasa es un primer diagnóstico. Sirve para decidir dónde medir, no para tomar decisiones sobre árboles individuales.</p>
+    </div>
+    <div class="trust">
+      <div class="panel">
+        <h3>¿Qué tan bien predice el modelo?</h3>
+        <p class="plain">Usamos una medida que va de 0 a 1. Un valor de 1 sería una predicción perfecta. Un valor cercano a 0 significa que el modelo acierta casi lo mismo que usar el promedio para todo el parque.</p>
+        <div class="scale" role="img" aria-label="Escala de 0 a 1. Prueba con 16 casos: 0,23. Control interno con 64 casos: 0,06.">
+          <div class="marker" style="left:6.4%">0,06</div>
+          <div class="marker" style="left:23.2%">0,23</div>
+          <div class="rail"></div>
+          <span class="tick" style="left:0">0</span>
+          <span class="tick" style="left:50%">0,5</span>
+          <span class="tick end" style="left:100%">1</span>
+        </div>
+        <ul class="plain" style="padding-left:18px;margin:12px 0 18px">
+          <li><strong>0,23</strong> en la prueba con 16 casos que el modelo no había visto.</li>
+          <li><strong>0,06</strong> en el control interno con 64 casos.</li>
+        </ul>
+        <h3 style="font-size:1rem">Error típico por hectárea</h3>
+        <div class="err-row tabular"><span>Promedio del parque</span><div class="err-bar" aria-hidden="true"><i style="width:100%"></i></div><span>24,7 t</span></div>
+        <div class="err-row tabular"><span>Error en la prueba</span><div class="err-bar" aria-hidden="true"><i class="warn" style="width:55%"></i></div><span>13,7 t</span></div>
+        <div class="err-row tabular"><span>Error en el control</span><div class="err-bar" aria-hidden="true"><i class="warn" style="width:87%"></i></div><span>21,4 t</span></div>
+        <p class="plain" style="margin-top:14px"><strong>En pocas palabras:</strong> el modelo reconoce algunos patrones generales, pero el error es grande comparado con el promedio. Por eso necesitamos las mediciones de campo.</p>
+      </div>
+      <div class="panel">
+        <h3>Qué datos pesaron más en el modelo</h3>
+        <p class="plain">Muestra cuánto ayudó cada dato a mejorar la estimación. No indica qué causa la biomasa.</p>
+        <ul class="imp tabular">
+          <li><span class="lbl"><b>NBR</b><small>Vegetación y humedad</small></span><span class="track" aria-hidden="true"><i style="width:100%"></i></span><span class="val">11,0 %</span></li>
+          <li><span class="lbl"><b>B11</b><small>Infrarrojo de onda corta</small></span><span class="track" aria-hidden="true"><i style="width:83.1%"></i></span><span class="val">9,2 %</span></li>
+          <li><span class="lbl"><b>NDVI</b><small>Verdor de las plantas</small></span><span class="track" aria-hidden="true"><i style="width:79.5%"></i></span><span class="val">8,8 %</span></li>
+          <li><span class="lbl"><b>B12</b><small>Infrarrojo de onda corta</small></span><span class="track" aria-hidden="true"><i style="width:66%"></i></span><span class="val">7,3 %</span></li>
+          <li><span class="lbl"><b>EVI</b><small>Verdor mejorado</small></span><span class="track" aria-hidden="true"><i style="width:56.6%"></i></span><span class="val">6,2 %</span></li>
+          <li><span class="lbl"><b>NDWI</b><small>Agua en la vegetación</small></span><span class="track" aria-hidden="true"><i style="width:55.6%"></i></span><span class="val">6,1 %</span></li>
+          <li><span class="lbl"><b>RESI</b><small>Borde rojo del espectro</small></span><span class="track" aria-hidden="true"><i style="width:51.1%"></i></span><span class="val">5,6 %</span></li>
+          <li><span class="lbl"><b>Textura NDVI</b><small>Diferencias entre vecinos</small></span><span class="track" aria-hidden="true"><i style="width:45.7%"></i></span><span class="val">5,0 %</span></li>
+        </ul>
+        <p class="src" style="margin-top:10px">Se muestran 8 de las 19 variables.</p>
+
+        <h3 style="margin-top:26px">Lo que estos números no significan</h3>
+        <ul class="not-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC3545" stroke-width="2.5" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span>No es la cantidad de árboles del parque.</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC3545" stroke-width="2.5" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span>No es carbono certificado ni permite vender bonos de carbono.</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC3545" stroke-width="2.5" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span>No es un inventario forestal ni una medición de 2026.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPAS -->
+<section aria-labelledby="t-capas">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="t-capas">Las capas de información</h2>
+      <p>Estos son los productos que ya existen o se están preparando. Elegí una capa para ver qué muestra y en qué estado está.</p>
+    </div>
+    <div class="layers">
+      <div class="tablist" role="tablist" aria-label="Capas del parque" aria-orientation="vertical">
+        <button class="tab" role="tab" id="tab-orto" aria-controls="p-orto" aria-selected="true">Imagen aérea <small>Dron</small></button>
+        <button class="tab" role="tab" id="tab-dsm" aria-controls="p-dsm" aria-selected="false" tabindex="-1">Superficie <small>DSM</small></button>
+        <button class="tab" role="tab" id="tab-dtm" aria-controls="p-dtm" aria-selected="false" tabindex="-1">Terreno <small>DTM</small></button>
+        <button class="tab" role="tab" id="tab-chm" aria-controls="p-chm" aria-selected="false" tabindex="-1">Altura de árboles <small>CHM</small></button>
+        <button class="tab" role="tab" id="tab-copa" aria-controls="p-copa" aria-selected="false" tabindex="-1">Cobertura de copas</button>
+        <button class="tab" role="tab" id="tab-bio" aria-controls="p-bio" aria-selected="false" tabindex="-1">Biomasa</button>
+        <button class="tab" role="tab" id="tab-3d" aria-controls="p-3d" aria-selected="false" tabindex="-1">Modelo 3D</button>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-orto" aria-labelledby="tab-orto" tabindex="0">
+        <figure class="art" style="margin:0">
+          <svg viewBox="0 0 300 200" aria-hidden="true">
+            <rect x="20" y="20" width="260" height="160" rx="10" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="7 7"/>
+            <circle cx="96" cy="72" r="14" fill="none" stroke="var(--muted)" stroke-width="2"/>
+            <path d="M46 142 L108 92 L142 118 L178 82 L254 142" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="150" y="168" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="var(--muted)">Imagen a incorporar</text>
+          </svg>
+          <figcaption>Marcador de posición: acá va una foto o captura real del ortomosaico.</figcaption>
+        </figure>
+        <div>
+          <span class="badge b-ok">Disponible</span>
+          <h3 style="margin-top:10px">Imagen aérea (ortomosaico)</h3>
+          <p>Una foto de todo el parque armada con cientos de fotos del dron, corregida para que las distancias sean reales.</p>
+          <dl><dt>Fuente</dt><dd>Vuelo con dron, abril de 2026</dd><dt>Tené en cuenta</dt><dd>Solo tiene colores visibles. No sirve para calcular el verdor (NDVI).</dd></dl>
+        </div>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-dsm" aria-labelledby="tab-dsm" tabindex="0" hidden>
+        <figure class="art" style="margin:0">
+          <svg viewBox="0 0 300 200" aria-hidden="true">
+            <rect x="20" y="20" width="260" height="160" rx="10" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="7 7"/>
+            <circle cx="96" cy="72" r="14" fill="none" stroke="var(--muted)" stroke-width="2"/>
+            <path d="M46 142 L108 92 L142 118 L178 82 L254 142" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="150" y="168" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="var(--muted)">Imagen a incorporar</text>
+          </svg>
+          <figcaption>Marcador de posición: acá va una vista o captura real del modelo de superficie.</figcaption>
+        </figure>
+        <div>
+          <span class="badge b-ok">Disponible</span>
+          <h3 style="margin-top:10px">Modelo de superficie (DSM)</h3>
+          <p>Muestra la altura de todo lo que ve el dron: el suelo, los árboles, los techos y el mobiliario.</p>
+          <dl><dt>Fuente</dt><dd>Vuelo con dron, abril de 2026</dd><dt>Sirve para</dt><dd>Calcular la altura de los árboles y estimar la sombra.</dd></dl>
+        </div>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-dtm" aria-labelledby="tab-dtm" tabindex="0" hidden>
+        <figure class="art" style="margin:0">
+          <svg viewBox="0 0 300 200" aria-hidden="true">
+            <rect x="20" y="20" width="260" height="160" rx="10" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="7 7"/>
+            <circle cx="96" cy="72" r="14" fill="none" stroke="var(--muted)" stroke-width="2"/>
+            <path d="M46 142 L108 92 L142 118 L178 82 L254 142" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="150" y="168" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="var(--muted)">Imagen a incorporar</text>
+          </svg>
+          <figcaption>Marcador de posición: acá va una vista o captura real del modelo de terreno.</figcaption>
+        </figure>
+        <div>
+          <span class="badge b-ok">Disponible</span>
+          <h3 style="margin-top:10px">Modelo del terreno (DTM)</h3>
+          <p>Muestra la forma del suelo sin árboles ni construcciones. Permite ver pendientes y por dónde corre el agua.</p>
+          <dl><dt>Fuente</dt><dd>Vuelo con dron, abril de 2026</dd><dt>Próximo uso</dt><dd>Análisis de escurrimiento y zonas bajas, todavía por desarrollar.</dd></dl>
+        </div>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-chm" aria-labelledby="tab-chm" tabindex="0" hidden>
+        <figure class="art" style="margin:0">
+          <svg viewBox="0 0 300 200" aria-hidden="true">
+            <rect x="20" y="20" width="260" height="160" rx="10" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="7 7"/>
+            <circle cx="96" cy="72" r="14" fill="none" stroke="var(--muted)" stroke-width="2"/>
+            <path d="M46 142 L108 92 L142 118 L178 82 L254 142" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="150" y="168" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="var(--muted)">Imagen a incorporar</text>
+          </svg>
+          <figcaption>Marcador de posición: acá va una vista o captura real del mapa de alturas.</figcaption>
+        </figure>
+        <div>
+          <span class="badge b-val">En validación</span>
+          <h3 style="margin-top:10px">Altura de la vegetación (CHM)</h3>
+          <p>Se obtiene restando el terreno a la superficie. El resultado es la altura de árboles y arbustos.</p>
+          <dl><dt>Cálculo</dt><dd>Superficie menos terreno (DSM − DTM)</dd><dt>Criterio</dt><dd>Se considera vegetación arbórea desde 2 m de altura</dd><dt>Falta</dt><dd>Verificar que ambos modelos estén bien alineados.</dd></dl>
+        </div>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-copa" aria-labelledby="tab-copa" tabindex="0" hidden>
+        <figure class="art" style="margin:0">
+          <svg viewBox="0 0 300 200" aria-hidden="true">
+            <rect x="20" y="20" width="260" height="160" rx="10" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="7 7"/>
+            <circle cx="96" cy="72" r="14" fill="none" stroke="var(--muted)" stroke-width="2"/>
+            <path d="M46 142 L108 92 L142 118 L178 82 L254 142" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="150" y="168" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="var(--muted)">Imagen a incorporar</text>
+          </svg>
+          <figcaption>Marcador de posición: acá va una vista o captura real de la cobertura de copas.</figcaption>
+        </figure>
+        <div>
+          <span class="badge b-dev">En desarrollo</span>
+          <h3 style="margin-top:10px">Cobertura de copas</h3>
+          <p>Separa lo que es copa de árbol de lo que no lo es. Mostrará cuánta superficie del parque tiene sombra de árboles.</p>
+          <dl><dt>Muestras</dt><dd>40 zonas marcadas: 20 con copa y 20 sin copa</dd><dt>Estado</dt><dd>Muestras listas. Falta entrenar el modelo.</dd><dt>Importante</dt><dd>Medir cobertura no es contar árboles. Varias copas pueden unirse en una sola mancha.</dd></dl>
+        </div>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-bio" aria-labelledby="tab-bio" tabindex="0" hidden>
+        <figure class="art" style="margin:0">
+          <svg viewBox="0 0 300 200" aria-hidden="true">
+            <rect x="20" y="20" width="260" height="160" rx="10" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="7 7"/>
+            <circle cx="96" cy="72" r="14" fill="none" stroke="var(--muted)" stroke-width="2"/>
+            <path d="M46 142 L108 92 L142 118 L178 82 L254 142" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="150" y="168" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="var(--muted)">Imagen a incorporar</text>
+          </svg>
+          <figcaption>Marcador de posición: acá va el mapa real de biomasa, cuando esté validado.</figcaption>
+        </figure>
+        <div>
+          <span class="badge b-pre">Estimación preliminar</span>
+          <h3 style="margin-top:10px">Biomasa aérea</h3>
+          <p>Mapa que estima cuánta vegetación hay en cada sector del parque, en toneladas por hectárea.</p>
+          <dl><dt>Fuente</dt><dd>GEDI y Sentinel-2, 2019 a 2023</dd><dt>Resultado</dt><dd>2.143 t en total, 24,7 t por hectárea en promedio</dd><dt>Uso correcto</dt><dd>Elegir dónde medir y comparar sectores en forma general.</dd></dl>
+        </div>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="p-3d" aria-labelledby="tab-3d" tabindex="0" hidden>
+        <figure class="art" style="margin:0">
+          <svg viewBox="0 0 300 200" aria-hidden="true">
+            <rect x="20" y="20" width="260" height="160" rx="10" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="7 7"/>
+            <circle cx="96" cy="72" r="14" fill="none" stroke="var(--muted)" stroke-width="2"/>
+            <path d="M46 142 L108 92 L142 118 L178 82 L254 142" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="150" y="168" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="var(--muted)">Imagen a incorporar</text>
+          </svg>
+          <figcaption>Marcador de posición: acá va una captura o video real del modelo 3D.</figcaption>
+        </figure>
+        <div>
+          <span class="badge b-dev">Disponible, sin versión web</span>
+          <h3 style="margin-top:10px">Modelo 3D del parque</h3>
+          <p>Una maqueta digital con texturas reales, hecha con las fotos del dron. Es la base del futuro "gemelo digital".</p>
+          <dl><dt>Fuente</dt><dd>Procesamiento fotogramétrico en Pix4D</dd><dt>Falta</dt><dd>Una versión liviana para verlo desde el celular.</dd><dt>Gemelo digital</dt><dd>Un modelo que se actualiza con nuevos datos. Es una meta, todavía no existe.</dd></dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEIS EJES -->
+<section class="alt" aria-labelledby="t-ejes">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="t-ejes">Seis preguntas sobre el parque</h2>
+      <p>El proyecto propone estudiar qué lugares del parque ofrecen mejores condiciones para distintos objetivos. Cada pregunta tendrá su propio estudio.<br>Todas están en desarrollo.</p>
+      
+    </div>
+    <div class="axes">
+      <article class="axis">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="18" y="20" width="4" height="14" fill="#5B3E22"/><circle cx="20" cy="16" r="10" fill="#45803B"/></svg>
+        <h3>Hábitat de los árboles</h3>
+        <p class="q">¿Dónde encuentra cada especie las mejores condiciones?</p>
+        <p>Ayuda a decidir dónde plantar y qué zonas conservar.</p>
+        <div class="meta"><span class="badge b-dev">Primera fase</span><span class="prio tabular" aria-label="Prioridad 4,45 sobre 5"><span class="track"><i style="width:89%"></i></span>4,45</span></div>
+      </article>
+      <article class="axis">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="14" cy="14" r="7" fill="#FFB000"/><path d="M14 2v4M2 14h4M5 5l3 3" stroke="#FFB000" stroke-width="2"/><circle cx="26" cy="22" r="11" fill="#005151"/><rect x="24.5" y="30" width="3" height="8" fill="#5B3E22"/></svg>
+        <h3>Refugio del calor</h3>
+        <p class="q">¿Qué lugares nos protegen mejor del calor?</p>
+        <p>Compara la temperatura del aire bajo la copa y al sol, al mismo tiempo.</p>
+        <div class="meta"><span class="badge b-dev">Primera fase</span><span class="prio tabular" aria-label="Prioridad 4,40 sobre 5"><span class="track"><i style="width:88%"></i></span>4,40</span></div>
+      </article>
+      <article class="axis">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 34h24" stroke="#9C7A45" stroke-width="3"/><path d="M20 34V20" stroke="#45803B" stroke-width="3"/><path d="M20 24c-6 0-9-4-9-8 5 0 9 3 9 8zM20 22c5 0 8-4 8-8-5 0-8 3-8 8z" fill="#89AE24"/></svg>
+        <h3>Restauración</h3>
+        <p class="q">¿Dónde conviene intervenir primero?</p>
+        <p>Combina los demás estudios. Por eso se hará al final.</p>
+        <div class="meta"><span class="badge b-dev">Tercera fase</span><span class="prio tabular" aria-label="Prioridad 4,40 sobre 5"><span class="track"><i style="width:88%"></i></span>4,40</span></div>
+      </article>
+      <article class="axis">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="8" y="30" width="24" height="3" fill="#9C7A45"/><path d="M14 30v-6M20 30v-10M26 30v-4" stroke="#45803B" stroke-width="2.5"/><circle cx="14" cy="22" r="3" fill="#89AE24"/><circle cx="20" cy="17" r="4" fill="#89AE24"/><circle cx="26" cy="24" r="2.5" fill="#89AE24"/></svg>
+        <h3>Regeneración natural</h3>
+        <p class="q">¿Dónde nacen árboles nuevos sin que nadie los plante?</p>
+        <p>Un parque con árboles adultos pero sin renovales no tiene reemplazo asegurado.</p>
+        <div class="meta"><span class="badge b-dev">Segunda fase</span><span class="prio tabular" aria-label="Prioridad 3,95 sobre 5"><span class="track"><i style="width:79%"></i></span>3,95</span></div>
+      </article>
+      <article class="axis">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="10" cy="20" r="6" fill="#005151"/><circle cx="30" cy="20" r="6" fill="#005151"/><path d="M16 20h8" stroke="#89AE24" stroke-width="3" stroke-dasharray="3 2"/></svg>
+        <h3>Conectividad</h3>
+        <p class="q">¿Por dónde puede moverse la fauna y qué se lo impide?</p>
+        <p>Identifica corredores verdes y barreras como caminos o cercos.</p>
+        <div class="meta"><span class="badge b-dev">Segunda fase</span><span class="prio tabular" aria-label="Prioridad 3,90 sobre 5"><span class="track"><i style="width:78%"></i></span>3,90</span></div>
+      </article>
+      <article class="axis">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 24c4-8 10-8 12-2 2-6 8-6 12 2-4 2-8 2-12 0-4 2-8 2-12 0z" fill="#0F4C94"/><circle cx="28" cy="12" r="4" fill="#F0901B"/></svg>
+        <h3>Biodiversidad</h3>
+        <p class="q">¿Qué zonas sostienen más variedad de vida?</p>
+        <p>Incluye aves, insectos y plantas, con métodos distintos para cada grupo.</p>
+        <div class="meta"><span class="badge b-dev">Segunda fase</span><span class="prio tabular" aria-label="Prioridad 3,70 sobre 5"><span class="track"><i style="width:74%"></i></span>3,70</span></div>
+      </article>
+    </div>
+    <p class="src" style="margin-top:14px; max-width:none;">La barra muestra la prioridad propuesta (escala de 1 a 5) según utilidad para la gestión, datos disponibles y valor ecológico. <br> Es una ponderación inicial, sujeta a revisión.</p>
+  </div>
+</section>
+
+<!-- QUÉ SIGUE -->
+<section id="que-sigue" aria-labelledby="t-sigue">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="t-sigue">Qué sigue</h2>
+      <p>Los plazos son orientativos y se cuentan desde que se aprueba cada etapa.<br> No son fechas comprometidas.</p>
+    </div>
+    <ol class="road">
+      <li class="now"><div><h3>Etapa 0: acuerdos y base</h3><span class="h">0 a 2 meses · en curso</span></div><p>Confirmar el límite oficial del parque, ordenar todos los archivos, aprobar el protocolo de campo y definir con Modernización dónde se alojará el sitio.</p></li>
+      <li><div><h3>Etapa 1: primeros estudios</h3><span class="h">2 a 5 meses</span></div><p>Relevamiento piloto de unas 12 parcelas, primer estudio del hábitat de los árboles y primer mapa de sombra y calor.</p></li>
+      <li><div><h3>Etapa 2: ecología del parque</h3><span class="h">5 a 9 meses</span></div><p>Estudios de regeneración, biodiversidad y conectividad, con más campañas de campo y trabajo con la Universidad.</p></li>
+      <li><div><h3>Etapa 3: restauración</h3><span class="h">9 a 12 meses o más</span></div><p>Mapa de prioridades, escenarios de intervención y seguimiento de las acciones.</p></li>
+      <li><div><h3>Etapa 4: observatorio</h3><span class="h">Posterior</span></div><p>Monitoreo continuo y aplicación del método en otros espacios verdes de la ciudad.</p></li>
+    </ol>
+
+    <h3 style="margin-top:28px">Cómo leer el estado de cada dato</h3>
+    <br>
+    <ul class="states">
+      <li><span class="badge b-val">Validado</span>Revisado y aprobado para un uso definido.</li>
+      <li><span class="badge b-pre">Estimación preliminar</span>Resultado de un modelo que todavía hay que comprobar.</li>
+      <li><span class="badge b-con">Por conciliar</span>Hay valores distintos que falta unificar.</li>
+      <li><span class="badge b-ok">Disponible</span>El producto existe, aunque no esté publicado en la web.</li>
+      <li><span class="badge b-dev">En desarrollo</span>Está previsto, pero todavía no se puede usar.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PARTICIPÁ -->
+<section id="participa" class="alt" aria-labelledby="t-part">
+  <div class="wrap part">
+    <div>
+      <h2 id="t-part">El parque como aula abierta</h2>
+      <p>La Municipalidad propone trabajar con la Universidad para que estudiantes y docentes investiguen el parque. Los resultados volverán a este sitio, revisados y con su autoría reconocida.</p>
+      <h3 style="margin-top:22px">Temas abiertos para tesis y proyectos</h3>
+      <ul class="chips">
+        <li>Inventario y especies del arbolado</li>
+        <li>Salud y mantenimiento de los árboles</li>
+        <li>Cobertura, biomasa y carbono</li>
+        <li>Sombra, temperatura y confort</li>
+        <li>Fauna urbana y biodiversidad</li>
+        <li>Agua, suelo y escurrimiento</li>
+        <li>Valor de los servicios ambientales</li>
+        <li>Usos y percepción de la comunidad</li>
+        <li>Historia y patrimonio del parque</li>
+        <li>Movilidad a pie y en bicicleta</li>
+        <li>Ciencia ciudadana</li>
+        <li>Observatorio y gemelo digital</li>
+      </ul>
+    </div>
+    <aside class="cta-box" aria-labelledby="t-prop">
+      <h3 id="t-prop">¿Querés proponer un proyecto?</h3>
+      <p>Por ahora las propuestas se reciben en la Secretaría de Ambiente y Espacios Públicos.</p>
+      <ol>
+        <li>Contá qué querés estudiar y con qué equipo.</li>
+        <li>Indicá qué datos del parque necesitás.</li>
+        <li>Comprometé una devolución de resultados.</li>
+      </ol>
+      <p style="margin:0">Los aportes de vecinos y escuelas, los códigos QR en el parque y los recorridos educativos llegarán en una etapa posterior.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="preguntas" aria-labelledby="t-faq">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="t-faq">Preguntas frecuentes</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>¿Cuántos árboles tiene el parque?</summary>
+        <div class="ans"><p>Todavía no lo sabemos. El relevamiento de campo va a registrar cada árbol con su especie y ubicación. Los mapas de cobertura muestran superficie con copas, no cantidad de árboles.</p></div>
+      </details>
+      <details>
+        <summary>¿Las 2.143 toneladas son carbono que el parque captura?</summary>
+        <div class="ans"><p>No. Es una estimación del peso de la vegetación, no del carbono. Pasar de biomasa a carbono requiere otro método y más comprobaciones. Tampoco sirve para certificar ni vender bonos de carbono.</p></div>
+      </details>
+      <details>
+        <summary>¿Por qué aparecen distintas superficies del parque?</summary>
+        <div class="ans"><p>Porque cada documento o modelo midió el borde de una forma distinta. Por ejemplo, un mapa hecho con cuadraditos (píxeles) nunca coincide exactamente con una línea continua. Estamos pidiendo el límite oficial para usar un único valor.</p></div>
+      </details>
+      <details>
+        <summary>¿Por qué la biomasa usa datos de 2019 a 2023 si el dron voló en 2026?</summary>
+        <div class="ans"><p>Son dos fuentes distintas. La biomasa se estimó con satélites que midieron entre 2019 y 2023. El vuelo del dron es de abril de 2026 y todavía no se usó para calcular biomasa.</p></div>
+      </details>
+      <details>
+        <summary>¿Puedo descargar los mapas?</summary>
+        <div class="ans"><p>Todavía no. Las capas se publicarán en la <a href="https://idecapital.cc.gob.ar/#/" target="_blank" rel="noopener noreferrer">IDE Capital</a>, la infraestructura de datos geográficos de la Municipalidad, cuando estén revisadas y con su ficha técnica.</p></div>
+      </details>
+      <details>
+        <summary>¿Quién está a cargo del proyecto?</summary>
+        <div class="ans"><p>La Secretaría de Ambiente y Espacios Públicos coordina el proyecto. <br>El responsable técnico es el Ing. Diego Nicolás Magariños. <br>Se propone una Mesa Técnica con la Universidad, el equipo de datos geográficos y el área de Modernización.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <img src="assets/logos/logo-capital-dark-BCmcLDWl.webp" alt="Catamarca Capital" width="1714" height="470">
+        <p style="margin:0">Parque Adán Quiroga Vivo es una iniciativa de la Secretaría de Ambiente y Espacios Públicos.</p>
+      </div>
+      <div>
+        <h4 id="footer-ubicacion">Ubicación</h4>
+        <ul class="footer-datos" aria-labelledby="footer-ubicacion">
+          <li>Palacio Municipal · La Rioja 631</li>
+          <li>SFV de Catamarca · Catamarca</li>
+          <li>República Argentina · CP K4700EMV</li>
+        </ul>
+      </div>
+      <div>
+        <h4 id="footer-redes">Seguinos</h4>
+        <div class="redes" aria-labelledby="footer-redes">
+          <a href="https://www.facebook.com/catamarcatucapital" target="_blank" rel="noopener noreferrer" aria-label="Facebook de Catamarca Capital (abre en una pestaña nueva)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+          <a href="https://x.com/MuniSFVC" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter) de la Municipalidad (abre en una pestaña nueva)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg></a>
+          <a href="https://www.instagram.com/catamarcacapital/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Catamarca Capital (abre en una pestaña nueva)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a>
+          <a href="https://www.youtube.com/channel/UCMAeIcE5sQa7chR-J13zlDw" target="_blank" rel="noopener noreferrer" aria-label="Canal de YouTube de la Municipalidad (abre en una pestaña nueva)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path><path d="m10 15 5-3-5-3z"></path></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      <span>Municipalidad de San Fernando del Valle de Catamarca – Argentina | Secretaría de Modernización y Gabinete</span>
+      <span>© 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* Al recargar, no saltar a la sección del hash: arrancar arriba (mismo criterio que index.html y plaza.html). */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  (function noSaltarEnReload(){
+    var navEntry = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    var esReload = navEntry ? navEntry.type === 'reload' : (performance.navigation && performance.navigation.type === 1);
+    if (esReload) {
+      if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+      var arriba = function(){ window.scrollTo(0, 0); };
+      arriba();
+      addEventListener('DOMContentLoaded', arriba, { once: true });
+      addEventListener('load', arriba, { once: true });
+    }
+  })();
+
+  /* Navegación interna a #secciones: scrollea sin dejar el hash pegado en la URL,
+     y mueve el foco cuando el destino es enfocable (el <main>, por el skip-link). */
+  var reducirMovimiento = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    var id = a.getAttribute('href').slice(1);
+    if (!id) return;
+    var t = document.getElementById(id);
+    if (!t) return;
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      t.scrollIntoView({ behavior: reducirMovimiento ? 'auto' : 'smooth', block: 'start' });
+      history.replaceState(null, '', location.pathname + location.search);
+      t.focus({ preventScroll: true });
+    });
+  });
+
+  /* Resalta en el nav la sección que se está viendo (no toca "Volver a la ficha" ni "Participá"). */
+  var seccionesNav = ['el-parque','como-lo-estudiamos','que-sabemos','que-sigue','preguntas']
+    .map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  var enlacesNav = [].slice.call(document.querySelectorAll('.nav ul a[href^="#"]'));
+  if ('IntersectionObserver' in window && seccionesNav.length && enlacesNav.length) {
+    var enlacePorId = {};
+    enlacesNav.forEach(function(a){ enlacePorId[a.getAttribute('href').slice(1)] = a; });
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) return;
+        enlacesNav.forEach(function(a){ a.classList.remove('is-active'); });
+        var l = enlacePorId[entry.target.id];
+        if (l) l.classList.add('is-active');
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    seccionesNav.forEach(function(s){ spy.observe(s); });
+  }
+
+  var btn=document.querySelector('.nav-toggle'),nav=document.getElementById('menu');
+  btn.addEventListener('click',function(){
+    var open=nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open);
+    btn.setAttribute('aria-label',open?'Cerrar menú':'Abrir menú');
+  });
+  nav.addEventListener('click',function(e){
+    if(e.target.closest('a')&&nav.classList.contains('open')){nav.classList.remove('open');btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-label','Abrir menú');}
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&nav.classList.contains('open')){nav.classList.remove('open');btn.setAttribute('aria-expanded','false');btn.focus();}
+  });
+
+  var tabs=[].slice.call(document.querySelectorAll('[role="tab"]'));
+  function select(t,focus){
+    tabs.forEach(function(x){
+      var on=x===t;
+      x.setAttribute('aria-selected',on);
+      x.tabIndex=on?0:-1;
+      document.getElementById(x.getAttribute('aria-controls')).hidden=!on;
+    });
+    if(focus)t.focus();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){select(t)});
+    t.addEventListener('keydown',function(e){
+      var k=e.key,n=null;
+      if(k==='ArrowDown'||k==='ArrowRight')n=tabs[(i+1)%tabs.length];
+      else if(k==='ArrowUp'||k==='ArrowLeft')n=tabs[(i-1+tabs.length)%tabs.length];
+      else if(k==='Home')n=tabs[0];
+      else if(k==='End')n=tabs[tabs.length-1];
+      if(n){e.preventDefault();select(n,true);}
+    });
+  });
+  var mq=window.matchMedia('(max-width:900px)');
+  function orient(){document.querySelector('[role="tablist"]').setAttribute('aria-orientation',mq.matches?'horizontal':'vertical');}
+  orient(); if(mq.addEventListener)mq.addEventListener('change',orient);
+})();
+</script>
+</body>
+</html>

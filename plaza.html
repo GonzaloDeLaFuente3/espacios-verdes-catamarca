@@ -172,6 +172,14 @@
   .mapa-link a{color:var(--muni-primary-mid);text-decoration:none;display:inline-flex;align-items:center;gap:6px;min-height:44px}
   .mapa-link a:hover{text-decoration:underline}
 
+  /* callout "profundizá" — enlace opcional a un micrositio con más info de la plaza */
+  .mas-info{margin:var(--sp-6) 0;display:flex;flex-wrap:wrap;gap:var(--sp-4);align-items:center;justify-content:space-between;
+    background:var(--pv-surface-2);border:1px solid var(--pv-border);border-left:4px solid var(--muni-green-dark);
+    border-radius:0 var(--r-card) var(--r-card) 0;padding:var(--sp-6)}
+  .mas-info h3{margin:0 0 4px;font-size:var(--fs-lg)}
+  .mas-info p{margin:0;color:var(--pv-text-soft);font-size:var(--fs-xs);max-width:48ch}
+  .mas-info .btn-pv{flex:none}
+
   /* navegación entre plazas */
   .detalle-nav{display:flex;flex-wrap:wrap;gap:var(--sp-3);justify-content:space-between;margin-top:var(--sp-16);
     border-top:1px solid var(--pv-border);padding-top:var(--sp-6)}
@@ -382,7 +390,10 @@
       arbolado:["Eucalipto","Pino","Ceibo","Tipa","Palo borracho"],
       accesibilidad:"Senderos principales accesibles; sanitario adaptado.",
       direccion:"Av. Ocampo y Maipú — Barrio Oeste.",
-      mapaEmbed: `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.041867985887!2d-65.771945925349!3d-28.448154259100672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x942428a96b657f8b%3A0xd2fadde4b44898e4!2sParque%20Ad%C3%A1n%20Quiroga!5e0!3m2!1ses-419!2sar!4v1788262786211!5m2!1ses-419!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
+      mapaEmbed: `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.041867985887!2d-65.771945925349!3d-28.448154259100672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x942428a96b657f8b%3A0xd2fadde4b44898e4!2sParque%20Ad%C3%A1n%20Quiroga!5e0!3m2!1ses-419!2sar!4v1788262786211!5m2!1ses-419!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>`,
+      // Enlace opcional a un micrositio con más información (proyecto, informes técnicos, etc.)
+      masInfo:{ href:"parque-adan-quiroga.html", texto:"Parque Adán Quiroga Vivo",
+        desc:"El proyecto científico del parque: biomasa estimada con satélites, mapas con dron y seis líneas de estudio en marcha." }
     },
     "del-maestro": {
       nombre:"Plaza del Maestro", barrio:"240 Viviendas", anio:"1985", superficie:"0,4 ha", galeria:3,
@@ -596,6 +607,15 @@
               </figure>`).join('')}
           </div>
           <p class="text-soft">Imágenes históricas de referencia.</p>` : ''}
+
+          ${d.masInfo ? `
+          <div class="mas-info">
+            <div>
+              <h3>${esc(d.masInfo.texto)}</h3>
+              <p>${esc(d.masInfo.desc)}</p>
+            </div>
+            <a class="btn-pv" href="${esc(d.masInfo.href)}">Explorar <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+          </div>` : ''}
 
           <h2>Galería</h2>
           <p class="text-soft">Imágenes de referencia.</p>
